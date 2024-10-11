@@ -26,18 +26,6 @@
     # '')
   ];
 
-  # ++ (if config.home.username == "epoche" then [
-  #   hello
-  # ] else []);
-  #
-  # config.dotfiles.sym =  src: 
-  #   config.lib.file.mkOutOfStoreSymlink "${src}";
-  #
-  # config.flake_path = 
-  #   "${config.home.homeDirectory}/home-manager"; 
 
-  programs.git.enable = true;
-
-  # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }

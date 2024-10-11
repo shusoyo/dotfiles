@@ -1,7 +1,6 @@
 { config, pkgs, tools, ... }: with tools; {
 
   ## NEOVIM editor
-  # 2 way that make symbol link to manager config file 
   xdg.configFile.nvim.source = 
     sym config "${flake_path config}/modules/nvim";
   
@@ -23,8 +22,7 @@
       # language servers
       # deno
       lua-language-server
-      nil # Nix LSP
-      # nls # Nickel LSP
+      nil # Nix LSP          # nls # Nickel LSP
       # nodePackages.bash-language-server
       # nodePackages.typescript-language-server
       # shellcheck # called by bash-language-server
@@ -38,15 +36,12 @@
   };
 
   ## YAZI file manager
-  xdg.configFile."yazi/yazi.toml".source = 
-    sym config "${flake_path config}/modules/yazi/yazi.toml";
-  xdg.configFile."yazi/package.toml".source = 
-    sym config "${flake_path config}/modules/yazi/package.toml";
-  xdg.configFile."yazi/theme.toml".source = 
-    sym config "${flake_path config}/modules/yazi/theme.toml";
-  xdg.configFile."yazi/init.lua".source = 
-    sym config "${flake_path config}/modules/yazi/init.lua";
-  
+  xdg.configFile.yazi.source = 
+    sym config "${flake_path config}/modules/yazi";
+
   programs.yazi.enable = true; 
   # shellWrapperName = "y";
+
+  ## git
+  programs.git.enable = true;
  }
