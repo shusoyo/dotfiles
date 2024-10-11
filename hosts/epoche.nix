@@ -2,9 +2,9 @@
   
   # Home Manager Infomations
   imports = [
-    ./modules/common.nix 
+    ../modules/common.nix
   ];
-
+ 
   home.username = "epoche";
   home.homeDirectory = "/Users/epoche";
 

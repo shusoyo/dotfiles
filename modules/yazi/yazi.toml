@@ -1,0 +1,4 @@
+# # yazi.toml
+[manager]
+# show_hidden = false
+ratio = [1, 2, 3]

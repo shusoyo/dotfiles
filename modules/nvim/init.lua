@@ -1,0 +1,39 @@
+-- bootstrap lazy.nvim, LazyVim and your plugins
+require("config.lazy")
+
+-- hello, I am testing chezmoi
+
+-- -- 获取当前模式的名称
+-- local function mode_name()
+--   local mode_map = {
+--     n = "NORMAL",
+--     i = "INSERT",
+--     v = "VISUAL",
+--     V = "V-LINE",
+--     [""] = "V-BLOCK", -- Visual block mode (Ctrl + V)
+--     c = "COMMAND",
+--     no = "OPERATOR PENDING",
+--     s = "SELECT",
+--     S = "S-LINE",
+--     [""] = "S-BLOCK", -- Select block mode
+--     R = "REPLACE",
+--     Rv = "V-REPLACE",
+--     t = "TERMINAL",
+--   }
+--   local mode = vim.fn.mode()    -- 获取当前模式的缩写
+--   return mode_map[mode] or mode -- 返回完整的模式名称
+-- end
+--
+-- -- 定义 statusline 并在开头添加当前模式信息
+-- vim.o.statusline = table.concat({
+--   "%#StatusLine#",        -- 设置状态栏的高亮组
+--   mode_name(),
+--   " ",                    -- 模式和文件名之间的空格
+--   "%f",                   -- 显示文件名及其路径（相对于当前工作目录的相对路径）
+--   " %y",                  -- 显示文件类型
+--   " %m",                  -- 显示文件是否已修改（未保存）
+--   " %r",                  -- 显示文件是否为只读
+--   "%=",                   -- 将状态栏分成左右两部分
+--   "%-14.(%l,%c%V%)",      -- 当前行号、列号和虚拟列号
+--   " %P",                  -- 显示文件的百分比位置
+-- })

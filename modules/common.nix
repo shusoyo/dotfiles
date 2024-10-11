@@ -1,15 +1,16 @@
 { config, pkgs, ... }: {
-  
+
+  imports = [
+    ./cli.nix
+  ];
+
   ## packages 
   home.packages = with pkgs; [
-    neofetch
-    neovim
-    elvish
+    #                      -                      -                      -
+    elvish                 zsh
+    wget                   curl
     yazi
-    helix
-    wget
-    curl
-    zsh
+    neofetch
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -22,9 +23,11 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-  ] ++ (if config.home.username == "epoche" then [
-      hello
-    ] else []);
+  ];
+
+  # ++ (if config.home.username == "epoche" then [
+  #   hello
+  # ] else []);
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -58,9 +61,10 @@
   #  /etc/profiles/per-user/epoche/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    EDITOR = "neovim";
   };
   
+  programs.git.enable = true;
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }

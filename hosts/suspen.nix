@@ -2,7 +2,7 @@
   
   # Home Manager Infomations
   imports = [
-    ./modules/common.nix
+    ../modules/common.nix
   ];
 
   home.username = "suspen";
@@ -12,7 +12,7 @@
 
   home.packages = with pkgs; [
     hello 
-   ];
+  ];
 
   programs.home-manager.enable = true;
 }
