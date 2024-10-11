@@ -7,10 +7,11 @@
   ## packages 
   home.packages = with pkgs; [
     #                      -                      -                      -
+    fzf                    gitui                  hugo                   htop 
     elvish                 zsh
     wget                   curl
-    yazi
-    neofetch
+    yazi                   neofetch
+    sheldon                tree 
     lua
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -24,7 +25,11 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-  ];
+  ] ++ (if pkgs.stdenv.isDarwin then [
+    coreutils 
+  ] else [
+    
+  ]);
 
 
   programs.home-manager.enable = true;

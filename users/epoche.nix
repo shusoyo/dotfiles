@@ -3,6 +3,7 @@
   # Home Manager Infomations
   imports = [
     ../modules/common.nix
+    ../modules/gui.nix
   ];
  
   home.username = "epoche";

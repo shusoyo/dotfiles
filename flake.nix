@@ -19,7 +19,7 @@
     gen_home_conf = { name, system } : 
       home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
-        modules = [ ./hosts/${name}.nix ];
+        modules = [ ./users/${name}.nix ];
         extraSpecialArgs = { 
           inherit tools; 
         };
