@@ -7,22 +7,24 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nixpkgs, home-manager, ... }: let 
-    # set a symbol link
-    tools.sym = config: src: 
-      config.lib.file.mkOutOfStoreSymlink "${src}";
-
-    # flake path
-    tools.flake_path = config: 
-      "${config.home.homeDirectory}/home-manager";
+  outputs = { self, nixpkgs, home-manager, ... }: let 
+    config = self.outputs.homeConfigurations;
+    
+    tools = cfg: {
+      flakePath = 
+        "${cfg.home.homeDirectory}/home-manager";
+      
+      symlink = src: 
+        cfg.lib.file.mkOutOfStoreSymlink "${src}";
+    };
 
     gen_home_conf = { name, system } : 
       home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
         modules = [ ./users/${name}.nix ];
         extraSpecialArgs = { 
-          inherit tools; 
-        };
+          tools = tools config.${name}.config;     
+        }; 
       };
   in {
       homeConfigurations.epoche = 

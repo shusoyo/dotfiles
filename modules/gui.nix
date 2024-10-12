@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, tools, ... }: with tools; {
   
   # home.packages = with pkgs; [
   #   #                      -                      -                      -
@@ -7,6 +7,6 @@
 
   programs.kitty.enable = true;
   programs.kitty.settings = {
-    include = "${config.home.homeDirectory}/home-manager/modules/kitty/kitty.conf";
+    include = "${flakePath}/modules/kitty/kitty.conf";
   };
 }
