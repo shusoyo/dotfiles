@@ -8,24 +8,13 @@
   };
 
   outputs = { self, nixpkgs, home-manager, ... }: let 
-    config = self.outputs.homeConfigurations;
-    
-    tools = cfg: {
-      flakePath = 
-        "${cfg.home.homeDirectory}/home-manager";
-      
-      symlink = src: 
-        cfg.lib.file.mkOutOfStoreSymlink "${src}";
-    };
-
     gen_home_conf = { name, system } : 
       home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
-        modules = [ ./users/${name}.nix ];
-        extraSpecialArgs = { 
-          tools = tools config.${name}.config;     
-        }; 
-      };
+        modules = [ 
+          ./users/${name}.nix 
+        ];
+     };
   in {
       homeConfigurations.epoche = 
         gen_home_conf { name = "epoche"; system = "x86_64-darwin"; };

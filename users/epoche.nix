@@ -1,9 +1,10 @@
-{ config, pkgs, tools, ... }: {
+{ config, pkgs, ... }: {
   
   # Home Manager Infomations
   imports = [
     ../modules/common.nix
     ../modules/gui.nix
+    ../modules/lib.nix
   ];
  
   home.username = "epoche";
@@ -23,6 +24,12 @@
     http_proxy                 =     "http://localhost:7890";
     https_proxy                =     "http://localhost:7890";
     ALL_PROXY                  =     "socks5://localhost:7890";
+  };
+  
+  lib = {
+    plus = {
+      f = x: x + 1;
+    };
   };
 
   home.stateVersion = "24.05";

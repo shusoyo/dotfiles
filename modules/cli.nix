@@ -1,15 +1,14 @@
-{ config, pkgs, tools, ... }: with tools; {
+{ config, pkgs, ... }: with config.lib.tools; {
 
   ## NEOVIM editor
   xdg.configFile.nvim.source = 
     symlink "${flakePath}/modules/nvim";
-  
+
   programs.neovim = {
     enable = true;
-  
     defaultEditor = true;
     withPython3 = true;
-    
+
     extraPackages = with pkgs; [
       ripgrep 
       gcc

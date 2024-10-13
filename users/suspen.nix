@@ -3,6 +3,7 @@
   # Home Manager Infomations
   imports = [
     ../modules/common.nix
+    ../modules/lib.nix
   ];
 
   home.username = "suspen";
