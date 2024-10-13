@@ -1,7 +1,4 @@
 return {
-  -- disable trouble
-  -- { "folke/trouble.nvim",        enabled = false },
-  --
   "williamboman/mason.nvim",
   cmd = "Mason",
   keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },

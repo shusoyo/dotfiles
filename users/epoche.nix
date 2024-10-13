@@ -1,7 +1,4 @@
-{ config, pkgs, tools, ... }: let 
-  tools.sym = tools.sym config;
-  tools.flake_path = tools.flake_path;
-in {
+{ config, pkgs, tools, ... }: {
   
   # Home Manager Infomations
   imports = [

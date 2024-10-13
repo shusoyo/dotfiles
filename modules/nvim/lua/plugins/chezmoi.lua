@@ -1,5 +1,6 @@
 return {
   "xvzc/chezmoi.nvim",
+  enabled = false,
   keys = {
     {
       "<leader>fd",
