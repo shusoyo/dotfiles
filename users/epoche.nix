@@ -26,12 +26,6 @@
     ALL_PROXY                  =     "socks5://localhost:7890";
   };
   
-  lib = {
-    plus = {
-      f = x: x + 1;
-    };
-  };
-
   home.stateVersion = "24.05";
 
   programs.home-manager.enable = true;

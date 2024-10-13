@@ -9,15 +9,11 @@ var __yazi_shellwrapper = {|@a|
   rm -f -- $tmp
 }
 
-fn set-alias {|name command|
-  put [&fname=$name'~' &f=$command]
-}
-
-each {|map| edit:add-var $map[fname] $map[f] } [
-  (set-alias    ls      {|@a| e:ls --color $@a})
-  (set-alias    ll      {|@a| e:ls -l --color $@a})
-  (set-alias    la      {|@a| e:ls -la --color $@a})
-  (set-alias    v       {|@a| nvim $@a})
-  (set-alias    y       $__yazi_shellwrapper)
+each { |lst| edit:add-var $lst[0]~ $lst[1] } [
+  [ls        {|@a| e:ls --color $@a}    ]
+  [ll        {|@a| e:ls -l --color $@a} ]
+  [la        {|@a| e:ls -la --color $@a}]
+  [v         {|@a| nvim $@a}            ]
+  [y         $__yazi_shellwrapper       ]
 ]
 
