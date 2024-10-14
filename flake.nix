@@ -18,7 +18,7 @@
   in {
       homeConfigurations.epoche = 
         gen_home_conf { name = "epoche"; system = "x86_64-darwin"; };
-     
+
       homeConfigurations.suspen = 
         gen_home_conf { name = "suspen"; system = "x86_64-linux"; };
   };

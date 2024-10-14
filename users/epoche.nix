@@ -1,12 +1,12 @@
 { config, pkgs, ... }: {
-  
+
   # Home Manager Infomations
   imports = [
     ../modules/common.nix
     ../modules/gui.nix
     ../modules/lib.nix
   ];
- 
+
   home.username = "epoche";
   home.homeDirectory = "/Users/epoche";
 
@@ -25,7 +25,7 @@
     https_proxy                =     "http://localhost:7890";
     ALL_PROXY                  =     "socks5://localhost:7890";
   };
-  
+
   home.stateVersion = "24.05";
 
   programs.home-manager.enable = true;

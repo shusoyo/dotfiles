@@ -10,9 +10,10 @@
     withPython3 = true;
 
     extraPackages = with pkgs; [
-      ripgrep 
+      ripgrep
       gcc
 
+      luajit          luajitPackages.luarocks-nix
       # language servers
       lua-language-server
       nil

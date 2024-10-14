@@ -1,5 +1,5 @@
 { config, pkgs, ... }: {
-  
+
   # Home Manager Infomations
   imports = [
     ../modules/common.nix
