@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
 
   imports = [
     ./cli.nix
@@ -12,7 +12,7 @@
     elvish                 zsh                    dash
     wget                   curl                   ripgrep
     neofetch               sheldon                tree
-    luajit                 luajitPackages.luarocks-nix
+    luajit                 # luajitPackages.luarocks-nix (dependency of neorg)
     unzip
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -29,6 +29,10 @@
   ] ++ (if pkgs.stdenv.isDarwin then [
     coreutils 
   ] else [ ]);
+
+  home.sessionPath = [ 
+    "$HOME/.cargo/bin"
+  ];
 
   xdg.enable = true;
 
