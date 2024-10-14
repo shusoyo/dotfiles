@@ -7,17 +7,7 @@
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-    withPython3 = true;
-
-    extraPackages = with pkgs; [
-      ripgrep
-      gcc
-
-      luajit          luajitPackages.luarocks-nix
-      # language servers
-      lua-language-server
-      nil
-    ];
+    # withPython3 = true;
   };
 
   ## YAZI file manager

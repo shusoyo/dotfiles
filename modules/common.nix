@@ -2,6 +2,7 @@
 
   imports = [
     ./cli.nix
+    ./dev.nix
   ];
 
   ## packages 
@@ -9,9 +10,10 @@
     #                      -                      -                      -
     fzf                    gitui                  hugo                   htop 
     elvish                 zsh                    dash
-    wget                   curl
+    wget                   curl                   ripgrep
     neofetch               sheldon                tree
-    lua
+    luajit                 luajitPackages.luarocks-nix
+    unzip
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
