@@ -31,6 +31,7 @@
     # '')
   ] ++ (if pkgs.stdenv.isDarwin then [
     coreutils 
+    nixd ## nix language server for zed editor
   ] else []);
 
   xdg.enable = true;
