@@ -2,7 +2,7 @@
 
   # Home Manager Infomations
   imports = [
-    ../modules/common.nix
+    ./common.nix
     ../modules/lib.nix
   ];
 

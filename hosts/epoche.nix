@@ -2,13 +2,16 @@
 
   # Home Manager Infomations
   imports = [
-    ../modules/common.nix
+    ./common.nix
     ../modules/gui.nix
     ../modules/lib.nix
   ];
 
   home.username = "epoche";
   home.homeDirectory = "/Users/epoche";
+
+  home.stateVersion = "24.05";
+  programs.home-manager.enable = true;
 
   home.sessionPath = [ 
     "/usr/local/Cellar/ncurses/6.5/bin"
@@ -24,9 +27,10 @@
     http_proxy                 =     "http://localhost:7890";
     https_proxy                =     "http://localhost:7890";
     ALL_PROXY                  =     "socks5://localhost:7890";
+    VSCODE_PORTABLE            =     "${config.xdg.dataHome}/vscode";
   };
 
-  home.stateVersion = "24.05";
-
-  programs.home-manager.enable = true;
+  modules.dev.ocaml = {
+    enable = true;
+  };
 }

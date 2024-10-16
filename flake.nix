@@ -12,7 +12,7 @@
       home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
         modules = [ 
-          ./users/${name}.nix 
+          ./hosts/${name}.nix 
         ];
      };
   in {

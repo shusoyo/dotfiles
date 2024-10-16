@@ -5,7 +5,7 @@ return {
       flavour = "mocha",
       color_overrides = {
         mocha = {
-          -- base = "#000310",
+          -- base = "#151516",
         },
       },
     },
