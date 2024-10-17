@@ -9,13 +9,15 @@ in {
   imports = [
     ./rust.nix
     ./ocaml.nix
+    ./python.nix
+    ./cc.nix
   ];
 
-  # options.modules.dev = {
-  #   xdg.enable = mkOption { type = types.bool; default = config.xdg.enable; }; 
-  # };
-  #
-  # config = mkIf cfg.xdg.enable {
-  #   # TODO
-  # };
+  options.modules.dev = {
+    xdg.enable = mkOption { type = types.bool; default = config.xdg.enable; }; 
+  };
+
+  config = mkIf cfg.xdg.enable {
+    # TODO
+  };
 }

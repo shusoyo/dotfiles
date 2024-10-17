@@ -16,13 +16,10 @@ in {
       home.packages = [ pkgs.opam ];
     })
 
-    (mkIf cfg.xdg.enable {
+    (mkIf (cfg.xdg.enable && cfg.enable) {
       home.sessionVariables = {
         OPAMROOT="${config.xdg.dataHome}/opam";
       };
-    #   home.sessionPath = [
-    #     "$CARGO_HOME/bin"
-    #   ];
     })
   ];
 }

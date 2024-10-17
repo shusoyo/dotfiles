@@ -8,7 +8,7 @@ let
 in {
   options.modules.dev.rust = {
     enable = mkOption { default = false; type = types.bool; };
-    xdg.enable = mkOption { default = false; type = types.bool; };
+    xdg.enable = mkOption { default = devCfg.xdg.enable; type = types.bool; };
   };
 
   config = mkMerge [
@@ -16,7 +16,7 @@ in {
       home.packages = [ pkgs.rustup ];
     })
 
-    (mkIf cfg.xdg.enable {
+    (mkIf (cfg.xdg.enable && cfg.enable) {
       home.sessionVariables = {
         RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
         CARGO_HOME = "${config.xdg.dataHome}/cargo";

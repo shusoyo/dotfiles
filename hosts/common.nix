@@ -46,8 +46,10 @@
     '';
   };
 
-  modules.dev.rust = {
-    enable = true;
-    xdg.enable = true;
+  modules.dev = {
+    xdg.enable  = true;
+
+    rust.enable = true;
+    cc.enable   = true;
   };
 }

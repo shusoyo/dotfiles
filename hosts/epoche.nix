@@ -27,10 +27,13 @@
     http_proxy                 =     "http://localhost:7890";
     https_proxy                =     "http://localhost:7890";
     ALL_PROXY                  =     "socks5://localhost:7890";
-    VSCODE_PORTABLE            =     "${config.xdg.dataHome}/vscode";
+
+    LIMA_HOME                  =     "${config.xdg.dataHome}/lima";
+    # VSCODE_PORTABLE            =     "${config.xdg.dataHome}/vscode";
+    HISTFILE                   =     "${config.xdg.dataHome}/bash/history";
   };
 
-  modules.dev.ocaml = {
-    enable = true;
-  };
+   modules.dev.ocaml = {
+     enable = true;
+   };
 }

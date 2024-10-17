@@ -19,6 +19,7 @@
   xdg.configFile.elvish.source = 
     symlink "${flakePath}/modules/elvish";
 
-  ## git
-  programs.git.enable = true;
+  home.packages = [
+    pkgs.git
+  ];
  }
