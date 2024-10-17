@@ -2,7 +2,7 @@
 
   ## NEOVIM editor
   xdg.configFile.nvim.source = 
-    symlink "${flakePath}/modules/nvim";
+    symlink "${flakePath}/config/nvim";
 
   programs.neovim = {
     enable = true;
@@ -13,11 +13,11 @@
   ## YAZI file manager
   programs.yazi.enable = true; 
   xdg.configFile.yazi.source = 
-    symlink "${flakePath}/modules/yazi";
+    symlink "${flakePath}/config/yazi";
 
   ## elvish shell config folder
   xdg.configFile.elvish.source = 
-    symlink "${flakePath}/modules/elvish";
+    symlink "${flakePath}/config/elvish";
 
   home.packages = [
     pkgs.git

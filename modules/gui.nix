@@ -6,6 +6,6 @@
 
   programs.kitty.enable = true;
   programs.kitty.settings = {
-    include = "${flakePath}/modules/kitty/kitty.conf";
+    include = "${flakePath}/config/kitty/kitty.conf";
   };
 }
