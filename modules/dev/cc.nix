@@ -4,6 +4,10 @@
 # Liking C/C++ seems to be an unpopular opinion, so it's my guilty secret.
 # Don't tell anyone pls.
 
+## Use nixpkgs gcc toolchians in some non-nix-flake project may occur some error
+## better use system provided toolchians
+
+
 { hey, lib, config, options, pkgs, ... }:
 
 with lib;
@@ -22,8 +26,8 @@ in {
     (mkIf cfg.enable {
       home.packages = with pkgs; [
         # clang
-        gcc
-        clang-tools
+        # gcc
+        # clang-tools
         # bear
         cmake
         # llvmPackages.libcxx
