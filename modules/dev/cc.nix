@@ -21,11 +21,12 @@ in {
   config = mkMerge [
     (mkIf cfg.enable {
       home.packages = with pkgs; [
-        clang
-        gcc-unwrapped
+        # clang
+        gcc
+        clang-tools
         # bear
         cmake
-        llvmPackages.libcxx
+        # llvmPackages.libcxx
 
         # # Respect XDG, damn it!
         # (mkWrapper gdb ''

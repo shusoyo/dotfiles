@@ -11,12 +11,11 @@
   ## packages
   home.packages = with pkgs; [
     #                      -                      -                      -
-    fzf                    gitui                  hugo                   htop 
+    fzf                    ripgrep                hugo                   htop 
     elvish                 zsh                    dash
-    wget                   curl                   ripgrep
+    wget                   curl                   unzip
     neofetch               sheldon                tree
     luajit                 # luajitPackages.luarocks-nix (dependency of neorg)
-    unzip
   ] ++ (if pkgs.stdenv.isDarwin then [
     coreutils
     ## nix language server for zed editor
@@ -40,6 +39,5 @@
     xdg.enable  = true;
 
     rust.enable = true;
-    cc.enable   = true;
   };
 }

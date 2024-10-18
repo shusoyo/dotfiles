@@ -34,7 +34,7 @@
     HISTFILE                   =     "${config.xdg.dataHome}/bash/history";
   };
 
-  modules.dev.ocaml = {
-    enable = true;
+  modules.dev = {
+    ocaml.enable = true;
   };
 }
