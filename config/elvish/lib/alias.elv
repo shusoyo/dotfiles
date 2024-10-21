@@ -10,10 +10,11 @@ var __yazi_shellwrapper = {|@a|
 }
 
 each { |lst| edit:add-var $lst[0]~ $lst[1] } [
-  [ls        {|@a| e:ls --color $@a}    ]
-  [ll        {|@a| e:ls -l --color $@a} ]
-  [la        {|@a| e:ls -la --color $@a}]
-  [v         {|@a| nvim $@a}            ]
-  [y         $__yazi_shellwrapper       ]
+  [ls        {|@a| e:ls -v --color $@a}    ]
+  [ll        {|@a| e:ls -v -l --color $@a} ]
+  [la        {|@a| e:ls -v -la --color $@a}]
+  [v         {|@a| nvim $@a}               ]
+  [y         $__yazi_shellwrapper          ]
+  [elv       {|@a| elvish $@a}             ]
 ]
 

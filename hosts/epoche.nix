@@ -24,12 +24,12 @@
     HOMEBREW_CORE_GIT_REMOTE   =     "https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git";
     HOMEBREW_PIP_INDEX_URL     =     "https://pypi.tuna.tsinghua.edu.cn/simple";
 
-    http_proxy                 =     "http://localhost:7890";
-    https_proxy                =     "http://localhost:7890";
-    ALL_PROXY                  =     "socks5://localhost:7890";
+    # http_proxy                 =     "http://localhost:7890";
+    # https_proxy                =     "http://localhost:7890";
+    # ALL_PROXY                  =     "socks5://localhost:7890";
 
     # Lima vm home
-    LIMA_HOME                  =     "${config.xdg.dataHome}/lima";
+    # LIMA_HOME                  =     "${config.xdg.dataHome}/lima";
     # VSCODE_PORTABLE            =     "${config.xdg.dataHome}/vscode";
     HISTFILE                   =     "${config.xdg.dataHome}/bash/history";
   };
