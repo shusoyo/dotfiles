@@ -8,11 +8,11 @@
 ## better use system provided toolchians
 
 
-{ hey, lib, config, options, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 
 with lib;
 
-let 
+let
   t = config.lib.tools;
   devCfg = config.modules.dev;
   cfg = devCfg.cc;
