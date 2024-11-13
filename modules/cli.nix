@@ -19,6 +19,10 @@
   xdg.configFile.elvish.source = 
     symlink "${flakePath}/config/elvish";
 
+  ## lazygit
+  xdg.configFile.lazygit.source = 
+    symlink "${flakePath}/config/lazygit";
+
   home.packages = [
     pkgs.git
     pkgs.lazygit
