@@ -21,5 +21,6 @@
 
   home.packages = [
     pkgs.git
+    pkgs.lazygit
   ];
  }
