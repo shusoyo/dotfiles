@@ -29,7 +29,7 @@ in {
         # gcc
         clang-tools
         # bear
-        cmake
+        # cmake
         # llvmPackages.libcxx
 
         # # Respect XDG, damn it!
