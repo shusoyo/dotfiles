@@ -27,7 +27,7 @@ in {
       home.packages = with pkgs; [
         # clang
         # gcc
-        # clang-tools
+        clang-tools
         # bear
         cmake
         # llvmPackages.libcxx

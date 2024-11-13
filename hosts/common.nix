@@ -37,7 +37,6 @@
 
   modules.dev = {
     xdg.enable  = true;
-
     rust.enable = true;
   };
 }
