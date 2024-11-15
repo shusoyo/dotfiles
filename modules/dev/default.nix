@@ -11,6 +11,7 @@ in {
     ./ocaml.nix
     ./python.nix
     ./cc.nix
+    ./go.nix
   ];
 
   options.modules.dev = {

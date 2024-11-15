@@ -20,7 +20,10 @@
     coreutils
     ## nix language server for zed editor
     nixd
-  ] else []);
+  ] else [
+    duckdb
+    zip
+  ]);
 
   xdg.enable = true;
 

@@ -3,11 +3,9 @@
   ## NEOVIM editor
   xdg.configFile.nvim.source = 
     symlink "${flakePath}/config/nvim";
-
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-    # withPython3 = true;
   };
 
   ## YAZI file manager

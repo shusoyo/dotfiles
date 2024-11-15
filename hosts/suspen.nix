@@ -15,5 +15,6 @@
 
   modules.dev = {
     cc.enable = true;
+    go.enable = true;
   };
 }
