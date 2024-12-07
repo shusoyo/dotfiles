@@ -20,6 +20,8 @@
     coreutils
     ## nix language server for zed editor
     nixd
+    typst
+    tinymist
   ] else [
     duckdb
     zip
