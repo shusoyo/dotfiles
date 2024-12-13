@@ -22,6 +22,7 @@
     nixd
     typst
     tinymist
+    gh
   ] else [
     duckdb
     zip
