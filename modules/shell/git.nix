@@ -1,31 +1,25 @@
-{ config, options, pkgs, ... }:
+{ ss, lib, config, options, pkgs, ... }:
 
-with config.lib.tools;
+with lib;
 
 let 
   cfg = config.modules.shell.git;
 in {
   options.modules.shell.git = {
-    enable = mkBoolOpt false;
+    enable = ss.mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {
-    user.packages = with pkgs; [
-    #   gitAndTools.git-annex
+    home.packages = with pkgs; [
       gitAndTools.gh
-    #   gitAndTools.git-open
-    #   gitAndTools.diff-so-fancy
-    #   (mkIf config.modules.shell.gnupg.enable
-    #     gitAndTools.git-crypt)
-    #   act
+      gitAndTools.hut
+      gitAndTools.lazygit
     ];
 
     xdg.configFile = {
-      "git/config".source = "${hey.configDir}/git/config";
-      "git/ignore".source = "${hey.configDir}/git/ignore";
-      "git/attributes".source = "${hey.configDir}/git/attributes";
+      git.source     = ss.symlink "${ss.configDir}/git";
+      lazygit.source = ss.symlink "${ss.configDir}/lazygit";
     };
-
-    modules.shell.zsh.rcFiles = [ "${hey.configDir}/git/aliases.zsh" ];
+   
   };
 }
