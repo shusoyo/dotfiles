@@ -1,11 +1,12 @@
 { config, pkgs, tools, ... }: with config.lib.tools; {
  
-  # home.packages = with pkgs; [
-  #   #                      -                      -                      -
-  # ];
+  # programs.kitty.enable = true;
+  # programs.kitty.settings = {
+  #   include = "${flakePath}/config/kitty/kitty.conf";
+  # };
+  #
+  # xdg.configFile.kitty.source = 
+  #   symlink "${flakePath}/config/kitty";
+  #
 
-  programs.kitty.enable = true;
-  programs.kitty.settings = {
-    include = "${flakePath}/config/kitty/kitty.conf";
-  };
 }

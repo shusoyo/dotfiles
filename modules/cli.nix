@@ -21,6 +21,9 @@
   xdg.configFile.lazygit.source = 
     symlink "${flakePath}/config/lazygit";
 
+  xdg.configFile.kitty.source = 
+    symlink "${flakePath}/config/kitty";
+
   home.packages = [
     pkgs.git
     pkgs.lazygit

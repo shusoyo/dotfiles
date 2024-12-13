@@ -5,7 +5,7 @@
       config.lib.file.mkOutOfStoreSymlink "${src}";
 
     flakePath =  
-      "${config.home.homeDirectory}/home-manager";
+      "${config.home.homeDirectory}/soso/home-manager";
 
     mkOpt  = type: default:
       mkOption { inherit type default; };
