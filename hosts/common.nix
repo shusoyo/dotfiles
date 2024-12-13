@@ -3,10 +3,12 @@
   imports = [
     ../modules/cli.nix
     ../modules/dev
+    ../modules/shell
   ];
 
   ## Home Manager
   programs.home-manager.enable = true;
+  home.stateVersion = "24.05";
 
   ## packages
   home.packages = with pkgs; [
@@ -23,7 +25,6 @@
     nixd
 
     typst    tinymist
-    gh       hut
   ] else [
     zip
   ]);
@@ -41,8 +42,14 @@
     '';
   };
 
-  modules.dev = {
-    xdg.enable  = true;
-    rust.enable = true;
+  modules = {
+    dev = {
+      xdg.enable  = true;
+      rust.enable = true;
+    };
+
+    shell = {
+      git.enable = true;
+    };
   };
 }
