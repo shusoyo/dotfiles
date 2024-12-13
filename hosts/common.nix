@@ -14,17 +14,17 @@
     fzf                    ripgrep                hugo                   htop 
     elvish                 zsh                    dash
     wget                   curl                   unzip
-    neofetch               sheldon                tree
+    neofetch               tree
     luajit                 # luajitPackages.luarocks-nix (dependency of neorg)
   ] ++ (if pkgs.stdenv.isDarwin then [
     coreutils
+
     ## nix language server for zed editor
     nixd
-    typst
-    tinymist
-    gh
+
+    typst    tinymist
+    gh       hut
   ] else [
-    duckdb
     zip
   ]);
 
