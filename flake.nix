@@ -7,19 +7,19 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }: let 
-    gen_home_conf = { name, system } : 
+  outputs = { self, nixpkgs, home-manager, ... }: let
+    gen_home_conf = { name, system } :
       home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
         modules = [ 
-          ./hosts/${name}.nix 
+          ./hosts/${name}.nix
         ];
      };
   in {
-      homeConfigurations.epoche = 
-        gen_home_conf { name = "epoche"; system = "x86_64-darwin"; };
+      homeConfigurations.suspen =
+        gen_home_conf { name = "suspen"; system = "x86_64-darwin"; };
 
-      homeConfigurations.suspen = 
-        gen_home_conf { name = "suspen"; system = "x86_64-linux"; };
+#      homeConfigurations.epoche =
+#        gen_home_conf { name = "epoche"; system = "x86_64-linux"; };
   };
 }
