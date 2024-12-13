@@ -4,7 +4,6 @@
   imports = [
     ./common.nix
     ../modules/homebrew.nix
-    ../modules/gui.nix
     ../modules/lib.nix
   ];
 
