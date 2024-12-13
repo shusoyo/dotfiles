@@ -21,6 +21,7 @@
   xdg.configFile.lazygit.source = 
     symlink "${flakePath}/config/lazygit";
 
+  ## kitty terminal
   xdg.configFile.kitty.source = 
     symlink "${flakePath}/config/kitty";
 

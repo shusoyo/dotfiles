@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, ... }: with builtins; {
 
   imports = [
     ../modules/cli.nix

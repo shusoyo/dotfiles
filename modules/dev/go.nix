@@ -4,7 +4,7 @@ with lib;
 
 let
   devCfg = config.modules.dev;
-  cfg = devCfg.rust;
+  cfg = devCfg.go;
 in {
   options.modules.dev.go = {
     enable = mkOption { default = false; type = types.bool; };

@@ -34,9 +34,10 @@
     HISTFILE                   =     "${config.xdg.dataHome}/bash/history";
   };
 
-  # modules.dev = {
-  #   ocaml.enable = true;
-  # };
+  modules.dev = {
+    # ocaml.enable = true;
+    # node.enable = true;
+  };
 
   # substituters = https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://cache.nixos.org/
   #
