@@ -9,9 +9,10 @@ in {
   imports = [
     ./rust.nix
     ./ocaml.nix
-    ./python.nix
+    # ./python.nix
     ./cc.nix
     ./go.nix
+    ./node.nix
   ];
 
   options.modules.dev = {

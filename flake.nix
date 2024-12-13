@@ -10,6 +10,7 @@
   outputs = { self, nixpkgs, home-manager, ... }: let
     args = infos@{ username, system }: {
       inherit (nixpkgs) lib;
+      homecfg = self.outputs.homeConfigurations."${username}".config;
       inherit infos;
     };
 
@@ -28,9 +29,5 @@
   in {
       homeConfigurations.suspen =
         gen_home_conf "suspen" "x86_64-darwin";
-
-      ss = import ./ss.nix (args { username = "ss"; system = "sss"; });
-#      homeConfigurations.epoche =
-#        gen_home_conf { name = "epoche"; system = "x86_64-linux"; };
   };
 }

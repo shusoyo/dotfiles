@@ -1,8 +1,8 @@
-{ config, pkgs, ... }: with config.lib.tools; {
+{ config, pkgs, ss, ... }: with ss; {
 
   ## NEOVIM editor
   xdg.configFile.nvim.source = 
-    symlink "${flakePath}/config/nvim";
+    symlink "${ss.configDir}/nvim";
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -11,22 +11,13 @@
   ## YAZI file manager
   programs.yazi.enable = true; 
   xdg.configFile.yazi.source = 
-    symlink "${flakePath}/config/yazi";
+    symlink "${ss.configDir}/yazi";
 
   ## elvish shell config folder
   xdg.configFile.elvish.source = 
-    symlink "${flakePath}/config/elvish";
-
-  ## lazygit
-  xdg.configFile.lazygit.source = 
-    symlink "${flakePath}/config/lazygit";
+    symlink "${ss.configDir}/elvish";
 
   ## kitty terminal
   xdg.configFile.kitty.source = 
-    symlink "${flakePath}/config/kitty";
-
-  home.packages = [
-    pkgs.git
-    pkgs.lazygit
-  ];
+    symlink "${ss.configDir}/kitty";
  }

@@ -1,15 +1,14 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, ss, ... }:
 
 with lib;
 
 let
-  t = config.lib.tools;
   devCfg = config.modules.dev;
   cfg = devCfg.cc;
 in {
   options.modules.dev.cc = {
-    enable = t.mkBoolOpt false;
-    xdg.enable = t.mkBoolOpt devCfg.xdg.enable;
+    enable = ss.mkBoolOpt false;
+    xdg.enable = ss.mkBoolOpt devCfg.xdg.enable;
   };
 
   config = mkMerge [
