@@ -19,7 +19,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
 
         extraSpecialArgs = { 
-          ss = import ./ss.nix (args {inherit username system; });
+          ss = import ./libs (args {inherit username system; });
         };
 
         modules = [ 
