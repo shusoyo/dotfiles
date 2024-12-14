@@ -1,9 +1,8 @@
 { config, pkgs, ss, ... }: {
 
-  # Home Manager Infomations
   imports = [
-    ./common.nix
-    ../modules/homebrew.nix
+    ../common.nix
+    ./homebrew.nix
   ];
 
   home.username = ss.username;
@@ -17,7 +16,7 @@
     # http_proxy                 =     "http://localhost:7890";
     # https_proxy                =     "http://localhost:7890";
     # ALL_PROXY                  =     "socks5://localhost:7890";
-    
+
     # Lima vm home
     # LIMA_HOME                  =     "${config.xdg.dataHome}/lima";
     # VSCODE_PORTABLE            =     "${config.xdg.dataHome}/vscode";
@@ -28,11 +27,12 @@
     # ocaml.enable = true;
     node.enable = true;
   };
-
-  # substituters = https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://cache.nixos.org/
-  #
-  # experimental-features = nix-command flakes
-  #
-  # trusted-users = root suspen epoche
-  # build-users-group = nixbld
 }
+
+# substituters = https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://cache.nixos.org/
+#
+# experimental-features = nix-command flakes
+#
+# trusted-users = root suspen epoche
+# build-users-group = nixbld
+
