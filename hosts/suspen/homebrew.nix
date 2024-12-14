@@ -1,4 +1,7 @@
-{ config, pkgs, lib, ... }: with lib; 
+{ config, pkgs, lib, ... }: 
+
+with lib; 
+
 let
   taps = [
     "homebrew/bundle"
@@ -33,7 +36,7 @@ let
     "clash-verge-rev"
     "sfm"
   ];
-in
+in 
 {
   # home.sessionPath = [ "/opt/homebrew/bin" ];
 
@@ -50,26 +53,14 @@ in
       (concatMapStrings ( tap:
         ''tap "'' + tap + ''"'' + "\n"
       ) taps)
-      + (concatMapStrings (
-        brew:
-        ''brew "''
-        + brew
-        + ''
-          "
-        ''
-
+      + (concatMapStrings ( brew:
+        ''brew "'' + brew + ''"'' + "\n"
       ) brews)
-      + (concatMapStrings (
-        cask:
-        ''cask "''
-        + cask
-        + ''
-          "
-        ''
-
+      + (concatMapStrings ( cask:
+        ''cask "'' + cask + ''"'' + "\n"
       ) casks);
-    # onChange = ''
-    #   /usr/local/bin/brew bundle install --file=${config.xdg.configHome}/Brewfile --cleanup --no-upgrade --force --no-lock
-    # '';
+    onChange = ''
+      /usr/local/bin/brew bundle install --file=${config.xdg.configHome}/Brewfile --cleanup --no-upgrade --force --no-lock
+    '';
   };
 }

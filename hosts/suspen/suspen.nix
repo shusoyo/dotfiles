@@ -29,10 +29,9 @@
   };
 }
 
-# substituters = https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://cache.nixos.org/
-#
-# experimental-features = nix-command flakes
-#
-# trusted-users = root suspen epoche
-# build-users-group = nixbld
-
+/*
+substituters = https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://cache.nixos.org/
+experimental-features = nix-command flakes
+trusted-users = root
+build-users-group = nixbld
+*/
