@@ -23,7 +23,7 @@
         };
 
         modules = [ 
-          ./hosts/${username}.nix
+          ./hosts/${username}/${username}.nix
         ];
      };
   in {
