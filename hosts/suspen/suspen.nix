@@ -8,10 +8,6 @@
   home.username = ss.username;
   home.homeDirectory = ss.homeDirectory;
 
-  # home.sessionPath = [ 
-  #   "/usr/local/Cellar/ncurses/6.5/bin"
-  # ];
-
   home.sessionVariables = {
     # http_proxy                 =     "http://localhost:7890";
     # https_proxy                =     "http://localhost:7890";
@@ -23,15 +19,13 @@
     # HISTFILE                   =     "${config.xdg.dataHome}/bash/history";
   };
 
-  modules.dev = {
-    # ocaml.enable = true;
-    node.enable = true;
+  modules = {
+    kitty.enable = true; 
+
+    dev = {
+      # ocaml.enable = true;
+      node.enable  = true;
+      typst.enable = true;
+    };
   };
 }
-
-/*
-substituters = https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://cache.nixos.org/
-experimental-features = nix-command flakes
-trusted-users = root
-build-users-group = nixbld
-*/

@@ -13,6 +13,7 @@ in {
     ./cc.nix
     ./go.nix
     ./node.nix
+    ./typst.nix
   ];
 
   options.modules.dev = {

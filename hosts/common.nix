@@ -1,9 +1,10 @@
 { pkgs, config, ... }: with builtins; {
 
   imports = [
-    ../modules/cli.nix
+    # ../modules/cli.nix
     ../modules/dev
     ../modules/shell
+    ../modules/kitty.nix
   ];
 
   ## Home Manager
@@ -13,18 +14,18 @@
   ## packages
   home.packages = with pkgs; [
     #                      -                      -                      -
-    fzf                    ripgrep                hugo                   htop 
-    elvish                 zsh                    dash
-    wget                   curl                   unzip
+    fzf                    ripgrep                
+    hugo                   htop 
+    zsh                    dash
+    wget                   curl                   
     neofetch               tree
     luajit                 # luajitPackages.luarocks-nix (dependency of neorg)
+    unzip
   ] ++ (if pkgs.stdenv.isDarwin then [
     coreutils
 
     ## nix language server for zed editor
     nixd
-
-    typst    tinymist
   ] else [
     zip
   ]);
@@ -49,7 +50,10 @@
     };
 
     shell = {
-      git.enable = true;
+      git.enable    = true;
+      nvim.enable   = true;
+      yazi.enable   = true;
+      elvish.enable = true;
     };
   };
 }
