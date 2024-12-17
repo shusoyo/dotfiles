@@ -1,18 +1,18 @@
 {lib, infos, homecfg, ...}: 
 
-let 
+let
   inherit (lib) mkOption types;
-in 
+in
 
 rec {
   inherit (infos) username system;
 
-  homeDirectory = 
+  homeDirectory =
     (if system == "x86_64-darwin" then 
-      "/Users/" 
+      "/Users/"
     else "/home/") + username;
 
-  flakePath =  
+  flakePath =
     "${homecfg.home.homeDirectory}/soso/home-manager";
   
   configDir =

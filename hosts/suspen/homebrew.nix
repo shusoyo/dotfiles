@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }: 
 
-with lib; 
+with lib;
 
 let
   taps = [
@@ -37,8 +37,7 @@ let
     "clash-verge-rev"
     "sfm"
   ];
-in 
-{
+in {
   # home.sessionPath = [ "/opt/homebrew/bin" ];
 
   home.sessionVariables = {

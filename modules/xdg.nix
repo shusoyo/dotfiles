@@ -1,6 +1,8 @@
-{ ss, lib, config, options, pkgs, ... }: with lib;
+{ ss, lib, config, options, ... }:
 
-let 
+with lib;
+
+let
   cfg = config.modules.xdg;
 in {
   options.modules.xdg = {
@@ -12,6 +14,10 @@ in {
 
     home.sessionVariables = {
       WGETRC = "${config.xdg.configHome}/wgetrc";
+      # Lima vm home
+      # LIMA_HOME                  =     "${config.xdg.dataHome}/lima";
+      # VSCODE_PORTABLE            =     "${config.xdg.dataHome}/vscode";
+      # HISTFILE                   =     "${config.xdg.dataHome}/bash/history";
     };
 
     xdg.configFile."wgetrc".text = ''

@@ -1,4 +1,4 @@
-{ ss, lib, config, options, pkgs, ... }:
+{ ss, lib, config, options, pkgs, ... }: 
 
 with lib;
 
@@ -20,6 +20,5 @@ in {
       git.source     = ss.symlink "${ss.configDir}/git";
       lazygit.source = ss.symlink "${ss.configDir}/lazygit";
     };
-   
   };
 }

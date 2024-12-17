@@ -1,8 +1,8 @@
-{ ss, lib, config, options, ... }:
+{ ss, lib, config, options, ... }: 
 
 with lib;
 
-let 
+let
   cfg = config.modules.shell.nvim;
 in {
   options.modules.shell.nvim = {
@@ -11,11 +11,11 @@ in {
 
   config = mkIf cfg.enable {
     programs.neovim = {
-      enable = true;
+      enable        = true;
       defaultEditor = true;
-    }; 
+    };
 
-    xdg.configFile.nvim.source = 
+    xdg.configFile.nvim.source =
       ss.symlink "${ss.configDir}/nvim";
   };
 }

@@ -9,25 +9,26 @@
 
   outputs = { self, nixpkgs, home-manager, ... }: let
     args = infos@{ username, system }: {
+      inherit infos;
       inherit (nixpkgs) lib;
       homecfg = self.outputs.homeConfigurations."${username}".config;
-      inherit infos;
     };
 
+    # home configuration generator function
     home_conf_gen = username: system:
       home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
 
         extraSpecialArgs = { 
-          ss = import ./libs (args {inherit username system; });
+          ss = import ./libs (args { inherit username system; });
         };
 
-        modules = [ 
-          ./hosts/${username}/${username}.nix
+        modules = [
+          ./hosts/${username}/home.nix
         ];
      };
   in {
-      homeConfigurations.suspen =
-        home_conf_gen "suspen" "x86_64-darwin";
+    homeConfigurations.suspen =
+      home_conf_gen "suspen" "x86_64-darwin";
   };
 }

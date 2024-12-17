@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: with builtins; {
+{ pkgs, config, ... }: {
 
   imports = [
     ../modules

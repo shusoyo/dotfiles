@@ -1,4 +1,6 @@
-{ ss, lib, config, options, pkgs, ... }: with lib;
+{ ss, lib, config, options, ... }: 
+
+with lib;
 
 let
   cfg = config.modules.kitty;

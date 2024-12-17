@@ -1,4 +1,6 @@
-{ lib, pkgs, config, options, ss, ... }: with lib;
+{ lib, pkgs, config, options, ss, ... }:
+
+with lib;
 
 let
   cfg = config.modules.shell.baseutils;

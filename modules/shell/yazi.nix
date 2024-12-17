@@ -1,8 +1,8 @@
-{ ss, lib, config, options, ... }:
+{ ss, lib, config, options, ... }: 
 
 with lib;
 
-let 
+let
   cfg = config.modules.shell.yazi;
 in {
   options.modules.shell.yazi = {
@@ -10,8 +10,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    programs.yazi.enable = true; 
-    xdg.configFile.yazi.source = 
+    programs.yazi.enable = true;
+    xdg.configFile.yazi.source =
       ss.symlink "${ss.configDir}/yazi";
   };
 }
