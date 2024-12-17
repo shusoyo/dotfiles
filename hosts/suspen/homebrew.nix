@@ -15,6 +15,7 @@ let
   casks = [
     "appcleaner"
     "wechat"
+    "bitwarden"
 
     # Fonts
     "font-fira-code"

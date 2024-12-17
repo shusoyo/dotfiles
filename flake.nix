@@ -14,7 +14,7 @@
       inherit infos;
     };
 
-    gen_home_conf = username: system:
+    home_conf_gen = username: system:
       home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
 
@@ -28,6 +28,6 @@
      };
   in {
       homeConfigurations.suspen =
-        gen_home_conf "suspen" "x86_64-darwin";
+        home_conf_gen "suspen" "x86_64-darwin";
   };
 }
