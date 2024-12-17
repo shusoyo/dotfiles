@@ -1,4 +1,4 @@
-{ lib, config, options, pkgs, ... }:
+{ lib, config, options, pkgs, ss, ... }:
 
 with lib;
 
@@ -17,7 +17,7 @@ in {
   ];
 
   options.modules.dev = {
-    xdg.enable = mkOption { type = types.bool; default = config.xdg.enable; }; 
+    xdg.enable = ss.mkBoolOpt config.modules.xdg.enable;
   };
 
   config = mkIf cfg.xdg.enable {

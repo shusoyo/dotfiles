@@ -8,6 +8,11 @@
   home.username = ss.username;
   home.homeDirectory = ss.homeDirectory;
 
+  home.packages = with pkgs; [
+    hugo
+    coreutils
+  ];
+
   home.sessionVariables = {
     # http_proxy                 =     "http://localhost:7890";
     # https_proxy                =     "http://localhost:7890";

@@ -23,15 +23,6 @@ in {
         # python3Packages.pylint
         # python3Packages.poetry
       ];
-
-      # environment.shellAliases = {
-      #   py     = "python";
-      #   py2    = "python2";
-      #   py3    = "python3";
-      #   po     = "poetry";
-      #   ipy    = "ipython --no-banner";
-      #   ipylab = "ipython --pylab=qt5 --no-banner";
-      # };
     })
 
     (mkIf (cfg.xdg.enable && cfg.enable) {
