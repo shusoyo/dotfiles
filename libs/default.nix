@@ -1,4 +1,4 @@
-{lib, infos, homecfg, ...}: 
+{ lib, infos, homecfg, ... }: 
 
 let
   inherit (lib) mkOption types;

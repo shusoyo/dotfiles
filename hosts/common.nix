@@ -18,6 +18,7 @@
     package = pkgs.nix;
     settings.trusted-users = ["root" config.home.username];
     settings.use-xdg-base-directories = true;
+    settings.auto-optimise-store = true;
     extraOptions = ''
       experimental-features = nix-command flakes
       substituters = https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://cache.nixos.org/

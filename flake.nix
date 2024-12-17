@@ -7,28 +7,29 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }: let
-    args = infos@{ username, system }: {
-      inherit infos;
-      inherit (nixpkgs) lib;
-      homecfg = self.outputs.homeConfigurations."${username}".config;
-    };
+  outputs = { self, nixpkgs, home-manager, ... }:
+    let
+      args = infos@{ username, system }: {
+        inherit infos;
+        inherit (nixpkgs) lib;
+        homecfg = self.outputs.homeConfigurations."${username}".config;
+      };
 
-    # home configuration generator function
-    home_conf_gen = username: system:
-      home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system};
+      # home configuration generator function
+      home_conf_gen = username: system:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system};
 
-        extraSpecialArgs = { 
-          ss = import ./libs (args { inherit username system; });
+          extraSpecialArgs = { 
+            ss = import ./libs (args { inherit username system; });
+          };
+
+          modules = [
+            ./hosts/${username}/home.nix
+          ];
         };
-
-        modules = [
-          ./hosts/${username}/home.nix
-        ];
-     };
-  in {
-    homeConfigurations.suspen =
-      home_conf_gen "suspen" "x86_64-darwin";
-  };
+    in {
+      homeConfigurations.suspen =
+        home_conf_gen "suspen" "x86_64-darwin";
+    };
 }
