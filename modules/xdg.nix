@@ -13,13 +13,20 @@ in {
     xdg.enable = true;
 
     home.sessionVariables = {
-      WGETRC = "${config.xdg.configHome}/wgetrc";
+      # wget-hsts
+      WGETRC         = "${config.xdg.configHome}/wgetrc";
+
+      # sqlite_history
+      SQLITE_HISTORY = "${config.xdg.dataHome}/sqlite_history";
+
+      # bash-history
+      HISTFILE       = "${config.xdg.dataHome}/bash/history";
       # Lima vm home
       # LIMA_HOME                  =     "${config.xdg.dataHome}/lima";
       # VSCODE_PORTABLE            =     "${config.xdg.dataHome}/vscode";
-      # HISTFILE                   =     "${config.xdg.dataHome}/bash/history";
     };
 
+    # wgetrc
     xdg.configFile."wgetrc".text = ''
       hsts-file = ${config.xdg.cacheHome}/wget-hsts
     '';
