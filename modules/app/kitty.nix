@@ -1,16 +1,16 @@
-{ ss, lib, config, options, ... }: 
+{ ss, lib, config, ... }:
 
 with lib;
 
 let
-  cfg = config.modules.kitty;
+  cfg = config.modules.app.kitty;
 in {
-  options.modules.kitty = {
+  options.modules.app.kitty = {
     enable = ss.mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {
-    xdg.configFile.kitty.source = 
+    xdg.configFile.kitty.source =
       ss.symlink "${ss.configDir}/kitty";
   };
 }

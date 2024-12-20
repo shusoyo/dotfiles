@@ -1,8 +1,8 @@
-{ ss, lib, config, options, pkgs, ... }: 
+{ ss, lib, config, pkgs, ... }:
 
 with lib;
 
-let 
+let
   cfg = config.modules.shell.git;
 in {
   options.modules.shell.git = {

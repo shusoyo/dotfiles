@@ -20,7 +20,7 @@
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
 
-          extraSpecialArgs = { 
+          extraSpecialArgs = {
             ss = import ./libs (args { inherit username system; });
           };
 
@@ -29,7 +29,12 @@
           ];
         };
     in {
+      # My personal macos configuration
       homeConfigurations.suspen =
         home_conf_gen "suspen" "x86_64-darwin";
+
+      # Virtual machine configuration
+      homeConfigurations.marisa =
+        home_conf_gen "marisa" "x86_64-linux";
     };
 }

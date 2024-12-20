@@ -1,4 +1,4 @@
-{ config, pkgs, ss, ... }: {
+{ pkgs, ss, ... }: {
 
   imports = [
     ../common.nix
@@ -9,8 +9,14 @@
   home.homeDirectory = ss.homeDirectory;
 
   home.packages = with pkgs; [
+    # blog (generate static pages in local)
     hugo
+
+    # GNU coreutils is used to replaced with apple xcode-develop-tools
     coreutils
+
+    # nix language server for zed editor.
+    nixd                      nil
   ];
 
   home.sessionVariables = {
@@ -20,7 +26,10 @@
   };
 
   modules = {
-    kitty.enable = true; 
+    app = {
+      kitty.enable = true;
+      zed.enable   = true;
+    };
 
     dev = {
       # ocaml.enable = true;

@@ -1,9 +1,9 @@
-{ lib, config, options, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 
 with lib;
 # with config.lib.tools;
 
-let 
+let
   devCfg = config.modules.dev;
   cfg = devCfg.python;
 in {

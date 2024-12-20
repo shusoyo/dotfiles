@@ -1,4 +1,4 @@
-{ lib, config, options, pkgs, ... }:
+{ lib, config, ... }:
 
 with lib;
 
@@ -31,4 +31,3 @@ in {
     })
   ];
 }
-

@@ -1,4 +1,4 @@
-{ ss, lib, config, options, ... }:
+{ ss, lib, config, ... }:
 
 with lib;
 
@@ -16,11 +16,12 @@ in {
       # wget-hsts
       WGETRC         = "${config.xdg.configHome}/wgetrc";
 
+      # bash-history
+      HISTFILE       = "${config.xdg.dataHome}/bash/history";
+
       # sqlite_history
       SQLITE_HISTORY = "${config.xdg.dataHome}/sqlite_history";
 
-      # bash-history
-      HISTFILE       = "${config.xdg.dataHome}/bash/history";
       # Lima vm home
       # LIMA_HOME                  =     "${config.xdg.dataHome}/lima";
       # VSCODE_PORTABLE            =     "${config.xdg.dataHome}/vscode";

@@ -1,8 +1,8 @@
-{ ss, lib, config, options, pkgs, ... }:
+{ ss, lib, config, pkgs, ... }:
 
 with lib;
 
-let 
+let
   cfg = config.modules.shell.elvish;
 in {
   options.modules.shell.elvish = {
@@ -14,7 +14,7 @@ in {
       pkgs.elvish
     ];
 
-    xdg.configFile.elvish.source = 
+    xdg.configFile.elvish.source =
       ss.symlink "${ss.configDir}/elvish";
   };
 }

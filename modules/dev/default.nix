@@ -1,8 +1,8 @@
-{ lib, config, options, pkgs, ss, ... }:
+{ lib, config, ss, ... }:
 
 with lib;
 
-let 
+let
   cfg = config.modules.dev;
 in {
 

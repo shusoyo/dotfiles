@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ pkgs, ... }: {
 
   imports = [
     ../modules
@@ -16,7 +16,10 @@
 
   nix = {
     package = pkgs.nix;
-    settings.trusted-users = ["root" config.home.username];
+
+    ## It's doesn't matter to set the following options,
+    ## because the home-manager can't be used to manage the system configuration.
+    # settings.trusted-users = ["root" config.home.username];
     settings.use-xdg-base-directories = true;
     settings.auto-optimise-store = true;
     extraOptions = ''

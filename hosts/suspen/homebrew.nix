@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: 
+{ config, lib, ... }:
 
 with lib;
 
@@ -26,9 +26,10 @@ let
     # Web Browser
     "arc"
 
-    # "utm"
+    "utm"
     # "docker"
     "kitty"
+    "zed"
     "visual-studio-code"
 
     "syncthing"
