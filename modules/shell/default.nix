@@ -11,6 +11,7 @@ in {
     ./elvish.nix
     ./nvim.nix
     ./yazi.nix
+    ./fish.nix
   ];
 
   options.modules.shell.baseutils = {

@@ -20,5 +20,9 @@ in {
       git.source     = ss.symlink "${ss.configDir}/git";
       lazygit.source = ss.symlink "${ss.configDir}/lazygit";
     };
+
+    home.shellAliases = {
+      lg = "lazygit";
+    };
   };
 }

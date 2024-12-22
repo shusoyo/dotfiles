@@ -15,6 +15,10 @@ in {
       defaultEditor = true;
     };
 
+    home.shellAliases = {
+      v = "nvim";
+    };
+
     xdg.configFile.nvim.source =
       ss.symlink "${ss.configDir}/nvim";
   };

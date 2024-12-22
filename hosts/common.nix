@@ -33,14 +33,15 @@
     xdg.enable = true;
 
     dev = {
-      rust.enable = true;
+      rust.enable   = true;
+      python.enable = true;
     };
 
     shell = {
-      git.enable    = true;
-      nvim.enable   = true;
-      yazi.enable   = true;
-      elvish.enable = true;
+      git.enable  = true;
+      nvim.enable = true;
+      yazi.enable = true;
+      fish.enable = true;
 
       # base utils
       baseutils.enable = true;

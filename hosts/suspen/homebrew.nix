@@ -25,6 +25,7 @@ let
 
     # Web Browser
     "arc"
+    "zen-browser"
 
     "utm"
     # "docker"

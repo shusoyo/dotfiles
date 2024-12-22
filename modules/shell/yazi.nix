@@ -10,7 +10,15 @@ in {
   };
 
   config = mkIf cfg.enable {
-    programs.yazi.enable = true;
+    programs.yazi = {
+      enable           = true;
+      shellWrapperName = "y";
+    };
+
+    home.shellAliases = {
+      yz = "yazi";
+    };
+
     xdg.configFile.yazi.source =
       ss.symlink "${ss.configDir}/yazi";
   };
