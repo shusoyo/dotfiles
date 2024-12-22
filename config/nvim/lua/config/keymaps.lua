@@ -18,7 +18,7 @@ local mappings = {
   --   { from = "i",     to = "k" },
   --   { from = "k",     to = "j" },
   --   { from = "j",     to = "h" },
-  { from = "<C-S>", to = ":w<CR>" },
+  { from = "<D-s>", to = ":w<CR>" },
 }
 
 for _, mapping in ipairs(mappings) do
