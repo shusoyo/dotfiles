@@ -16,6 +16,7 @@ let
     "appcleaner"
     "wechat"
     "bitwarden"
+    "telegram"
 
     # Fonts
     "font-fira-code"

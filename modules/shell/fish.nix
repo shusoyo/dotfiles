@@ -16,7 +16,8 @@ in {
     };
 
     xdg.configFile = with ss; {
-      "fish/functions".source = symlink "${configDir}/fish/functions";
+      "fish/functions".source      = symlink "${configDir}/fish/functions";
+      "fish/fish_variables".source = symlink "${configDir}/fish/fish_variables";
     };
   };
 }

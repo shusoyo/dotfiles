@@ -42,6 +42,7 @@
       nvim.enable = true;
       yazi.enable = true;
       fish.enable = true;
+      elvish.enable = true;
 
       # base utils
       baseutils.enable = true;

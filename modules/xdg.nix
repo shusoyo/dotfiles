@@ -12,15 +12,15 @@ in {
   config = mkIf cfg.enable {
     xdg.enable = true;
 
-    home.sessionVariables = {
+    home.sessionVariables = with config.xdg; {
       # wget-hsts
-      WGETRC         = "${config.xdg.configHome}/wgetrc";
+      WGETRC         = "${configHome}/wgetrc";
 
       # bash-history
-      HISTFILE       = "${config.xdg.dataHome}/bash/history";
+      HISTFILE       = "${dataHome}/bash/history";
 
       # sqlite_history
-      SQLITE_HISTORY = "${config.xdg.dataHome}/sqlite_history";
+      SQLITE_HISTORY = "${dataHome}/sqlite_history";
 
       # Lima vm home
       # LIMA_HOME                  =     "${config.xdg.dataHome}/lima";
