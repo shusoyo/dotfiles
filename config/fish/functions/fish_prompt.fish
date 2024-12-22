@@ -11,10 +11,13 @@ function fish_prompt
         and set color $fish_color_cwd_root
     end
 
+    # new line
+    echo
+
     #echo -n $USER@$hostname
 
     #set_color $color
-    echo -n (prompt_pwd)
+    echo -n (prompt_pwd --full-length-dirs 2)
     set_color normal
 
     echo -n $symbol

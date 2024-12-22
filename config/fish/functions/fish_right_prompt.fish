@@ -1,1 +1,3 @@
-/nix/store/04y0lkb8xar566mn4x025608h047r5j6-home-manager-files/.config/fish/functions/fish_right_prompt.fish
+function fish_right_prompt
+    echo -n $USER@$hostname
+end
