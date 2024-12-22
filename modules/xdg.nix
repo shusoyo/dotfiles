@@ -11,6 +11,7 @@ in {
 
   config = mkIf cfg.enable {
     xdg.enable = true;
+    home.preferXdgDirectories = true;
 
     home.sessionVariables = with config.xdg; {
       # wget-hsts

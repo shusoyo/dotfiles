@@ -6,13 +6,7 @@
 
   ## Home Manager
   programs.home-manager.enable = true;
-  home.stateVersion = "24.05";
-
-  ## packages
-  home.packages = with pkgs; [
-    # luajitPackages.luarocks-nix (dependency of neorg)
-    luajit
-  ];
+  home.stateVersion = "24.11";
 
   nix = {
     package = pkgs.nix;
@@ -38,14 +32,14 @@
     };
 
     shell = {
-      git.enable  = true;
-      nvim.enable = true;
-      yazi.enable = true;
-      fish.enable = true;
+      git.enable    = true;
+      nvim.enable   = true;
+      yazi.enable   = true;
+      fish.enable   = true;
       elvish.enable = true;
 
       # base utils
-      baseutils.enable = true;
+      baseUtils.enable = true;
     };
   };
 }

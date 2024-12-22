@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.modules.shell.baseutils;
+  cfg = config.modules.shell.baseUtils;
 in {
 
   imports = [
@@ -14,7 +14,7 @@ in {
     ./fish.nix
   ];
 
-  options.modules.shell.baseutils = {
+  options.modules.shell.baseUtils = {
     enable = ss.mkBoolOpt false;
   };
 
@@ -26,7 +26,7 @@ in {
       wget                   curl
       neofetch               tree
       unzip                  less
-      htop
+      htop                   gtrash
     ];
   };
 }

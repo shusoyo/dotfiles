@@ -12,11 +12,9 @@ rec {
       "/Users/"
     else "/home/") + username;
 
-  flakePath =
-    "${homecfg.home.homeDirectory}/soso/home-manager";
-  
-  configDir =
-    "${flakePath}/config";
+  flakePath = "${homeDirectory}/.config/home-manager";
+
+  configDir = "${flakePath}/config";
 
   symlink = src:
     homecfg.lib.file.mkOutOfStoreSymlink "${src}";
