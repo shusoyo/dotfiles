@@ -18,17 +18,27 @@ in {
 
       # fish script controlled by nix
       loginShellInit = ''
+        # Load the /etc/profile to get the system daemon related pathes
         exec dash -c "test -e /etc/profile && . /etc/profile; exec fish"
-      '';
+     '';
 
       # extra configuration
       shellInitLast = ''
+        # Proxy settings functions is defined in functions folder with autoloading
+        set_proxy
+
+        # Extra config to debug or test.
         source ${configHome}/fish/extra.fish
       '';
     };
 
     xdg.configFile = with ss; {
-      "fish/functions".source  = symlink "${configDir}/fish/functions";
+      "fish/functions" = {
+        source = ../../config/fish/functions;
+        recursive = true;
+      };
+
+      # Extra config to debug
       "fish/extra.fish".source = symlink "${configDir}/fish/extra.fish";
 
       # I don't know what is fish_variables
