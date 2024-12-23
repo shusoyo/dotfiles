@@ -4,6 +4,7 @@ with lib;
 
 let
   cfg = config.modules.shell.fish;
+  inherit (config.xdg) configHome;
 in {
   options.modules.shell.fish = {
     enable = ss.mkBoolOpt false;
@@ -12,16 +13,18 @@ in {
   config = mkIf cfg.enable {
     programs.fish = {
       enable = true;
+      preferAbbrs = true;
       generateCompletions = false;
-      # loginShellInit = mkIf pkgs.stdenv.isDarwin ''
-      #   if test -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
-      #     source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
-      #   end
-      # '';
+      shellInit = ''
+        if test -e "${configHome}/fish/extra.fish";
+          source ${configHome}/fish/extra.fish
+        end
+      '';
     };
 
     xdg.configFile = with ss; {
       "fish/functions".source      = symlink "${configDir}/fish/functions";
+      "fish/extra.fish".source     = symlink "${configDir}/fish/extra.fish";
       "fish/fish_variables".source = symlink "${configDir}/fish/fish_variables";
     };
 

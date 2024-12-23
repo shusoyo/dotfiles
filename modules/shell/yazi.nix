@@ -11,7 +11,7 @@ in {
 
   config = mkIf cfg.enable {
     programs.yazi = {
-      enable           = true;
+      enable = true;
       shellWrapperName = "y";
     };
 
@@ -19,7 +19,6 @@ in {
       yz = "yazi";
     };
 
-    xdg.configFile.yazi.source =
-      ss.symlink "${ss.configDir}/yazi";
+    xdg.configFile.yazi.source = ss.symlink "${ss.configDir}/yazi";
   };
 }

@@ -14,7 +14,7 @@ in {
       pkgs.elvish
     ];
 
-    xdg.configFile.elvish.source =
-      ss.symlink "${ss.configDir}/elvish";
+    # xdg.configFile.elvish.source =
+    #   ss.symlink "${ss.configDir}/elvish";
   };
 }

@@ -1,8 +1,4 @@
 function fish_prompt
-    # This is a simple prompt. It looks like
-    # alfa@nobby /path/to/dir $
-    # with the path shortened and colored
-    # and a "#" instead of a "$" when run as root.
     set -l symbol '> '
     set -l color $fish_color_cwd
     if fish_is_root_user
@@ -13,8 +9,6 @@ function fish_prompt
 
     # new line
     echo
-
-    #echo -n $USER@$hostname
 
     #set_color $color
     echo -n (prompt_pwd --full-length-dirs 2)
