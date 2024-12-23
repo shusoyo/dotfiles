@@ -25,13 +25,9 @@ in {
     xdg.configFile = with ss; {
       "fish/functions".source      = symlink "${configDir}/fish/functions";
       "fish/extra.fish".source     = symlink "${configDir}/fish/extra.fish";
-      "fish/fish_variables".source = symlink "${configDir}/fish/fish_variables";
-    };
 
-    home.shellAliases = {
-      ghm   = "cd ~/.config/home-manager";
-      trash = "gtrash";
-      ltr   = "gtrash put";
+      # I don't know what is fish_variables
+      "fish/fish_variables".source = symlink "${configDir}/fish/fish_variables";
     };
   };
 }

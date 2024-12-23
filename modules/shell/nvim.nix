@@ -16,10 +16,9 @@ in {
     };
 
     home.shellAliases = {
-      v = "nvim";
+      v  = "nvim";
     };
 
-    xdg.configFile.nvim.source =
-      ss.symlink "${ss.configDir}/nvim";
+    xdg.configFile.nvim.source = ss.symlink "${ss.configDir}/nvim";
   };
 }

@@ -1,4 +1,5 @@
-{ lib, config, pkgs, ... }:
+# Cargo run!
+{ ss, lib, config, pkgs, ... }:
 
 with lib;
 
@@ -8,8 +9,8 @@ let
   inherit (config.xdg) dataHome;
 in {
   options.modules.dev.rust = {
-    enable = mkOption { default = false; type = types.bool; };
-    xdg.enable = mkOption { default = devCfg.xdg.enable; type = types.bool; };
+    enable = ss.mkBoolOpt false;
+    xdg.enable = ss.mkBoolOpt devCfg.xdg.enable;
   };
 
   config = mkMerge [
@@ -17,10 +18,10 @@ in {
       home.packages = [ pkgs.rustup ];
     })
 
-    (mkIf (cfg.xdg.enable && cfg.enable) {
+    (mkIf cfg.xdg.enable {
       home.sessionVariables = {
         RUSTUP_HOME = "${dataHome}/rustup";
-        CARGO_HOME = "${dataHome}/cargo";
+        CARGO_HOME  = "${dataHome}/cargo";
       };
 
       home.sessionPath = [

@@ -1,3 +1,5 @@
+# As the most basic language in a system even complie the system compoment
+# Use the system support toolchian and tools firstly.
 { lib, config, pkgs, ss, ... }: 
 
 with lib;
@@ -14,17 +16,7 @@ in {
   config = mkMerge [
     (mkIf cfg.enable {
       home.packages = with pkgs; [
-        # clang
-        # gcc
         clang-tools
-        # bear
-        # cmake
-        # llvmPackages.libcxx
-
-        # # Respect XDG, damn it!
-        # (mkWrapper gdb ''
-        #   wrapProgram "$out/bin/gdb" --add-flags '-q -x "${config.xdg.configHome}/gdb/init"'
-        # '')
       ];
     })
 

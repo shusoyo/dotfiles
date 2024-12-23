@@ -20,11 +20,10 @@ in {
       ];
     })
 
-    (mkIf (cfg.xdg.enable && cfg.enable) {
+    (mkIf cfg.xdg.enable {
       home.sessionVariables = {
-        # Internal
         PYTHONUSERBASE      = "${dataHome}/python";
-        PYTHON_HISTORY      = "${dataHome}/python/python_history"; # default value as of >=3.4
+        PYTHON_HISTORY      = "${dataHome}/python/python_history"; 
         PYTHONPYCACHEPREFIX = "${cacheHome}/python";
       };
     })

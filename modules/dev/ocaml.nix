@@ -1,14 +1,15 @@
-{ lib, config, pkgs, ... }:
+{ ss, lib, config, pkgs, ... }:
 
 with lib;
 
 let
   devCfg = config.modules.dev;
   cfg = devCfg.ocaml;
+  inherit (config.xdg) dataHome;
 in {
   options.modules.dev.ocaml = {
-    enable = mkOption { default = false; type = types.bool; };
-    xdg.enable = mkOption { default = true; type = types.bool; };
+    enable = ss.mkBoolOpt false;
+    xdg.enable = ss.mkBoolOpt devCfg.xdg.enable;
   };
 
   config = mkMerge [
@@ -16,9 +17,9 @@ in {
       home.packages = [ pkgs.opam ];
     })
 
-    (mkIf (cfg.xdg.enable && cfg.enable) {
+    (mkIf cfg.xdg.enable {
       home.sessionVariables = {
-        OPAMROOT="${config.xdg.dataHome}/opam";
+        OPAMROOT="${dataHome}/opam";
       };
     })
   ];

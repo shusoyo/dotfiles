@@ -1,4 +1,5 @@
-{ lib, config, ... }:
+# I am learning...
+{ ss, lib, config, ... }:
 
 with lib;
 
@@ -8,8 +9,8 @@ let
   inherit (config.xdg) stateHome configHome dataHome cacheHome;
 in {
   options.modules.dev.node = {
-    enable = mkOption { default = false; type = types.bool; };
-    xdg.enable = mkOption { default = devCfg.xdg.enable; type = types.bool; };
+    enable = ss.mkBoolOpt false;
+    xdg.enable = ss.mkBoolOpt devCfg.xdg.enable;
   };
 
   config = mkMerge [
@@ -17,7 +18,7 @@ in {
       home.packages = [];
     })
 
-    (mkIf (cfg.xdg.enable && cfg.enable) {
+    (mkIf cfg.xdg.enable {
       home.sessionVariables = {
         NPM_CONFIG_USERCONFIG = "${configHome}/npm/npmrc";
         NODE_REPL_HISTORY     = "${dataHome}/node_repl_history";

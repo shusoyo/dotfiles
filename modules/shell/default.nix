@@ -5,7 +5,6 @@ with lib;
 let
   cfg = config.modules.shell.baseUtils;
 in {
-
   imports = [
     ./git.nix
     ./elvish.nix
@@ -21,12 +20,30 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       #                      -                      -
+      # dash is used to run .sh script,
+      # elvish is a new shell language to learn
+      dash                   elvish
+
+      # tools
       fzf                    ripgrep
-      zsh                    dash
+      tree                   less
+      htop                   unzip
+
+      # Network tools
       wget                   curl
-      neofetch               tree
-      unzip                  less
-      htop                   gtrash
+
+      # system info
+      neofetch
+
+      # safe rm, BUT rememebr don't alias rm to gtrash
+      gtrash
+      #                      -                      -
     ];
+
+    home.shellAliases = {
+      ghm   = "cd ~/.config/home-manager";
+      trash = "gtrash";
+      ltr   = "gtrash put";
+    };
   };
 }

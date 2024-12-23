@@ -1,4 +1,5 @@
-{ lib, config, pkgs, ... }:
+# I am learning...
+{ ss, lib, config, pkgs, ... }:
 
 with lib;
 
@@ -8,8 +9,8 @@ let
   inherit (config.xdg) dataHome cacheHome;
 in {
   options.modules.dev.go = {
-    enable = mkOption { default = false; type = types.bool; };
-    xdg.enable = mkOption { default = devCfg.xdg.enable; type = types.bool; };
+    enable = ss.mkBoolOpt false;
+    xdg.enable = ss.mkBoolOpt devCfg.xdg.enable;
   };
 
   config = mkMerge [
@@ -17,7 +18,7 @@ in {
       home.packages = [ pkgs.go ];
     })
 
-    (mkIf (cfg.xdg.enable && cfg.enable) {
+    (mkIf cfg.xdg.enable {
       home.sessionVariables = {
         GOPATH = "${dataHome}/go";
         GOMODCACHE = "${cacheHome}/go/mod";

@@ -1,3 +1,4 @@
+# Typst: A typesetting software simpler than Latex.
 { lib, config, pkgs, ss, ... }:
 
 with lib;
