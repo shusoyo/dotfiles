@@ -14,13 +14,13 @@ in {
     programs.fish = {
       enable = true;
       preferAbbrs = true;
-      generateCompletions  = false;
+      generateCompletions  = true;
 
       # fish script controlled by nix
       loginShellInit = ''
         # Load the /etc/profile to get the system daemon related pathes
         exec dash -c "test -e /etc/profile && . /etc/profile; exec fish"
-     '';
+      '';
 
       # extra configuration
       shellInitLast = ''
@@ -30,6 +30,11 @@ in {
         # Extra config to debug or test.
         source ${configHome}/fish/extra.fish
       '';
+
+      shellAbbrs = {
+        ghm = "~/.config/home-manager";
+        cfg = "~/.config/";
+      };
     };
 
     xdg.configFile = with ss; {
