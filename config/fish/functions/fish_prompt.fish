@@ -1,5 +1,9 @@
 function fish_prompt
-    set -l symbol '> '
+    set -l symbol '/> '
+    if test "$PWD" = "$HOME"
+        set symbol '> '
+    end
+
     set -l color $fish_color_cwd
     if fish_is_root_user
         set symbol ' # '
@@ -12,7 +16,7 @@ function fish_prompt
 
     #set_color $color
     echo -n (prompt_pwd --full-length-dirs 2)
-    set_color normal
+    #set_color normal
 
     echo -n $symbol
 end

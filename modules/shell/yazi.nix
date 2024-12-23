@@ -19,6 +19,10 @@ in {
       yz = "yazi";
     };
 
-    xdg.configFile.yazi.source = ss.symlink "${ss.configDir}/yazi";
+    xdg.configFile = {
+      "yazi/init.lua".source     = ss.symlink "${ss.configDir}/yazi/init.lua";
+      "yazi/yazi.toml".source    = ss.symlink "${ss.configDir}/yazi/yazi.toml";
+      "yazi/package.toml".source = ss.symlink "${ss.configDir}/yazi/package.toml";
+    };
   };
 }

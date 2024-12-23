@@ -6,9 +6,9 @@ function set_proxy --description 'Set terminal proxy'
     end
 
     echo set terminal proxy.
-    set -gx http_proxy "http://localhost:$port"
-    set -gx https_proxy "http://localhost:$port"
-    set -gx ALL_PROXY "socks5://localhost:$port"
+    set -gx http_proxy "http://127.0.0.1:$port"
+    set -gx https_proxy "http://127.0.0.1:$port"
+    set -gx ALL_PROXY "socks5://127.0.0.1:$port"
 end
 
 function unset_proxy --description 'Unset terminal proxy'
