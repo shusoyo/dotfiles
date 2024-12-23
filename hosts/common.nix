@@ -32,11 +32,10 @@
     };
 
     shell = {
-      git.enable    = true;
-      nvim.enable   = true;
-      yazi.enable   = true;
-      fish.enable   = true;
-      elvish.enable = true;
+      git.enable  = true;
+      nvim.enable = true;
+      yazi.enable = true;
+      fish.enable = true;
 
       # base utils
       baseUtils.enable = true;

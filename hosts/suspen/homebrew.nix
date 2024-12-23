@@ -16,7 +16,7 @@ let
     "appcleaner"
     "wechat"
     "bitwarden"
-    "telegram"
+    "telegram-desktop"
 
     # Fonts
     "font-fira-code"
@@ -44,11 +44,11 @@ in {
   # home.sessionPath = [ "/opt/homebrew/bin" ];
 
   home.sessionVariables = {
-    HOMEBREW_API_DOMAIN       = "https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api";
-    HOMEBREW_BOTTLE_DOMAIN    = "https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles";
-    HOMEBREW_BREW_GIT_REMOTE  = "https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git";
-    HOMEBREW_CORE_GIT_REMOTE  = "https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git";
-    HOMEBREW_PIP_INDEX_URL    = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple";
+    HOMEBREW_API_DOMAIN      = "https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api";
+    HOMEBREW_BOTTLE_DOMAIN   = "https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles";
+    HOMEBREW_BREW_GIT_REMOTE = "https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git";
+    HOMEBREW_CORE_GIT_REMOTE = "https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git";
+    HOMEBREW_PIP_INDEX_URL   = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple";
   };
 
   xdg.configFile."Brewfile" = {
