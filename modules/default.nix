@@ -1,8 +1,8 @@
 {
   imports = [
-    ./xdg.nix
     ./dev
     ./shell
     ./app
+    ./xdg.nix
   ];
 }

@@ -28,6 +28,7 @@ in {
     home.shellAliases = {
       ghm   = "cd ~/.config/home-manager";
       trash = "gtrash";
+      ltr   = "gtrash put";
     };
   };
 }

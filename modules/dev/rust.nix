@@ -5,6 +5,7 @@ with lib;
 let
   devCfg = config.modules.dev;
   cfg = devCfg.rust;
+  inherit (config.xdg) dataHome;
 in {
   options.modules.dev.rust = {
     enable = mkOption { default = false; type = types.bool; };
@@ -18,12 +19,12 @@ in {
 
     (mkIf (cfg.xdg.enable && cfg.enable) {
       home.sessionVariables = {
-        RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
-        CARGO_HOME = "${config.xdg.dataHome}/cargo";
+        RUSTUP_HOME = "${dataHome}/rustup";
+        CARGO_HOME = "${dataHome}/cargo";
       };
 
       home.sessionPath = [
-        "${config.xdg.dataHome}/cargo/bin"
+        "${dataHome}/cargo/bin"
       ];
     })
   ];

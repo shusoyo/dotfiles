@@ -5,6 +5,7 @@ with lib;
 let
   devCfg = config.modules.dev;
   cfg = devCfg.node;
+  inherit (config.xdg) stateHome configHome dataHome cacheHome;
 in {
   options.modules.dev.node = {
     enable = mkOption { default = false; type = types.bool; };
@@ -18,15 +19,15 @@ in {
 
     (mkIf (cfg.xdg.enable && cfg.enable) {
       home.sessionVariables = {
-        NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
-        NODE_REPL_HISTORY     = "${config.xdg.dataHome}/node_repl_history";
+        NPM_CONFIG_USERCONFIG = "${configHome}/npm/npmrc";
+        NODE_REPL_HISTORY     = "${dataHome}/node_repl_history";
       };
 
       xdg.configFile."npm/npmrc".text = ''
-        prefix=${config.xdg.dataHome}/npm
-        cache=${config.xdg.cacheHome}/npm
-        init-module=${config.xdg.configHome}/npm/config/npm-init.js
-        logs-dir=${config.xdg.stateHome}/npm/logs
+        prefix=${dataHome}/npm
+        cache=${cacheHome}/npm
+        init-module=${configHome}/npm/config/npm-init.js
+        logs-dir=${stateHome}/npm/logs
       '';
     })
   ];

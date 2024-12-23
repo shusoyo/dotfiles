@@ -5,6 +5,7 @@ with lib;
 let
   devCfg = config.modules.dev;
   cfg = devCfg.go;
+  inherit (config.xdg) dataHome cacheHome;
 in {
   options.modules.dev.go = {
     enable = mkOption { default = false; type = types.bool; };
@@ -18,11 +19,12 @@ in {
 
     (mkIf (cfg.xdg.enable && cfg.enable) {
       home.sessionVariables = {
-        GOPATH = "${config.xdg.dataHome}/go";
-        GOMODCACHE = "${config.xdg.cacheHome}/go/mod";
+        GOPATH = "${dataHome}/go";
+        GOMODCACHE = "${cacheHome}/go/mod";
       };
+
       home.sessionPath = [
-        "${config.xdg.dataHome}/go/bin"
+        "${dataHome}/go/bin"
       ];
     })
   ];
