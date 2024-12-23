@@ -14,17 +14,22 @@ in {
     programs.fish = {
       enable = true;
       preferAbbrs = true;
-      generateCompletions = false;
-      shellInit = ''
-        if test -e "${configHome}/fish/extra.fish";
-          source ${configHome}/fish/extra.fish
-        end
+      generateCompletions  = false;
+
+      # fish script controlled by nix
+      loginShellInit = ''
+        exec dash -c "test -e /etc/profile && . /etc/profile; exec fish"
+      '';
+
+      # extra configuration
+      shellInitLast = ''
+        source ${configHome}/fish/extra.fish
       '';
     };
 
     xdg.configFile = with ss; {
-      "fish/functions".source      = symlink "${configDir}/fish/functions";
-      "fish/extra.fish".source     = symlink "${configDir}/fish/extra.fish";
+      "fish/functions".source  = symlink "${configDir}/fish/functions";
+      "fish/extra.fish".source = symlink "${configDir}/fish/extra.fish";
 
       # I don't know what is fish_variables
       "fish/fish_variables".source = symlink "${configDir}/fish/fish_variables";

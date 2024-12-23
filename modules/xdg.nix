@@ -14,18 +14,17 @@ in {
     home.preferXdgDirectories = true;
 
     home.sessionVariables = with config.xdg; {
-      # wget-hsts
+      # ./wget-hsts
       WGETRC         = "${configHome}/wgetrc";
 
-      # bash-history
+      # ./bash-history
       HISTFILE       = "${dataHome}/bash/history";
 
-      # sqlite_history
+      # ./sqlite_history
       SQLITE_HISTORY = "${dataHome}/sqlite_history";
 
-      # Lima vm home
-      # LIMA_HOME                  =     "${config.xdg.dataHome}/lima";
-      # VSCODE_PORTABLE            =     "${config.xdg.dataHome}/vscode";
+      # ./lima
+      # LIMA_HOME       = "${config.xdg.dataHome}/lima";
     };
 
     # wgetrc
