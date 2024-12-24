@@ -16,9 +16,11 @@ in {
       gitAndTools.lazygit
     ];
 
-    xdg.configFile = {
-      git.source     = ss.symlink "${ss.configDir}/git";
-      lazygit.source = ss.symlink "${ss.configDir}/lazygit";
+    xdg.configFile = with ss; {
+      "git/config".source = cfgSymLink "git/config";
+      "git/ignore".source = cfgSymLink "git/ignore";
+
+      "lazygit/config.yml".source = cfgSymLink "lazygit/config.yml";
     };
 
     home.shellAliases = {

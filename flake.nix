@@ -9,8 +9,8 @@
 
   outputs = { self, nixpkgs, home-manager, ... }:
     let
-      args = infos@{ username, system }: {
-        inherit infos;
+      args = info@{ username, system }: {
+        inherit info self;
         inherit (nixpkgs) lib;
         homecfg = self.outputs.homeConfigurations."${username}".config;
       };

@@ -44,10 +44,10 @@ in {
       };
 
       # Extra config to debug
-      "fish/extra.fish".source = symlink "${configDir}/fish/extra.fish";
+      "fish/extra.fish".source = cfgSymLink "fish/extra.fish";
 
-      # I don't know what is fish_variables
-      "fish/fish_variables".source = symlink "${configDir}/fish/fish_variables";
+      # I don't know what is fish_variables (universal variables)
+      "fish/fish_variables".source = cfgSymLink "fish/fish_variables";
     };
   };
 }

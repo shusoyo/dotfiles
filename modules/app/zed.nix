@@ -10,7 +10,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    xdg.configFile."zed/settings.json".source =
-      ss.symlink "${ss.configDir}/zed/settings.json";
+    xdg.configFile = {
+      "zed/settings.json".source = ss.cfgSymLink "zed/settings.json";
+    };
   };
 }

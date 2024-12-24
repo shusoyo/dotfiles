@@ -10,6 +10,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    xdg.configFile.kitty.source = ss.symlink "${ss.configDir}/kitty";
+    xdg.configFile.kitty.source = ss.cfgSymLink "kitty";
   };
 }

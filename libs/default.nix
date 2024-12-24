@@ -1,11 +1,11 @@
-{ lib, infos, homecfg, ... }: 
+{ lib, info, homecfg, self, ... }: 
 
 let
   inherit (lib) mkOption types;
 in
 
 rec {
-  inherit (infos) username system;
+  inherit (info) username system;
 
   homeDirectory =
     (if system == "x86_64-darwin" then 
@@ -14,7 +14,11 @@ rec {
 
   flakePath = "${homeDirectory}/.config/home-manager";
 
-  configDir = "${flakePath}/config";
+  configDir  = "${flakePath}/config";
+  configDir' = "${self}/config";
+
+  cfgSymLink = src:
+    homecfg.lib.file.mkOutOfStoreSymlink "${configDir}/${src}";
 
   symlink = src:
     homecfg.lib.file.mkOutOfStoreSymlink "${src}";
