@@ -32,7 +32,6 @@
     };
 
     dev = {
-      # ocaml.enable = true;
       node.enable  = true;
       typst.enable = true;
     };
