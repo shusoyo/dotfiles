@@ -1,14 +1,13 @@
-{ lib, info, homecfg, self, ... }: 
+{ lib, info, self, ... }:
 
 let
   inherit (lib) mkOption types;
-in
-
-rec {
+  inherit (self.outputs.homeConfigurations."${info.username}".config.lib.file) mkOutOfStoreSymlink;
+in rec {
   inherit (info) username system;
 
   homeDirectory =
-    (if system == "x86_64-darwin" then 
+    (if system == "x86_64-darwin" then
       "/Users/"
     else "/home/") + username;
 
@@ -18,10 +17,10 @@ rec {
   configDir' = "${self}/config";
 
   cfgSymLink = src:
-    homecfg.lib.file.mkOutOfStoreSymlink "${configDir}/${src}";
+    mkOutOfStoreSymlink "${configDir}/${src}";
 
   symlink = src:
-    homecfg.lib.file.mkOutOfStoreSymlink "${src}";
+    mkOutOfStoreSymlink "${src}";
 
   mkOpt  = type: default:
     mkOption { inherit type default; };

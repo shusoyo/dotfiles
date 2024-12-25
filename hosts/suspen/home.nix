@@ -19,12 +19,6 @@
     nixd                      nil
   ];
 
-  home.sessionVariables = {
-    # http_proxy  = "http://localhost:7890";
-    # https_proxy = "http://localhost:7890";
-    # ALL_PROXY   = "socks5://localhost:7890";
-  };
-
   modules = {
     app = {
       kitty.enable = true;

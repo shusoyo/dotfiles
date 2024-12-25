@@ -3,8 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, ... }:
@@ -12,21 +14,17 @@
       args = info@{ username, system }: {
         inherit info self;
         inherit (nixpkgs) lib;
-        homecfg = self.outputs.homeConfigurations."${username}".config;
       };
 
-      # home configuration generator function
+      # home configuration generator
       home_conf_gen = username: system:
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
+          modules = [ ./hosts/${username}/home.nix ];
 
           extraSpecialArgs = {
-            ss = import ./libs (args { inherit username system; });
+            ss = import ./lib (args { inherit username system; });
           };
-
-          modules = [
-            ./hosts/${username}/home.nix
-          ];
         };
     in {
       # My personal macos configuration

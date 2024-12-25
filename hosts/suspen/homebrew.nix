@@ -16,6 +16,7 @@ let
     "appcleaner"
     "wechat"
     "bitwarden"
+    "baidunetdisk"
 
     # Fonts
     "font-fira-code"
