@@ -2,7 +2,11 @@
 
 let
   inherit (lib) mkOption types;
-  inherit (self.outputs.homeConfigurations."${info.username}".config.lib.file) mkOutOfStoreSymlink;
+
+  # I don't know who named this function and place it to the config.lib.file
+  # Damn it!
+  inherit (self.outputs.homeConfigurations."${info.username}".config.lib.file)
+    mkOutOfStoreSymlink;
 in rec {
   inherit (info) username system;
 
