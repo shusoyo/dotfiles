@@ -32,7 +32,7 @@ in {
       '';
 
       shellAbbrs = {
-        ghm = "~/.config/home-manager";
+        hm  = "~/.config/home-manager";
         cfg = "~/.config/";
       };
     };

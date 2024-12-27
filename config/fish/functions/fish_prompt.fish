@@ -7,7 +7,7 @@ function fish_prompt
 
     set -l symbol '/> '
 
-    if test "$PWD" = "$HOME"
+    if test "$PWD" = "$HOME" || test "$PWD" = /
         set symbol '> '
     end
 

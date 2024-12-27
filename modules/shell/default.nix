@@ -42,7 +42,7 @@ in {
 
     home.shellAliases = {
       trash = "gtrash";
-      ltr   = "gtrash put";
+      tpt   = "gtrash put";
     };
   };
 }
