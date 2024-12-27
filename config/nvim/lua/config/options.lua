@@ -3,6 +3,6 @@
 -- Add any additional options here
 
 --vim.opt.relativenumber = false
---vim.opt.cursorline = false
+vim.opt.cursorline = false
 -- hello
 vim.opt.showmode = true
