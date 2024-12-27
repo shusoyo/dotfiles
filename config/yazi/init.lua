@@ -7,7 +7,6 @@ local function module_exists(name)
 	end
 end
 
--- 检查模块是否存在
 if not module_exists("no-status") then
 	os.execute("ya pack -i")
 end
