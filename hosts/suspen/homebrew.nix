@@ -1,7 +1,5 @@
 { config, lib, ... }:
 
-with lib;
-
 let
   taps = [
     "homebrew/bundle"
@@ -17,6 +15,7 @@ let
     "wechat"
     "bitwarden"
     "baidunetdisk"
+    "telegram-a"
 
     # Fonts
     "font-fira-code"
@@ -29,7 +28,6 @@ let
     "zen-browser"
 
     "utm"
-    # "docker"
     "kitty"
     "zed"
     "visual-studio-code"
@@ -41,8 +39,6 @@ let
     "sfm"
   ];
 in {
-  # home.sessionPath = [ "/opt/homebrew/bin" ];
-
   home.sessionVariables = {
     HOMEBREW_API_DOMAIN      = "https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api";
     HOMEBREW_BOTTLE_DOMAIN   = "https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles";
@@ -51,17 +47,13 @@ in {
     HOMEBREW_PIP_INDEX_URL   = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple";
   };
 
-  xdg.configFile."Brewfile" = {
+  xdg.configFile."Brewfile" = with lib; {
     text =
-      (concatMapStrings ( tap:
-        ''tap "'' + tap + ''"'' + "\n"
-      ) taps)
-      + (concatMapStrings ( brew:
-        ''brew "'' + brew + ''"'' + "\n"
-      ) brews)
-      + (concatMapStrings ( cask:
-        ''cask "'' + cask + ''"'' + "\n"
-      ) casks);
+      (concatMapStrings (tap: "tap \"${tap}\"\n") taps)
+        +
+      (concatMapStrings (brew: "brew \"${brew}\"\n") brews)
+        +
+      (concatMapStrings (cask: "cask \"${cask}\"\n") casks);
     onChange = ''
       /usr/local/bin/brew bundle install --file=${config.xdg.configHome}/Brewfile --cleanup --no-upgrade --force --no-lock
     '';

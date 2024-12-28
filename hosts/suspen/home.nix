@@ -9,9 +9,6 @@
   home.homeDirectory = ss.homeDirectory;
 
   home.packages = with pkgs; [
-    # blog (generate static pages in local)
-    hugo
-
     # GNU coreutils is used to replaced with apple xcode-develop-tools
     coreutils
 

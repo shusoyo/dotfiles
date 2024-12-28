@@ -10,11 +10,6 @@
 
   nix = {
     package = pkgs.nix;
-
-    ## It's doesn't matter to set the following options,
-    ## because the home-manager can't be used to manage the system configuration.
-    # settings.trusted-users = ["root" config.home.username];
-
     settings.auto-optimise-store      = true;
     settings.use-xdg-base-directories = true;
     extraOptions = ''
