@@ -11,6 +11,13 @@ in {
 
   config = mkIf cfg.enable {
     xdg.enable = true;
+    xdg.cacheHome = ss.homeDirectory + (
+      if ss.system == "x86_64-darwin" then
+        "/Library/Caches"
+      else
+        "/.cache"
+    );
+
     home.preferXdgDirectories = true;
 
     home.sessionVariables = with config.xdg; {

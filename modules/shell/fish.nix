@@ -19,7 +19,11 @@ in {
       # fish script controlled by nix
       loginShellInit = ''
         # Load the /etc/profile to get the system daemon related pathes
-        exec dash -c "test -e /etc/profile && . /etc/profile; exec fish"
+        exec dash -c "
+            test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && \
+            . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh; \
+            exec fish
+        "
       '';
 
       # extra configuration
