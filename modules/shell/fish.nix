@@ -17,14 +17,12 @@ in {
       generateCompletions  = true;
 
       # fish script controlled by nix
-      loginShellInit = ''
-        # Load the /etc/profile to get the system daemon related pathes
-        exec dash -c "
-            test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && \
-            . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh; \
-            exec fish
-        "
-      '';
+     loginShellInit =
+      if ss.system == "x86_64-darwin" then ''
+        ''
+      else ''
+        source_sys_profiles
+        '';
 
       # extra configuration
       shellInitLast = ''
@@ -36,6 +34,7 @@ in {
       '';
 
       shellAbbrs = {
+        nds = "darwin-rebuild switch --flake ${ss.flakePath}";
         hm  = "~/.config/home-manager";
         cfg = "~/.config/";
       };

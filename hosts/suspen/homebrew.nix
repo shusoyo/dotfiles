@@ -27,6 +27,7 @@ let
     "arc"
     "zen-browser"
 
+    "ghostty"
     "utm"
     "kitty"
     "zed"
@@ -55,7 +56,7 @@ in {
         +
       (concatMapStrings (cask: "cask \"${cask}\"\n") casks);
     onChange = ''
-      /usr/local/bin/brew bundle install --file=${config.xdg.configHome}/Brewfile --cleanup --no-upgrade --force --no-lock
+      /usr/local/bin/brew bundle install --file=${config.xdg.configHome}/Brewfile --cleanup --no-upgrade --force --no-lock -v
     '';
   };
 }
