@@ -35,7 +35,7 @@ in {
 
       shellAbbrs = {
         nds = "darwin-rebuild switch --flake ${ss.flakePath}";
-        hm  = "~/.config/home-manager";
+        # hm  = "~/.config/home-manager";
         cfg = "~/.config/";
       };
     };

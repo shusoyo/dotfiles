@@ -20,7 +20,7 @@ in {
     };
 
     xdg.configFile = with ss; {
-      "yazi/init.lua".source     = cfgSymLink "yazi/init.lua";
+      "yazi/init.lua".source     = "${ss.configDir'}/yazi/init.lua";
       "yazi/yazi.toml".source    = cfgSymLink "yazi/yazi.toml";
       "yazi/package.toml".source = cfgSymLink "yazi/package.toml";
     };

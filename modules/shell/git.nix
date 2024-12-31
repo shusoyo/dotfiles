@@ -17,10 +17,10 @@ in {
     ];
 
     xdg.configFile = with ss; {
-      "git/config".source = cfgSymLink "git/config";
-      "git/ignore".source = cfgSymLink "git/ignore";
+      "git/config".source = "${ss.configDir'}/git/config";
+      "git/ignore".source = "${ss.configDir'}/git/ignore";
 
-      "lazygit/config.yml".source = cfgSymLink "lazygit/config.yml";
+      "lazygit/config.yml".source = "${ss.configDir'}/lazygit/config.yml";
     };
 
     home.shellAliases = {
