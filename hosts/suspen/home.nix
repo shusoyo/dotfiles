@@ -1,28 +1,73 @@
-{ inputs, pkgs, ss, ... }: {
+{ inputs, pkgs, ss, config, ... }: {
 
   imports = [
     ../common.nix
-    ./homebrew.nix
-    inputs.agenix.homeManagerModules.default
+    ../../modules/adhoc/homebrew.nix
+    inputs.sops-nix.homeManagerModules.sops
   ];
 
-  home.username = ss.username;
-  home.homeDirectory = ss.homeDirectory;
+  home = {
+    inherit (ss) username homeDirectory;
 
-  home.packages = with pkgs; [
-    # GNU coreutils is used to replaced with apple xcode-develop-tools
-    coreutils
+    packages = with pkgs; [
+      # GNU coreutils is used to replaced with apple xcode-develop-tools
+      coreutils
 
-    # nix language server for zed editor.
-    nixd                      nil
+      # nix language server for zed editor.
+      nixd                      nil
 
-    inputs.agenix.packages.${ss.system}.default
-  ];
+      sops                      age
+    ];
+  };
 
-  modules.agenix.enable = true;
-  age.secrets."ssh_hosts" = {
-    file = ./secrets/ssh_hosts.age;
-    path = "${ss.homeDirectory}/.ssh/config.d/ssh_hosts";
+  sops = {
+    defaultSopsFile = ./secrets/secrets.yaml;
+    age.sshKeyPaths = [ "${ss.homeDirectory}/.ssh/id_ed25519" ];
+
+    secrets = {
+      "age-master-key" = {
+        path = "${config.xdg.configHome}/sops/age/keys.txt";
+      };
+      "ssh-hosts" = {
+        path = "${ss.homeDirectory}/.ssh/config.d/ssh-hosts.config";
+      };
+    };
+  };
+
+  modules.adhoc.homebrew = {
+    enable = true;
+
+    taps = [
+      "homebrew/bundle"
+      "homebrew/services"
+    ];
+
+    brews = [
+      "bitwarden-cli"
+    ];
+
+    casks = [
+      #                           -
+      "appcleaner"                "wechat"
+      "bitwarden"                 "telegram-a"
+      "baidunetdisk"
+      #                           -
+      # Fonts
+      "font-fira-code-nerd-font"
+      "font-fira-mono"            "font-fira-code"
+      "font-noto-sans-cjk"        "font-noto-serif-cjk"
+      #                           -
+      # Web Browser
+      "arc"                       "zen-browser"
+      # Develop
+      "ghostty"                   "utm"
+      "kitty"                     "zed"
+      "visual-studio-code"
+      # Do something in better way
+      "syncthing"
+      "mos"                       "raycast"
+      "sfm"                       "clash-verge-rev"
+    ];
   };
 
   modules = {

@@ -1,0 +1,9 @@
+keys:
+  - &suspen age1dtg58zdv6q36tq4jjdyc3wapquj84j5aqg9ghz3s2g9yv4vzmf9shlphel
+  - &master age1k8nma5vvxkkrermh67kuuk4d0l72zyjezw43ed77q34jf888vuas04jyya
+creation_rules:
+  - path_regex: hosts/suspen/secrets/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+    - age:
+      - *suspen
+      - *master
