@@ -4,6 +4,6 @@
     ./shell
     ./app
     ./xdg.nix
-    ./agenix.nix
+    ./ssh.nix
   ];
 }

@@ -3,9 +3,9 @@
 with lib;
 
 let
-  cfg = config.modules.agenix;
+  cfg = config.modules.ssh;
 in {
-  options.modules.agenix = {
+  options.modules.ssh = {
     enable = ss.mkBoolOpt false;
   };
 
