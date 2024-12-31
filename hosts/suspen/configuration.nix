@@ -63,8 +63,9 @@
 
   environment.shells = [ pkgs.fish ];
   programs.fish = {
-    enable = true;
+    enable       = true;
     useBabelfish = true;
+
     shellInit = ''
       eval (/usr/libexec/path_helper -c)
     '';
