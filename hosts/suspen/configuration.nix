@@ -1,14 +1,15 @@
 { pkgs, lib, ... }: {
 
-  ## Host/Users
+## Host/Users
+## --------------------------------------------------------------------
   networking.hostName = "ss";
 
   users.users."suspen"= {
     home = "/Users/suspen";
   };
-  # ---------------------- 
 
-  ## Nix
+## Nix
+## --------------------------------------------------------------------
   nix.package = pkgs.nix;
 
   environment.profiles = lib.mkForce (lib.mkOrder 801 [
@@ -18,15 +19,16 @@
   ]);
 
   nix = {
-    optimise.automatic = false;
-    gc.automatic = true;
-    gc.options   = "--delete-older-than 7d";
+    optimise.automatic = true;
+    gc.automatic       = true;
+    gc.options         = "--delete-older-than 7d";
 
     settings = {
-      trusted-users = [ "suspen" ];
-      warn-dirty = false;
+      warn-dirty               = false;
       use-xdg-base-directories = true;
-      experimental-features = ["nix-command" "flakes"];
+      trusted-users            = [ "suspen" ];
+      experimental-features    = ["nix-command" "flakes"];
+
       builders-use-substitutes = true;
       substituters = [
         "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
@@ -39,9 +41,9 @@
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
-  # ---------------------- 
 
-  ## Systems
+## Systems settings
+## --------------------------------------------------------------------
   system = {
     stateVersion = 5;
 
@@ -58,7 +60,7 @@
   };
 
   time.timeZone = "Asia/Shanghai";
-  
+
   environment.shells = [ pkgs.fish ];
   programs.fish = {
     enable = true;
@@ -67,5 +69,4 @@
       eval (/usr/libexec/path_helper -c)
     '';
   };
-  # ------------------------
 }

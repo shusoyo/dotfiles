@@ -18,6 +18,7 @@ let
     "telegram-a"
 
     # Fonts
+    "font-fira-mono"
     "font-fira-code"
     "font-fira-code-nerd-font"
     "font-noto-sans-cjk"
