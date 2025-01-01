@@ -1,15 +1,14 @@
 { ss, lib, config, ... }:
 
-with lib;
-
 let
   cfg = config.modules.shell.nvim;
+  inherit (config) sl;
 in {
   options.modules.shell.nvim = {
     enable = ss.mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.neovim = {
       enable        = true;
       defaultEditor = true;
@@ -19,6 +18,6 @@ in {
       v  = "nvim";
     };
 
-    xdg.configFile.nvim.source = ss.cfgSymLink "nvim";
+    xdg.configFile.nvim.source = sl.symlink-to-config "nvim";
   };
 }

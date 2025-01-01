@@ -1,15 +1,14 @@
 { ss, lib, config, ... }:
 
-with lib;
-
 let
   cfg = config.modules.shell.yazi;
+  inherit (config) sl;
 in {
   options.modules.shell.yazi = {
     enable = ss.mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.yazi = {
       enable = true;
       shellWrapperName = "y";
@@ -21,8 +20,8 @@ in {
 
     xdg.configFile = with ss; {
       "yazi/init.lua".source     = "${ss.configDir'}/yazi/init.lua";
-      "yazi/yazi.toml".source    = cfgSymLink "yazi/yazi.toml";
-      "yazi/package.toml".source = cfgSymLink "yazi/package.toml";
+      "yazi/yazi.toml".source    = sl.symlink-to-config "yazi/yazi.toml";
+      "yazi/package.toml".source = sl.symlink-to-config "yazi/package.toml";
     };
   };
 }

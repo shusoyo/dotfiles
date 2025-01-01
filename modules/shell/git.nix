@@ -1,15 +1,14 @@
 { ss, lib, config, pkgs, ... }:
 
-with lib;
-
 let
   cfg = config.modules.shell.git;
+  inherit (config) sl;
 in {
   options.modules.shell.git = {
     enable = ss.mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       gitAndTools.gh
       gitAndTools.hut

@@ -1,30 +1,28 @@
 { lib, config, pkgs, ss, ... }:
 
-with lib;
-
 let
   devCfg = config.modules.dev;
   cfg = devCfg.python;
-  inherit (config.xdg) dataHome cacheHome;
+  inherit (config) sl;
 in {
   options.modules.dev.python = {
     enable = ss.mkBoolOpt false;
     xdg.enable = ss.mkBoolOpt devCfg.xdg.enable;
   };
 
-  config = mkMerge [
-    (mkIf cfg.enable {
+  config = lib.mkMerge [
+    (lib.mkIf cfg.enable {
       home.packages = with pkgs; [
         python313
         uv
       ];
     })
 
-    (mkIf cfg.xdg.enable {
+    (lib.mkIf cfg.xdg.enable {
       home.sessionVariables = {
-        PYTHONUSERBASE      = "${dataHome}/python";
-        PYTHON_HISTORY      = "${dataHome}/python/python_history"; 
-        PYTHONPYCACHEPREFIX = "${cacheHome}/python";
+        PYTHONUSERBASE      = "${sl.dataHome}/python";
+        PYTHON_HISTORY      = "${sl.dataHome}/python/python_history"; 
+        PYTHONPYCACHEPREFIX = "${sl.cacheHome}/python";
       };
     })
   ];

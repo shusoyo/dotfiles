@@ -10,7 +10,7 @@ in {
     ./rust.nix
     ./ocaml.nix
     ./python.nix
-    ./cc.nix
+    # ./cc.nix
     ./go.nix
     ./node.nix
     ./typst.nix

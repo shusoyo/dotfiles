@@ -1,16 +1,14 @@
-{ ss, lib, config, ... }:
-
-with lib;
+{ ss, lib, config, pkgs, ... }:
 
 let
   cfg = config.modules.shell.fish;
-  inherit (config.xdg) configHome;
+  inherit (config) sl;
 in {
   options.modules.shell.fish = {
     enable = ss.mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.fish = {
       enable = true;
       preferAbbrs = true;
@@ -18,7 +16,7 @@ in {
 
       # fish script controlled by nix
      loginShellInit =
-      if ss.system == "x86_64-darwin" then ''
+      if pkgs.stdenv.hostPlatform.isDarwin then ''
         ''
       else ''
         source_sys_profiles
@@ -30,7 +28,7 @@ in {
         set_proxy
 
         # Extra config to debug or test.
-        source ${configHome}/fish/extra.fish
+        source ${sl.configHome}/fish/extra.fish
       '';
 
       shellAbbrs = {
@@ -40,17 +38,17 @@ in {
       };
     };
 
-    xdg.configFile = with ss; {
+    xdg.configFile = {
       "fish/functions" = {
-        source = ../../config/fish/functions;
+        source = "${ss.configDir'}/fish/functions";
         recursive = true;
       };
 
       # Extra config to debug
-      "fish/extra.fish".source = cfgSymLink "fish/extra.fish";
+      "fish/extra.fish".source = sl.symlink-to-config "fish/extra.fish";
 
       # I don't know what is fish_variables (universal variables)
-      "fish/fish_variables".source = cfgSymLink "fish/fish_variables";
+      "fish/fish_variables".source = sl.symlink-to-config "fish/fish_variables";
     };
   };
 }

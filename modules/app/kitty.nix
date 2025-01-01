@@ -1,15 +1,14 @@
 { ss, lib, config, ... }:
 
-with lib;
-
 let
   cfg = config.modules.app.kitty;
+  inherit (config) sl;
 in {
   options.modules.app.kitty = {
     enable = ss.mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable {
-    xdg.configFile.kitty.source = ss.cfgSymLink "kitty";
+  config = lib.mkIf cfg.enable {
+    xdg.configFile.kitty.source = sl.symlink-to-config "kitty";
   };
 }

@@ -5,5 +5,6 @@
     ./app
     ./xdg.nix
     ./ssh.nix
+    ./sl.nix
   ];
 }

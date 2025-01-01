@@ -20,7 +20,8 @@
   };
 
   home = {
-    inherit (ss) username homeDirectory;
+    username = "suspen";
+    homeDirectory = "/Users/suspen";
 
     packages = with pkgs; [
       # GNU coreutils is used to replaced with apple xcode-develop-tools
@@ -41,9 +42,7 @@
       "homebrew/bundle"           "homebrew/services"
     ];
 
-    brews = [
-      "bitwarden-cli"
-    ];
+    brews = [];
 
     casks = [
       #                           -

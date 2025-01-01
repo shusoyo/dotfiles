@@ -2,10 +2,6 @@
 
 let
   inherit (lib) mkOption types;
-
-  # I don't know who named this function and place it to the config.lib.file
-  inherit (self.outputs.homeConfigurations."${info.username}".config.lib.file)
-    mkOutOfStoreSymlink;
 in rec {
   inherit (info) username system;
 
@@ -18,12 +14,6 @@ in rec {
 
   configDir  = "${flakePath}/config";
   configDir' = "${self}/config";
-
-  cfgSymLink = src:
-    mkOutOfStoreSymlink "${configDir}/${src}";
-
-  symlink = src:
-    mkOutOfStoreSymlink "${src}";
 
   mkOpt  = type: default:
     mkOption { inherit type default; };
