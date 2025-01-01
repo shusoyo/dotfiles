@@ -6,6 +6,19 @@
     inputs.sops-nix.homeManagerModules.sops
   ];
 
+  sops = {
+    defaultSopsFile = ./secrets/secrets.yaml;
+    age.sshKeyPaths = [ "${ss.homeDirectory}/.ssh/id_ed25519" ];
+
+    secrets."age-master-key" = {
+      path = "${config.xdg.configHome}/sops/age/keys.txt";
+    };
+
+    secrets."ssh-hosts" = {
+      path = "${ss.homeDirectory}/.ssh/config.d/ssh-hosts.config";
+    };
+  };
+
   home = {
     inherit (ss) username homeDirectory;
 
@@ -20,26 +33,12 @@
     ];
   };
 
-  sops = {
-    defaultSopsFile = ./secrets/secrets.yaml;
-    age.sshKeyPaths = [ "${ss.homeDirectory}/.ssh/id_ed25519" ];
-
-    secrets = {
-      "age-master-key" = {
-        path = "${config.xdg.configHome}/sops/age/keys.txt";
-      };
-      "ssh-hosts" = {
-        path = "${ss.homeDirectory}/.ssh/config.d/ssh-hosts.config";
-      };
-    };
-  };
-
   modules.adhoc.homebrew = {
     enable = true;
 
     taps = [
-      "homebrew/bundle"
-      "homebrew/services"
+      #                           -
+      "homebrew/bundle"           "homebrew/services"
     ];
 
     brews = [
