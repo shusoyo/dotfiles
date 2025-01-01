@@ -8,6 +8,9 @@ function ns --description home-manager
             home-manager switch --show-trace
         case ds
             darwin-rebuild switch --flake $flakeHome
+        case u
+            cd $flakeHome
+            nix flake update
         case "*"
             y $flakeHome
     end
