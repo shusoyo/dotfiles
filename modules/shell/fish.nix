@@ -26,7 +26,7 @@ in {
         shell-proxy-script =
           if cfg.shellProxy then "set_proxy" else "";
 
-        source-local-config = "[-e ./local.fish]; and source ./local.fish";
+        source-local-config = "[ -e ./local.fish ]; and source ./local.fish";
       in ''
           # Extra config to debug or test.
           ${shell-proxy-script}
