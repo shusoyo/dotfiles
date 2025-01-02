@@ -6,6 +6,7 @@ let
 in {
   options.modules.shell.fish = {
     enable = ss.mkBoolOpt false;
+    shellProxy = ss.mkBoolOpt false;
   };
 
   config = lib.mkIf cfg.enable {
@@ -15,21 +16,23 @@ in {
       generateCompletions  = true;
 
       # fish script controlled by nix
-     loginShellInit =
-      if pkgs.stdenv.hostPlatform.isDarwin then ''
-        ''
-      else ''
-        source_sys_profiles
+      # loginShellInit =
+      #  if pkgs.stdenv.hostPlatform.isDarwin then 
+      #    ''''
+      #  else
+      #    '' source_sys_profiles '';
+
+      shellInitLast = let
+        shell-proxy-script =
+          if cfg.shellProxy then "set_proxy" else "";
+
+        source-local-config = "[-e ./local.fish]; and source ./local.fish";
+      in ''
+          # Extra config to debug or test.
+          ${shell-proxy-script}
+
+          ${source-local-config}
         '';
-
-      # extra configuration
-      shellInitLast = ''
-        # Proxy settings functions is defined in functions folder with autoloading
-        set_proxy
-
-        # Extra config to debug or test.
-        source ${sl.configHome}/fish/extra.fish
-      '';
 
       shellAbbrs = {
         nds = "darwin-rebuild switch --flake ${ss.flakePath}";
@@ -45,7 +48,7 @@ in {
       };
 
       # Extra config to debug
-      "fish/extra.fish".source = sl.symlink-to-config "fish/extra.fish";
+      # "fish/extra.fish".source = sl.symlink-to-config "fish/extra.fish";
 
       # I don't know what is fish_variables (universal variables)
       "fish/fish_variables".source = sl.symlink-to-config "fish/fish_variables";

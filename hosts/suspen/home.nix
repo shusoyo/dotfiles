@@ -69,6 +69,10 @@
   };
 
   modules = {
+    shell = {
+      fish.shellProxy = true;
+    };
+
     app = {
       kitty.enable = true;
       zed.enable   = true;
