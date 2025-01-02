@@ -1,18 +1,17 @@
-{ ss, lib, config, ... }:
-
-with lib;
+{ ss, lib, config, pkgs, ... }:
 
 let
   cfg = config.modules.xdg;
+  inherit (config) sl;
 in {
   options.modules.xdg = {
     enable = ss.mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     xdg.enable = true;
     xdg.cacheHome = ss.homeDirectory + (
-      if ss.system == "x86_64-darwin" then
+      if pkgs.stdenv.hostPlatform.isDarwin then
         "/Library/Caches"
       else
         "/.cache"
@@ -22,13 +21,13 @@ in {
 
     home.sessionVariables = with config.xdg; {
       # ./wget-hsts
-      WGETRC = "${configHome}/wgetrc";
+      WGETRC = "${sl.configHome}/wgetrc";
 
       # ./bash-history
-      HISTFILE = "${dataHome}/bash/history";
+      HISTFILE = "${sl.dataHome}/bash/history";
 
       # ./sqlite_history
-      SQLITE_HISTORY = "${dataHome}/sqlite_history";
+      SQLITE_HISTORY = "${sl.dataHome}/sqlite_history";
 
       # ./lima
       # LIMA_HOME = "${config.xdg.dataHome}/lima";
@@ -36,9 +35,9 @@ in {
 
     # wgetrc
     xdg.configFile."wgetrc".text = ''
-      hsts-file = ${config.xdg.cacheHome}/wget-hsts
+      hsts-file = ${sl.cacheHome}/wget-hsts
     '';
 
-    programs.man.generateCaches = mkForce false;
+    programs.man.generateCaches = lib.mkForce false;
   };
 }

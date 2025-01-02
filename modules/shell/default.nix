@@ -1,7 +1,5 @@
 { lib, pkgs, config, ss, ... }:
 
-with lib;
-
 let
   cfg = config.modules.shell.baseUtils;
 in {
@@ -17,7 +15,7 @@ in {
     enable = ss.mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       #                      -                      -
       # dash is used to run .sh script,
