@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, ss, ... }: {
 
   imports = [
     ../modules
@@ -6,7 +6,11 @@
 
   ## Home Manager
   programs.home-manager.enable = true;
-  home.stateVersion = "24.11";
+
+  home = {
+    stateVersion = "24.11";
+    inherit (ss) username homeDirectory;
+  };
 
   modules = {
     ssh.enable = true;

@@ -40,12 +40,17 @@
   in {
     # My personal macos configuration
     homeConfigurations.suspen = home_conf_gen "suspen" "x86_64-darwin";
-    darwinConfigurations."ss" = nix-darwin.lib.darwinSystem {
+    darwinConfigurations.ss = nix-darwin.lib.darwinSystem {
       system = "x86_64-darwin";
       modules = [ ./hosts/suspen/configuration.nix ];
     };
 
-    # Virtual machine configuration
-    homeConfigurations.marisa = home_conf_gen "marisa" "x86_64-linux";
+    homeConfigurations.sl = home_conf_gen "sl" "x86_64-linux";
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [ ./hosts/sl/configuration.nix ];
+      specialArgs = { inherit inputs; };
+    };
+
   };
 }
