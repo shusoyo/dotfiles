@@ -13,7 +13,6 @@
   };
 
   modules = {
-    ssh.enable = true;
     xdg.enable = true;
 
     dev = {

@@ -12,16 +12,7 @@
 
   time.timeZone = "Asia/Shanghai";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sl = {
@@ -33,12 +24,12 @@
       tree
     ];
 
+    shell = pkgs.fish;
+
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMatQg3lxOZYs713pOojp1pWiSashfAgsVw1IgLYvPt/"
     ];
   };
-
-  # programs.firefox.enable = true;
 
   environment.shells = [ pkgs.fish ];
   programs.fish = {

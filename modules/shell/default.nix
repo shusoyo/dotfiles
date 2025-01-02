@@ -36,11 +36,14 @@ in {
       # safe rm, BUT rememebr don't alias rm to gtrash
       gtrash
       #                      -                      -
+
+      nh
     ];
 
     home.shellAliases = {
       trash = "gtrash";
       tpt   = "gtrash put";
+      ns    = "FLAKE=${ss.flakePath} nh";
     };
   };
 }
