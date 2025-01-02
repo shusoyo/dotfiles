@@ -43,7 +43,7 @@ in {
     home.shellAliases = {
       trash = "gtrash";
       tpt   = "gtrash put";
-      ns    = "FLAKE=${ss.flakePath} nh";
+      # ns    = "FLAKE=${ss.flakePath} nh";
     };
   };
 }

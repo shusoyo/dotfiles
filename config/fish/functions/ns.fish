@@ -5,13 +5,12 @@ function ns --description home-manager
         case e
             $EDITOR $flakeHome
         case s
-            home-manager switch --show-trace
+            FLAKE=$flakeHome nh home switch
         case ds
             darwin-rebuild switch --flake $flakeHome
-        case u
+        case cd
             cd $flakeHome
-            nix flake update
         case "*"
-            y $flakeHome
+            FLAKE=$flakeHome nh $argv
     end
 end
