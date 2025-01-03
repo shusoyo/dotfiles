@@ -30,6 +30,8 @@ in {
 
       # safe rm, BUT rememebr don't alias rm to gtrash
       gtrash
+
+      # nix warpper
       nh
       #                      -                      -
     ];

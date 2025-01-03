@@ -15,15 +15,15 @@ in {
       gitAndTools.lazygit
     ];
 
+    home.shellAliases = {
+      lg = "lazygit";
+    };
+
     xdg.configFile = {
       "git/config".source = "${ss.config-path}/git/config";
       "git/ignore".source = "${ss.config-path}/git/ignore";
 
       "lazygit/config.yml".source = "${ss.config-path}/lazygit/config.yml";
-    };
-
-    home.shellAliases = {
-      lg = "lazygit";
     };
   };
 }

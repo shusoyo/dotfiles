@@ -41,7 +41,7 @@
   in {
     # My personal macos configuration
     homeConfigurations.suspen = home-conf-gen "ss" "suspen" "x86_64-darwin";
-    darwinConfigurations.ss = nix-darwin.lib.darwinSystem {
+    darwinConfigurations.ss   = nix-darwin.lib.darwinSystem {
       system = "x86_64-darwin";
       modules = [
         ./hosts/ss/configuration.nix
@@ -49,7 +49,7 @@
     };
 
     # Linux
-    homeConfigurations.sl = home-conf-gen "camel" "sl" "x86_64-linux";
+    homeConfigurations.sl     = home-conf-gen "camel" "sl" "x86_64-linux";
     homeConfigurations.mirage = home-conf-gen "camel" "mirage" "x86_64-linux";
     nixosConfigurations.camel = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";

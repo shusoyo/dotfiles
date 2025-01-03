@@ -14,24 +14,22 @@ in {
       preferAbbrs = true;
       generateCompletions  = true;
 
-      shellInitLast = let
-        shell-proxy-script =
-          if cfg.shellProxy then "set_proxy" else "";
-
-        source-local-config =
-          "[ -e ./local.fish ]; and source ./local.fish";
-      in ''
-          # terminal proxy script
-          ${shell-proxy-script}
-          # local config to debug or test.
-          ${source-local-config}
-        '';
-
       shellAbbrs = {
-        nds = "darwin-rebuild switch --flake ${ss.abs-flake-path}";
-        cfg = "~/.config/";
+        cfg = "${config.xdg.configHome}";
+        tpt   = "gtrash put";
+        trash = "gtrash";
       };
     };
+
+    programs.fish.shellInitLast = let
+      shell-proxy-script  = if cfg.shellProxy then "set_proxy" else "";
+      source-local-config = "[ -e ./local.fish ]; and source ./local.fish";
+    in ''
+      # terminal proxy script
+      ${shell-proxy-script}
+      # local config to debug or test.
+      ${source-local-config}
+    '';
 
     xdg.configFile = {
       "fish/functions" = {
