@@ -2,7 +2,6 @@
 
 let
   cfg = config.modules.shell.yazi;
-  inherit (config) sl;
 in {
   options.modules.shell.yazi = {
     enable = ss.mkBoolOpt false;
@@ -18,10 +17,10 @@ in {
       yz = "yazi";
     };
 
-    xdg.configFile = with ss; {
-      "yazi/init.lua".source     = "${ss.configDir'}/yazi/init.lua";
-      "yazi/yazi.toml".source    = sl.symlink-to-config "yazi/yazi.toml";
-      "yazi/package.toml".source = sl.symlink-to-config "yazi/package.toml";
+    xdg.configFile = {
+      "yazi/init.lua".source     = "${ss.config-path}/yazi/init.lua";
+      "yazi/yazi.toml".source    = "${ss.config-path}/yazi/yazi.toml";
+      "yazi/package.toml".source = config.adhoc.symlink-to-config "yazi/package.toml";
     };
   };
 }

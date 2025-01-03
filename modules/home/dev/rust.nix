@@ -1,29 +1,27 @@
-# I am learning...
 { ss, lib, config, pkgs, ... }:
 
 let
   devCfg = config.modules.dev;
-  cfg = devCfg.go;
-  inherit (config) sl;
+  cfg = devCfg.rust;
 in {
-  options.modules.dev.go = {
+  options.modules.dev.rust = {
     enable = ss.mkBoolOpt false;
     xdg.enable = ss.mkBoolOpt devCfg.xdg.enable;
   };
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-      home.packages = [ pkgs.go ];
+      home.packages = [ pkgs.rustup ];
     })
 
     (lib.mkIf cfg.xdg.enable {
       home.sessionVariables = {
-        GOPATH = "${sl.dataHome}/go";
-        GOMODCACHE = "${sl.cacheHome}/go/mod";
+        RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
+        CARGO_HOME  = "${config.xdg.dataHome}/cargo";
       };
 
       home.sessionPath = [
-        "${sl.dataHome}/go/bin"
+        "${config.xdg.dataHome}/cargo/bin"
       ];
     })
   ];

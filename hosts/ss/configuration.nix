@@ -12,11 +12,9 @@
 ## --------------------------------------------------------------------
   nix.package = pkgs.nix;
 
-  environment.profiles = lib.mkForce (lib.mkOrder 801 [
-    "/run/current-system/sw"
-    # "$XDG_STATE_HOME/nix/profile"
+  environment.profiles = lib.mkOrder 801 [
     "$HOME/.local/state/nix/profile"
-  ]);
+  ];
 
   nix = {
     optimise.automatic = true;

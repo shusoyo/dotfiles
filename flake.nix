@@ -21,34 +21,41 @@
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, nix-darwin, ... }: let
-    special-args-gen = info@{ username, system }: {
+    special-args-gen = username: system: {
       inherit inputs;
-      ss = import ./lib ({
-        inherit info self;
+      ss = import ./lib {
+        inherit username system self;
         inherit (nixpkgs) lib;
-      });
+      };
     };
 
     # home configuration generator
-    home-conf-gen = username: system:
+    home-conf-gen = hostname: username: system:
       home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
-        modules = [ ./hosts/${username}/home.nix ];
-        extraSpecialArgs = special-args-gen { inherit username system; };
+        extraSpecialArgs = special-args-gen username system;
+        modules = [
+          ./hosts/${hostname}/home.nix
+        ];
       };
   in {
     # My personal macos configuration
-    homeConfigurations.suspen = home-conf-gen "suspen" "x86_64-darwin";
+    homeConfigurations.suspen = home-conf-gen "ss" "suspen" "x86_64-darwin";
     darwinConfigurations.ss = nix-darwin.lib.darwinSystem {
       system = "x86_64-darwin";
-      modules = [ ./hosts/suspen/configuration.nix ];
+      modules = [
+        ./hosts/ss/configuration.nix
+      ];
     };
 
     # Linux
-    homeConfigurations.sl = home-conf-gen "sl" "x86_64-linux";
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+    homeConfigurations.sl = home-conf-gen "camel" "sl" "x86_64-linux";
+    homeConfigurations.mirage = home-conf-gen "camel" "mirage" "x86_64-linux";
+    nixosConfigurations.camel = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      modules = [ ./hosts/sl/configuration.nix ];
+      modules = [
+        ./hosts/camel/configuration.nix
+      ];
     };
   };
 }

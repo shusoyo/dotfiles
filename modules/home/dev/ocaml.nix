@@ -2,28 +2,23 @@
 
 let
   devCfg = config.modules.dev;
-  cfg = devCfg.rust;
-  inherit (config) sl;
+  cfg = devCfg.ocaml;
 in {
-  options.modules.dev.rust = {
+  options.modules.dev.ocaml = {
     enable = ss.mkBoolOpt false;
     xdg.enable = ss.mkBoolOpt devCfg.xdg.enable;
   };
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-      home.packages = [ pkgs.rustup ];
+      home.packages = [ pkgs.opam ];
     })
 
     (lib.mkIf cfg.xdg.enable {
       home.sessionVariables = {
-        RUSTUP_HOME = "${sl.dataHome}/rustup";
-        CARGO_HOME  = "${sl.dataHome}/cargo";
+        OPAMROOT="${config.xdg.dataHome}/opam";
       };
-
-      home.sessionPath = [
-        "${sl.dataHome}/cargo/bin"
-      ];
     })
   ];
 }
+

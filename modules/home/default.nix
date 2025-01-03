@@ -2,9 +2,9 @@
   imports = [
     ./dev
     ./shell
-    ./app
     ./xdg.nix
     ./ssh.nix
-    ./sl.nix
+    ./adhoc.nix
+    ./packages/base.nix
   ];
 }

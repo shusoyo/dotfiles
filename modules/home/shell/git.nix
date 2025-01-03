@@ -2,7 +2,6 @@
 
 let
   cfg = config.modules.shell.git;
-  inherit (config) sl;
 in {
   options.modules.shell.git = {
     enable = ss.mkBoolOpt false;
@@ -16,11 +15,11 @@ in {
       gitAndTools.lazygit
     ];
 
-    xdg.configFile = with ss; {
-      "git/config".source = "${ss.configDir'}/git/config";
-      "git/ignore".source = "${ss.configDir'}/git/ignore";
+    xdg.configFile = {
+      "git/config".source = "${ss.config-path}/git/config";
+      "git/ignore".source = "${ss.config-path}/git/ignore";
 
-      "lazygit/config.yml".source = "${ss.configDir'}/lazygit/config.yml";
+      "lazygit/config.yml".source = "${ss.config-path}/lazygit/config.yml";
     };
 
     home.shellAliases = {

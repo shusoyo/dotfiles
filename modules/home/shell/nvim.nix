@@ -2,7 +2,6 @@
 
 let
   cfg = config.modules.shell.nvim;
-  inherit (config) sl;
 in {
   options.modules.shell.nvim = {
     enable = ss.mkBoolOpt false;
@@ -18,6 +17,7 @@ in {
       v  = "nvim";
     };
 
-    xdg.configFile.nvim.source = sl.symlink-to-config "nvim";
+    xdg.configFile.nvim.source =
+      config.adhoc.symlink-to-config "nvim";
   };
 }

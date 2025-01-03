@@ -11,7 +11,7 @@ in {
 
   config = mkIf cfg.enable {
     home.file."/.ssh" = {
-      source = ../config/ssh;
+      source = "${ss.config-path}/ssh";
       recursive = true;
     };
   };

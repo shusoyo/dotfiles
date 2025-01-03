@@ -3,7 +3,6 @@
 let
   devCfg = config.modules.dev;
   cfg = devCfg.python;
-  inherit (config) sl;
 in {
   options.modules.dev.python = {
     enable = ss.mkBoolOpt false;
@@ -20,9 +19,9 @@ in {
 
     (lib.mkIf cfg.xdg.enable {
       home.sessionVariables = {
-        PYTHONUSERBASE      = "${sl.dataHome}/python";
-        PYTHON_HISTORY      = "${sl.dataHome}/python/python_history"; 
-        PYTHONPYCACHEPREFIX = "${sl.cacheHome}/python";
+        PYTHONUSERBASE      = "${config.xdg.dataHome}/python";
+        PYTHON_HISTORY      = "${config.xdg.dataHome}/python/python_history"; 
+        PYTHONPYCACHEPREFIX = "${config.xdg.cacheHome}/python";
       };
     })
   ];

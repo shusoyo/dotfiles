@@ -4,7 +4,6 @@
 let
   devCfg = config.modules.dev;
   cfg = devCfg.node;
-  inherit (config) sl;
 in {
   options.modules.dev.node = {
     enable = ss.mkBoolOpt false;
@@ -18,15 +17,15 @@ in {
 
     (lib.mkIf cfg.xdg.enable {
       home.sessionVariables = {
-        NPM_CONFIG_USERCONFIG = "${sl.configHome}/npm/npmrc";
-        NODE_REPL_HISTORY     = "${sl.dataHome}/node_repl_history";
+        NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
+        NODE_REPL_HISTORY     = "${config.xdg.dataHome}/node_repl_history";
       };
 
       xdg.configFile."npm/npmrc".text = ''
-        prefix=${sl.dataHome}/npm
-        cache=${sl.cacheHome}/npm
-        init-module=${sl.configHome}/npm/config/npm-init.js
-        logs-dir=${sl.stateHome}/npm/logs
+        prefix=${config.xdg.dataHome}/npm
+        cache=${config.xdg.cacheHome}/npm
+        init-module=${config.xdg.configHome}/npm/config/npm-init.js
+        logs-dir=${config.xdg.stateHome}/npm/logs
       '';
     })
   ];

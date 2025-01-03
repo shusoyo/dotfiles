@@ -1,26 +1,21 @@
 { lib, pkgs, config, ss, ... }:
 
 let
-  cfg = config.modules.shell.baseUtils;
+  cfg = config.modules.packages;
 in {
-  imports = [
-    ./git.nix
-    ./elvish.nix
-    ./nvim.nix
-    ./yazi.nix
-    ./fish.nix
-  ];
-
-  options.modules.shell.baseUtils = {
-    enable = ss.mkBoolOpt false;
+  options.modules.packages = {
+    use-base-packages = ss.mkBoolOpt false;
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.use-base-packages {
     home.packages = with pkgs; [
       #                      -                      -
       # dash is used to run .sh script,
       # elvish is a new shell language to learn
       dash                   elvish
+
+      # encrypt
+      sops                   age
 
       # tools
       fzf                    ripgrep
@@ -35,15 +30,8 @@ in {
 
       # safe rm, BUT rememebr don't alias rm to gtrash
       gtrash
-      #                      -                      -
-
       nh
+      #                      -                      -
     ];
-
-    home.shellAliases = {
-      trash = "gtrash";
-      tpt   = "gtrash put";
-      # ns    = "FLAKE=${ss.flakePath} nh";
-    };
   };
 }

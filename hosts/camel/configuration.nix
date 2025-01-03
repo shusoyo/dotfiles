@@ -7,7 +7,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos";
+  networking.hostName = "camel";
   networking.networkmanager.enable = true;
 
   time.timeZone = "Asia/Shanghai";
@@ -31,27 +31,29 @@
     ];
   };
 
+  users.users.mirage = {
+    home         = "/home/mirage";
+    shell        = pkgs.fish;
+    isNormalUser = true;
+    extraGroups  = [ "wheel" ];
+
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMatQg3lxOZYs713pOojp1pWiSashfAgsVw1IgLYvPt/"
+    ];
+  };
+
   environment.shells = [ pkgs.fish ];
   programs.fish = {
     enable       = true;
     useBabelfish = true;
-
-    shellInit = ''
-    '';
   };
 
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim
     wget
   ];
 
-
   services.openssh.enable = true;
-
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   system.stateVersion = "24.11";
 
@@ -63,7 +65,7 @@
   nix.settings = {
     warn-dirty               = false;
     use-xdg-base-directories = true;
-    trusted-users            = [ "sl" ];
+    trusted-users            = [ "sl" "mirage" ];
     experimental-features    = ["nix-command" "flakes"];
 
     builders-use-substitutes = true;

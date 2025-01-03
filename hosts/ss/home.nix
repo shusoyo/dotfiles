@@ -1,40 +1,22 @@
 { inputs, pkgs, ss, config, ... }: {
 
   imports = [
-    ../common.nix
-    ../../modules/adhoc/homebrew.nix
+    ../general-home-config.nix
+    ../../modules/home/desktop
+    ../../modules/home/packages/homebrew.nix
     inputs.sops-nix.homeManagerModules.sops
   ];
 
-  sops = {
-    defaultSopsFile = ./secrets/secrets.yaml;
-    age.sshKeyPaths = [ "${ss.homeDirectory}/.ssh/id_ed25519" ];
+  # osx ad-hoc packages
+  home.packages = with pkgs; [
+    # GNU coreutils is used to replaced with apple xcode-develop-tools
+    coreutils
 
-    secrets."age-master-key" = {
-      path = "${config.xdg.configHome}/sops/age/keys.txt";
-    };
+    # nix language server for zed editor.
+    nixd                  nil
+  ];
 
-    secrets."ssh-hosts" = {
-      path = "${ss.homeDirectory}/.ssh/config.d/ssh-hosts.config";
-    };
-  };
-
-  home = {
-    username = "suspen";
-    homeDirectory = "/Users/suspen";
-
-    packages = with pkgs; [
-      # GNU coreutils is used to replaced with apple xcode-develop-tools
-      coreutils
-
-      # nix language server for zed editor.
-      nixd                      nil
-
-      sops                      age
-    ];
-  };
-
-  modules.adhoc.homebrew = {
+  modules.packages.homebrew = {
     enable = true;
 
     taps = [
@@ -42,7 +24,9 @@
       "homebrew/bundle"           "homebrew/services"
     ];
 
-    brews = [];
+    brews = [
+      "bitwarden-cli"
+    ];
 
     casks = [
       #                           -
@@ -66,6 +50,19 @@
       "mos"                       "raycast"
       "sfm"                       "clash-verge-rev"
     ];
+  };
+
+  sops = {
+    defaultSopsFile = ./secrets/secrets.yaml;
+    age.sshKeyPaths = [ "${config.home.homeDirectory}/.ssh/id_ed25519" ];
+
+    secrets."age-master-key" = {
+      path = "${config.xdg.configHome}/sops/age/keys.txt";
+    };
+
+    secrets."ssh-hosts" = {
+      path = "${config.home.homeDirectory}/.ssh/config.d/ssh-hosts.config";
+    };
   };
 
   modules = {

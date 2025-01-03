@@ -1,29 +1,30 @@
-{ lib, info, self, ... }:
+{ lib, username, system, self, ... }:
 
-let
-  inherit (lib) mkOption types;
-in rec {
-  inherit (info) username system;
+rec {
+  inherit username system;
 
-  homeDirectory =
-    (if system == "x86_64-darwin" then
-      "/Users/"
-    else "/home/") + username;
+  home-path = (
+    if system == "x86_64-darwin" then "/Users/" else "/home/"
+  ) + username;
 
-  flakePath = "${homeDirectory}/.config/home-manager";
+  abs-flake-path  = "${home-path}/.config/home-manager";
+  abs-config-path = "${abs-flake-path}/config";
+  config-path     = "${self}/config";
 
-  configDir  = "${flakePath}/config";
-  configDir' = "${self}/config";
-
-  mkOpt  = type: default:
-    mkOption { inherit type default; };
+  mkOpt = type: default:
+    lib.mkOption {
+      inherit type default;
+    };
 
   mkOpt' = type: default: description:
-    mkOption { inherit type default description; };
+    lib.mkOption {
+      inherit type default description;
+    };
 
-  mkBoolOpt = default: mkOption {
-    inherit default;
-    type = types.bool;
-    example = true;
-  };
+  mkBoolOpt = default:
+    lib.mkOption {
+      inherit default;
+      type    = lib.types.bool;
+      example = true;
+    };
 }

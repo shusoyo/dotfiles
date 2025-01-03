@@ -1,18 +1,20 @@
 { pkgs, ss, ... }: {
 
   imports = [
-    ../modules
+    ../modules/home
   ];
 
-  ## Home Manager
   programs.home-manager.enable = true;
 
   home = {
-    stateVersion = "24.11";
-    inherit (ss) username homeDirectory;
+    stateVersion  = "25.05";
+    homeDirectory = ss.home-path;
+    username      = ss.username;
   };
 
   modules = {
+    packages.use-base-packages = true;
+
     xdg.enable = true;
 
     dev = {
@@ -25,9 +27,6 @@
       nvim.enable = true;
       yazi.enable = true;
       fish.enable = true;
-
-      # base utils
-      baseUtils.enable = true;
     };
   };
 }
