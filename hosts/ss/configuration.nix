@@ -1,24 +1,15 @@
 { pkgs, lib, ... }: {
 
-## Host/Users
-## --------------------------------------------------------------------
-  fonts.packages = with pkgs; [
-    fira
-    nerd-fonts.fira-code
-    noto-fonts-cjk-sans
-    noto-fonts-cjk-serif
-  ];
-
-## Host/Users
-## --------------------------------------------------------------------
+# Host/Users
+# --------------------------------------------------------------------
   networking.hostName = "ss";
 
   users.users."suspen"= {
     home = "/Users/suspen";
   };
 
-## Nix
-## --------------------------------------------------------------------
+# Nix
+# --------------------------------------------------------------------
   nix.package = pkgs.nix;
 
   environment.profiles = lib.mkOrder 801 [
@@ -48,8 +39,8 @@
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
 
-## Systems settings
-## --------------------------------------------------------------------
+# Systems settings / Profiles
+# --------------------------------------------------------------------
   system = {
     stateVersion = 5;
 
@@ -64,6 +55,13 @@
       };
     };
   };
+
+  fonts.packages = with pkgs; [
+    fira
+    nerd-fonts.fira-code
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+  ];
 
   time.timeZone = "Asia/Shanghai";
 
