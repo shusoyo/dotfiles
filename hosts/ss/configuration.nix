@@ -2,6 +2,15 @@
 
 ## Host/Users
 ## --------------------------------------------------------------------
+  fonts.packages = with pkgs; [
+    fira
+    nerd-fonts.fira-code
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+  ];
+
+## Host/Users
+## --------------------------------------------------------------------
   networking.hostName = "ss";
 
   users.users."suspen"= {

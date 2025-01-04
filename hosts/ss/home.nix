@@ -34,11 +34,6 @@
       "bitwarden"                 "telegram-a"
       "baidunetdisk"
       #                           -
-      # Fonts
-      "font-fira-code-nerd-font"
-      "font-fira-mono"            "font-fira-code"
-      "font-noto-sans-cjk"        "font-noto-serif-cjk"
-      #                           -
       # Web Browser
       "arc"                       "zen-browser"
       # Develop
