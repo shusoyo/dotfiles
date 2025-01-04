@@ -15,22 +15,6 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.sl = {
-    home = "/home/sl";
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-
-    packages = with pkgs; [
-      tree
-    ];
-
-    shell = pkgs.fish;
-
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMatQg3lxOZYs713pOojp1pWiSashfAgsVw1IgLYvPt/"
-    ];
-  };
-
   users.users.mirage = {
     home         = "/home/mirage";
     shell        = pkgs.fish;
@@ -63,6 +47,7 @@
   };
 
   nix.settings = {
+    auto-optimise-store      = true;
     warn-dirty               = false;
     use-xdg-base-directories = true;
     trusted-users            = [ "sl" "mirage" ];

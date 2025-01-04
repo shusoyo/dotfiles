@@ -1,5 +1,5 @@
-{ ... }:  {
+{
   imports = [
-    ../common.nix
+    ../general-home-config.nix
   ];
 }
