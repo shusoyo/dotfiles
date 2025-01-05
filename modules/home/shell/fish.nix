@@ -15,13 +15,13 @@ in {
       generateCompletions  = true;
 
       shellAbbrs = {
-        cfg = "${config.xdg.configHome}";
+        cfg   = "${config.xdg.configHome}";
         tpt   = "gtrash put";
         trash = "gtrash";
       };
     };
 
-    programs.fish.shellInitLast = let
+    programs.fish.interactiveShellInit = let
       shell-proxy-script  = if cfg.shellProxy then "set_proxy" else "";
       source-local-config = "[ -e ./local.fish ]; and source ./local.fish";
     in ''

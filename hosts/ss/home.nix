@@ -48,7 +48,7 @@
   };
 
   sops = {
-    defaultSopsFile = ./secrets/secrets.yaml;
+    # defaultSopsFile = ./secrets/secrets.yaml;
     age.keyFile = [ "${config.xdg.configHome}/sops/age/master.txt" ];
 
     # secrets."age-master-key" = {

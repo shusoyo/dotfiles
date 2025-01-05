@@ -1,4 +1,4 @@
-{ ss, lib, config, ... }:
+{ ss, pkgs, lib, config, ... }:
 
 let
   cfg = config.modules.shell.yazi;
@@ -8,10 +8,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    programs.yazi = {
-      enable = true;
-      shellWrapperName = "y";
-    };
+    home.packages = [ pkgs.yazi ];
 
     home.shellAliases = {
       yz = "yazi";

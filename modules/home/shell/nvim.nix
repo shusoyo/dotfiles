@@ -1,4 +1,4 @@
-{ ss, lib, config, ... }:
+{ ss, pkgs, lib, config, ... }:
 
 let
   cfg = config.modules.shell.nvim;
@@ -8,9 +8,13 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    programs.neovim = {
-      enable        = true;
-      defaultEditor = true;
+    home.packages = [
+      pkgs.neovim
+    ];
+
+    home.sessionVariables = {
+      EDITOR = "nvim";
+      VISUAL = "nvim";
     };
 
     home.shellAliases = {
