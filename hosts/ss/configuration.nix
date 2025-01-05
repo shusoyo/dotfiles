@@ -12,9 +12,11 @@
 # --------------------------------------------------------------------
   nix.package = pkgs.nix;
 
-  environment.profiles = lib.mkOrder 801 [
+  environment.profiles = lib.mkForce (lib.mkOrder 801 [
+    "/run/current-system/sw"
+    "/nix/var/nix/profiles/default"
     "$HOME/.local/state/nix/profile"
-  ];
+  ]);
 
   nix = {
     optimise.automatic = true;
@@ -71,7 +73,7 @@
     useBabelfish = true;
 
     shellInit = ''
-      eval (/usr/libexec/path_helper -c)
+      # eval (/usr/libexec/path_helper -c)
     '';
   };
 }

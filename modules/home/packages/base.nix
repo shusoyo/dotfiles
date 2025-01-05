@@ -9,15 +9,14 @@ in {
 
   config = lib.mkIf cfg.use-base-packages {
     home.packages = with pkgs; [
-      #                      -                      -
-      # dash is used to run .sh script,
-      # elvish is a new shell language to learn
+      #                      -
+      # Shells
       dash                   elvish
 
-      # encrypt
+      # Encrypt
       sops                   age
 
-      # tools
+      # Tools
       fzf                    ripgrep
       tree                   less
       htop                   unzip
@@ -25,12 +24,12 @@ in {
       # Network tools
       wget                   curl
 
-      # system info
+      # System info
       neofetch
 
-      # nix warpper
+      # Nix warpper
       nh
-      #                      -                      -
+      #                      -
     ];
   };
 }
