@@ -28,9 +28,6 @@ in {
       # system info
       neofetch
 
-      # safe rm, BUT rememebr don't alias rm to gtrash
-      gtrash
-
       # nix warpper
       nh
       #                      -                      -

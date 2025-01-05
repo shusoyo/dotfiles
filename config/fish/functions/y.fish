@@ -4,5 +4,5 @@ function y
     if set cwd (cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
         builtin cd -- "$cwd"
     end
-    rm -f -- "$tmp"
+    command rm -f -- "$tmp"
 end
