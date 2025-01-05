@@ -48,13 +48,9 @@
   };
 
   sops = {
-    # defaultSopsFile = ./secrets/secrets.yaml;
-    age.keyFile = [ "${config.xdg.configHome}/sops/age/master.txt" ];
+    defaultSopsFile = ./secrets/secrets.yaml;
+    age.keyFile = [ "${config.xdg.configHome}/sops/age/keys.txt" ];
 
-    # secrets."age-master-key" = {
-    #   path = "${config.xdg.configHome}/sops/age/keys.txt";
-    # };
-    #
     # secrets."ssh-hosts" = {
     #   path = "${config.home.homeDirectory}/.ssh/config.d/ssh-hosts.config";
     # };
