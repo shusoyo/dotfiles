@@ -49,15 +49,15 @@
 
   sops = {
     defaultSopsFile = ./secrets/secrets.yaml;
-    age.sshKeyPaths = [ "${config.home.homeDirectory}/.ssh/id_ed25519" ];
+    age.keyFile = [ "${config.xdg.configHome}/sops/age/master.txt" ];
 
-    secrets."age-master-key" = {
-      path = "${config.xdg.configHome}/sops/age/keys.txt";
-    };
-
-    secrets."ssh-hosts" = {
-      path = "${config.home.homeDirectory}/.ssh/config.d/ssh-hosts.config";
-    };
+    # secrets."age-master-key" = {
+    #   path = "${config.xdg.configHome}/sops/age/keys.txt";
+    # };
+    #
+    # secrets."ssh-hosts" = {
+    #   path = "${config.home.homeDirectory}/.ssh/config.d/ssh-hosts.config";
+    # };
   };
 
   modules = {

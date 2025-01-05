@@ -1,9 +1,13 @@
 keys:
-  - &suspen age1dtg58zdv6q36tq4jjdyc3wapquj84j5aqg9ghz3s2g9yv4vzmf9shlphel
-  - &master age1k8nma5vvxkkrermh67kuuk4d0l72zyjezw43ed77q34jf888vuas04jyya
+  - &master age1vdyxye3dfwk530hdr98v9lmwze89yux45ausw75tqdtm25f82a4qf73sdx
+  - &camel  age1y93m3jr3v9z8wfyfmyt7dj2ldddhrdn57angg3kk0r2scg9eepwq28jejh
 creation_rules:
   - path_regex: hosts/suspen/secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
     - age:
-      - *suspen
+      - *master
+  - path_regex: hosts/camel/secrets/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+    - age:
+      - *camel
       - *master
