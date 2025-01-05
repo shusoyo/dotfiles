@@ -49,7 +49,6 @@
     };
 
     # Linux
-    homeConfigurations.sl     = home-conf-gen "camel" "sl" "x86_64-linux";
     homeConfigurations.mirage = home-conf-gen "camel" "mirage" "x86_64-linux";
     nixosConfigurations.camel = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
