@@ -35,10 +35,8 @@ in {
     };
 
     home.shellAliases = {
-      brew = ''
-        ${homebrew-proxy}
-        /usr/local/bin/brew
-      '';
+      brew = ''${homebrew-proxy}
+      /usr/local/bin/brew'';
     };
   };
 }
