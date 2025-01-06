@@ -10,6 +10,7 @@
       home-manager.users.goose      = import ./home.nix;
       home-manager.useGlobalPkgs   = true;
       home-manager.useUserPackages = true;
+      home-manager.extraSpecialArgs = { inherit ss; };
     }
   ];
 
