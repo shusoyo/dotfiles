@@ -1,7 +1,7 @@
 { inputs, config, ... }: {
 
   imports = [
-    ../general-home-config.nix
+    ../general/home.nix
     inputs.sops-nix.homeManagerModules.sops
   ];
 

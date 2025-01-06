@@ -1,6 +1,7 @@
 { inputs, config, lib, pkgs, ... }: {
 
   imports = [
+    ../general/system.nix
     ./hardware-configuration.nix
   ];
 
@@ -40,24 +41,4 @@
   services.openssh.enable = true;
 
   system.stateVersion = "25.05";
-
-  nix.gc = {
-    automatic = true;
-    options   = "--delete-older-than 7d";
-  };
-
-  nix.settings = {
-    auto-optimise-store      = true;
-    warn-dirty               = false;
-    use-xdg-base-directories = true;
-    trusted-users            = [ "sl" "mirage" ];
-    experimental-features    = ["nix-command" "flakes"];
-
-    builders-use-substitutes = true;
-    substituters = [
-      "https://mirrors.cernet.edu.cn/nix-channels/store"
-    ];
-  };
-
-  nixpkgs.config.allowUnfree = true;
 }

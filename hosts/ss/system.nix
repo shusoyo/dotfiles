@@ -1,7 +1,7 @@
 { pkgs, lib, ... }: {
 
   imports = [
-    ../general-system-config.nix
+    ../general/system.nix
   ];
 
 # Host/Users
