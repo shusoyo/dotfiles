@@ -1,7 +1,7 @@
 { pkgs, ss, ... }: {
 
   imports = [
-    ../modules/home
+    ../../modules/home
   ];
 
   programs.home-manager.enable = true;
@@ -16,11 +16,6 @@
     packages.use-base-packages = true;
 
     xdg.enable = true;
-
-    dev = {
-      rust.enable   = true;
-      python.enable = true;
-    };
 
     shell = {
       git.enable  = true;

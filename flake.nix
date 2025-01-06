@@ -34,7 +34,7 @@
     camel-home   = gen.home-conf-gen  "camel"     "mirage" "x86_64-linux";
     camel-system = gen.nixos-conf-gen "camel"     "mirage" "x86_64-linux";
 
-    snowgoose    = gen.nixos-conf-gen "snowgoose" "root"   "x86_64-linux";
+    snowgoose    = gen.nixos-conf-gen "snowgoose" "goose"  "x86_64-linux";
   in gen.merge-conf [
     ss-system
     ss-home

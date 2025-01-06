@@ -4,7 +4,10 @@ rec {
   inherit username system;
 
   home-path = (
-    if system == "x86_64-darwin" then "/Users/" else "/home/"
+    if username == "root" then 
+      "/"
+    else
+      if system == "x86_64-darwin" then "/Users/" else "/home/"
   ) + username;
 
   abs-flake-path  = "${home-path}/.config/home-manager";
