@@ -1,7 +1,7 @@
 { ... }: {
 
   imports = [
-    ../modules/system/nix-nixpkgs-config.nix
+    ../../modules/system/nix-nixpkgs-config.nix
   ];
 
   modules = {
