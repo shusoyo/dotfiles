@@ -15,10 +15,9 @@ in {
     };
 
     xdg.configFile = {
-      "yazi/init.lua".source     = "${ss.config-path}/yazi/init.lua";
-      "yazi/yazi.toml".source    = "${ss.config-path}/yazi/yazi.toml";
-      "yazi/keymap.toml".source  = "${ss.config-path}/yazi/keymap.toml";
-      "yazi/package.toml".source = config.adhoc.symlink-to-config "yazi/package.toml";
+      "yazi/init.lua".source    = config.adhoc.symlink-to-config "${ss.abs-config-path}/yazi/init.lua";
+      "yazi/yazi.toml".source   = "${ss.config-path}/yazi/yazi.toml";
+      "yazi/keymap.toml".source = "${ss.config-path}/yazi/keymap.toml";
     };
   };
 }

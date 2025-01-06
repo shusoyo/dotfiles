@@ -1,4 +1,4 @@
-function set_proxy --description 'Set terminal proxy'
+function set_proxy --description 'Set terminal proxy, port is optional'
     set port 7890
 
     if test (count $argv) -gt 0

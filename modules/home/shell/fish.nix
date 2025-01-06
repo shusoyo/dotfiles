@@ -31,7 +31,7 @@ in {
         recursive = true;
       };
 
-      # I don't know what is fish_variables (universal variables)
+      # Universal variables
       "fish/fish_variables".source =
         config.adhoc.symlink-to-config "fish/fish_variables";
     };
