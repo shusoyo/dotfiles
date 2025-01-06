@@ -22,11 +22,13 @@
     pkgs.gitMinimal
   ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub = {
+    efiSupport = true;
+    efiInstallAsRemovable = true;
+  };
 
   networking.hostName = "snowgoose";
-  networking.networkmanager.enable = true;
+  # networking.networkmanager.enable = true;
 
   time.timeZone = "Asia/Shanghai";
 
