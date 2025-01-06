@@ -1,5 +1,9 @@
 { pkgs, lib, ... }: {
 
+  imports = [
+    ../general-system-config.nix
+  ];
+
 # Host/Users
 # --------------------------------------------------------------------
   networking.hostName = "ss";
@@ -10,33 +14,11 @@
 
 # Nix
 # --------------------------------------------------------------------
-  nix.package = pkgs.nix;
-
   environment.profiles = lib.mkForce (lib.mkOrder 801 [
     "/run/current-system/sw"
     "/nix/var/nix/profiles/default"
     "$HOME/.local/state/nix/profile"
   ]);
-
-  nix = {
-    optimise.automatic = true;
-    gc.automatic       = true;
-    gc.options         = "--delete-older-than 7d";
-
-    settings = {
-      warn-dirty               = false;
-      use-xdg-base-directories = true;
-      trusted-users            = [ "suspen" ];
-      experimental-features    = ["nix-command" "flakes"];
-
-      builders-use-substitutes = true;
-      substituters = [
-        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-      ];
-    };
-  };
-
-  nixpkgs.config.allowUnfree = true;
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
