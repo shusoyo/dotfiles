@@ -6,11 +6,11 @@
     ./hardware.nix
 
     inputs.disko.nixosModules.disko
-    # inputs.home-manager.nixosModules.home-manager {
-    #   home-manager.users.root      = import ./home.nix;
-    #   home-manager.useGlobalPkgs   = true;
-    #   home-manager.useUserPackages = true;
-    # }
+    inputs.home-manager.nixosModules.home-manager {
+      home-manager.users.root      = import ./home.nix;
+      home-manager.useGlobalPkgs   = true;
+      home-manager.useUserPackages = true;
+    }
   ];
 
   services.openssh.enable = true;
