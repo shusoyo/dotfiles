@@ -1,4 +1,4 @@
-{ inputs, config, lib, pkgs, ss, ... }: {
+{ modulesPath, inputs, config, lib, pkgs, ss, ... }: {
 
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
