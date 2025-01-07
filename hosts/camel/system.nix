@@ -36,27 +36,6 @@
   environment.systemPackages = [
     pkgs.vim
     pkgs.wget
-    pkgs.typst
-  ];
-
-  fonts.packages = let
-    typst-noto-cjk-sc = pkgs.noto-fonts-cjk-serif.overrideAttrs (rec {
-      version = "2.003";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "notofonts";
-        repo = "noto-cjk";
-        rev = "Serif${version}";
-        hash = "sha256-mfbBSdJrUCZiUUmsmndtEW6H3z6KfBn+dEftBySf2j4=";
-        sparseCheckout = [ "Serif/OTC" ];
-      };
-
-      installPhase = ''
-        install -m444 -Dt $out/share/fonts/typst-test-fonts Serif/OTC/*.ttc
-      '';
-    });
-  in [
-    typst-noto-cjk-sc
   ];
 
   services.openssh.enable = true;

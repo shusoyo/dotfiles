@@ -11,8 +11,6 @@
     extraPackages = [
       pkgs.typst
       pkgs.gitMinimal
-      pkgs.unzip
-      pkgs.curl
     ];
   };
 }

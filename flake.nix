@@ -34,13 +34,14 @@
     camel-home   = gen.home-conf-gen  "camel"     "mirage" "x86_64-linux";
     camel-system = gen.nixos-conf-gen "camel"     "mirage" "x86_64-linux";
 
-    snowgoose    = gen.nixos-conf-gen "hwc"       "root"   "x86_64-linux";
+    hwcloud      = gen.nixos-conf-gen "hwc"       "root"   "x86_64-linux";
+    tycloud      = gen.nixos-conf-gen "hwc"       "root"   "x86_64-linux";
   in gen.merge-conf [
     ss-system
     ss-home
 
     camel-system
     camel-home
-    snowgoose
+    hwcloud
   ];
 }
