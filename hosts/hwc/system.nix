@@ -6,6 +6,7 @@
     ./disk.nix
 
     inputs.disko.nixosModules.disko
+    inputs.sops-nix.nixosModules.sops
   ];
 
   boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "virtio_blk" ];
@@ -16,6 +17,15 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   services.openssh.enable = true;
+
+  sops = {
+    defaultSopsFile = ./secrets/secrets.yaml;
+    age.sshKeyFile = [ "/etc/ssh/ssh_host_ed25519_key" ];
+
+    secrets."github-runner-token" = {
+      path = "/root/hello";
+    };
+  };
 
   environment.systemPackages = map lib.lowPrio [
     pkgs.curl

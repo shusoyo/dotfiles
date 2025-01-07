@@ -11,3 +11,6 @@ creation_rules:
     - age:
       - *camel
       - *master
+  - key_groups:
+    - age:
+      - *master
