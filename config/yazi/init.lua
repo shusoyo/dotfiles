@@ -1,15 +1,15 @@
-local function module_exists(name)
-	if package.loaded[name] then
-		return true
-	else
-		local status, _ = pcall(require, name)
-		return status
-	end
-end
-
-if not module_exists("no-status") then
-	os.execute("ya pack -i")
-end
+-- local function module_exists(name)
+-- 	if package.loaded[name] then
+-- 		return true
+-- 	else
+-- 		local status, _ = pcall(require, name)
+-- 		return status
+-- 	end
+-- end
+--
+-- if not module_exists("no-status") then
+-- 	os.execute("ya pack -i")
+-- end
 
 require("full-border"):setup()
 require("no-status"):setup()
