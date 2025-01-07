@@ -6,12 +6,12 @@
     ./hardware.nix
 
     inputs.disko.nixosModules.disko
-    inputs.home-manager.nixosModules.home-manager {
-      home-manager.users.goose      = import ./home.nix;
-      home-manager.useGlobalPkgs   = true;
-      home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = { inherit ss; };
-    }
+    # inputs.home-manager.nixosModules.home-manager {
+    #   home-manager.users.root      = import ./home.nix;
+    #   home-manager.useGlobalPkgs   = true;
+    #   home-manager.useUserPackages = true;
+    #   home-manager.extraSpecialArgs = { inherit ss; };
+    # }
   ];
 
   services.openssh.enable = true;
@@ -28,7 +28,7 @@
     efiInstallAsRemovable = true;
   };
 
-  networking.hostName = "snowgoose";
+  networking.hostName = "hwc";
   # networking.networkmanager.enable = true;
 
   time.timeZone = "Asia/Shanghai";
@@ -45,24 +45,11 @@
     ];
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.goose = {
-    home         = "/home/goose";
-    shell        = pkgs.fish;
-    isNormalUser = true;
-    extraGroups  = [ "wheel" ];
-
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMatQg3lxOZYs713pOojp1pWiSashfAgsVw1IgLYvPt/"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ10Z63y5BH9a2rrW2tDVKBZkAYc84SLMOBcE7EsWFHG"
-    ];
-  };
-
   environment.shells = [ pkgs.fish ];
-  programs.fish = {
-    enable       = true;
-    useBabelfish = true;
-  };
+  # programs.fish = {
+  #   enable       = true;
+  #   useBabelfish = true;
+  # };
 
   system.stateVersion = "25.05";
 }
