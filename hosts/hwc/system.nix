@@ -4,6 +4,7 @@
     (modulesPath + "/profiles/qemu-guest.nix")
     ../general/system.nix
     ./disk.nix
+    ./services.nix
 
     inputs.disko.nixosModules.disko
     inputs.sops-nix.nixosModules.sops
@@ -20,11 +21,7 @@
 
   sops = {
     defaultSopsFile = ./secrets/secrets.yaml;
-    age.sshKeyFile = [ "/etc/ssh/ssh_host_ed25519_key" ];
-
-    secrets."github-runner-token" = {
-      path = "/root/hello";
-    };
+    age.keyFile = "/var/lib/sops.key";
   };
 
   environment.systemPackages = map lib.lowPrio [

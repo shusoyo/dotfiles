@@ -1,6 +1,7 @@
 keys:
   - &master age1vdyxye3dfwk530hdr98v9lmwze89yux45ausw75tqdtm25f82a4qf73sdx
   - &camel  age1y93m3jr3v9z8wfyfmyt7dj2ldddhrdn57angg3kk0r2scg9eepwq28jejh
+  - &server age1kycrkkaq75mtkmyyuu0ccdlm7j0430jqnx907s6cuspwh94nmvcsv93vsq
 creation_rules:
   - path_regex: hosts/ss/secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
@@ -13,4 +14,6 @@ creation_rules:
       - *master
   - key_groups:
     - age:
+      - *camel
       - *master
+      - *server
