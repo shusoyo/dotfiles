@@ -1,18 +1,19 @@
 { inputs, config, lib, pkgs, ss, ... }: {
 
   imports = [
+    (modulesPath + "/profiles/qemu-guest.nix")
     ../general/system.nix
     ./disk.nix
-    ./hardware.nix
 
     inputs.disko.nixosModules.disko
-    # inputs.home-manager.nixosModules.home-manager {
-    #   home-manager.users.root      = import ./home.nix;
-    #   home-manager.useGlobalPkgs   = true;
-    #   home-manager.useUserPackages = true;
-    #   home-manager.extraSpecialArgs = { inherit ss; };
-    # }
   ];
+
+  boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "virtio_blk" ];
+
+  networking.useDHCP = lib.mkDefault true;
+  networking.hostName = "hwc";
+
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   services.openssh.enable = true;
 
@@ -27,9 +28,6 @@
     efiSupport = true;
     efiInstallAsRemovable = true;
   };
-
-  networking.hostName = "hwc";
-  # networking.networkmanager.enable = true;
 
   time.timeZone = "Asia/Shanghai";
 
@@ -46,10 +44,12 @@
   };
 
   environment.shells = [ pkgs.fish ];
-  # programs.fish = {
-  #   enable       = true;
-  #   useBabelfish = true;
-  # };
+  programs.fish = {
+    enable       = true;
+    useBabelfish = true;
+  };
+
+  programs.command-not-found.enable = false;
 
   system.stateVersion = "25.05";
 }
