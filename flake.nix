@@ -36,18 +36,18 @@
     ss-home      = gen.home-conf-gen  "ss"    "suspen"  "x86_64-darwin";
     ss-system    = gen.macos-conf-gen "ss"    "suspen"  "x86_64-darwin";
 
-    camel-home   = gen.home-conf-gen  "camel" "mirage"  "x86_64-linux";
-    camel-system = gen.nixos-conf-gen "camel" "mirage"  "x86_64-linux";
+    camel        = gen.nixos-conf-gen "camel" "mirage"  "x86_64-linux";
 
     hwcloud      = gen.nixos-conf-gen "hwc"   "root"    "x86_64-linux";
     sis2         = gen.nixos-conf-gen "sis2"  "printer" "x86_64-linux";
+    sis          = gen.nixos-conf-gen "sis"   "typer"   "x86_64-linux";
   in gen.merge-conf [
     ss-system
     ss-home
 
-    camel-system
-    camel-home
+    camel
+
     hwcloud
-    sis2
+    sis
   ];
 }
