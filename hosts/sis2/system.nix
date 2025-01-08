@@ -3,17 +3,14 @@
   imports = [
     ../general/system.nix
     inputs.wsl.nixosModules.default
-    inputs.home-manager.nixosModules.home-manager
   ];
 
-  home-manager = {
-    useGlobalPkgs    = true;
-    useUserPackages  = true;
-    extraSpecialArgs = { inherit ss; };
-    users.printer    = import ./home.nix;
-  };
-
   wsl.enable = true;
+
+  modules.home-manager.enable = true;
+  home-manager = {
+    users.printer = import ./home.nix;
+  };
 
   time.timeZone      = "Asia/Shanghai";
   i18n.defaultLocale = "en_US.UTF-8";

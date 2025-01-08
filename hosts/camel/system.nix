@@ -3,15 +3,19 @@
   imports = [
     ../general/system.nix
     ./hardware-configuration.nix
-    ../../modules/system/sops.nix
   ];
+
+  modules.home-manager.enable = true;
+  home-manager = {
+    users.mirage = import ./home.nix;
+  };
 
   modules.sops = {
     enable   = true;
     sopsFile = ./secrets/secrets.yaml;
   };
 
-  sops.secrets."hello" = {};
+  fonts.fontconfig.enable = false;
 
   boot.loader.systemd-boot.enable      = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -38,6 +42,8 @@
   };
 
   environment.systemPackages = [
+    pkgs.sops
+    pkgs.age
     pkgs.vim
     pkgs.wget
   ];

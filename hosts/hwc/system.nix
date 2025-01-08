@@ -7,7 +7,6 @@
     ./services.nix
 
     inputs.disko.nixosModules.disko
-    inputs.sops-nix.nixosModules.sops
   ];
 
   boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "virtio_blk" ];
@@ -19,9 +18,9 @@
 
   services.openssh.enable = true;
 
-  sops = {
-    defaultSopsFile = ./secrets/secrets.yaml;
-    age.keyFile = "/var/lib/sops.key";
+  modules.sops = {
+    enable   = true;
+    sopsFile = ./secrets/secrets.yaml;
   };
 
   environment.systemPackages = map lib.lowPrio [

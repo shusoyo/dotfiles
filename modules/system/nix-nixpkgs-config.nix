@@ -32,4 +32,3 @@ in {
     nixpkgs.config.allowUnfree = true;
   };
 }
-

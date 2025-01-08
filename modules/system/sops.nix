@@ -12,8 +12,8 @@ in {
 
   config = lib.mkIf cfg.enable {
     sops = {
-      age.sshKeyPaths   = [];
       gnupg.sshKeyPaths = [];
+      age.sshKeyPaths   = [];
       age.keyFile       = "/var/lib/sops-nix/key.txt";
       defaultSopsFile   = cfg.sopsFile;
     };
