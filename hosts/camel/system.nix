@@ -3,8 +3,15 @@
   imports = [
     ../general/system.nix
     ./hardware-configuration.nix
-    # ./network.nix
+    ../../modules/system/sops.nix
   ];
+
+  modules.sops = {
+    enable   = true;
+    sopsFile = ./secrets/secrets.yaml;
+  };
+
+  sops.secrets."hello" = {};
 
   boot.loader.systemd-boot.enable      = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -23,7 +30,6 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMatQg3lxOZYs713pOojp1pWiSashfAgsVw1IgLYvPt/"
     ];
   };
-
 
   environment.shells = [ pkgs.fish ];
   programs.fish = {

@@ -13,9 +13,6 @@ in {
       # Shells
       dash                   elvish
 
-      # Encrypt
-      sops                   age
-
       # Tools
       fzf                    ripgrep
       tree                   less

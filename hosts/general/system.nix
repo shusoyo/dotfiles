@@ -7,4 +7,9 @@
   modules = {
     nix-nixpkgs-settings.enable = true;
   };
+
+  environment.systemPackages = [
+    pkgs.sops
+    pkgs.age
+  ];
 }
