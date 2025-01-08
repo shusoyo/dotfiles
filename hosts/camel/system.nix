@@ -3,17 +3,16 @@
   imports = [
     ../general/system.nix
     ./hardware-configuration.nix
-    ./network.nix
+    # ./network.nix
   ];
 
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.enable      = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  time.timeZone = "Asia/Shanghai";
-
+  time.timeZone      = "Asia/Shanghai";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  services.openssh.enable = true;
   users.users.mirage = {
     home         = "/home/mirage";
     shell        = pkgs.fish;
@@ -25,7 +24,6 @@
     ];
   };
 
-  documentation.man.generateCaches = lib.mkForce false;
 
   environment.shells = [ pkgs.fish ];
   programs.fish = {
@@ -38,7 +36,22 @@
     pkgs.wget
   ];
 
-  services.openssh.enable = true;
+  networking.hostName    = "camel";
+  networking.useNetworkd = true;
+  networking.useDHCP     = false;
+
+  systemd.network.enable = true;
+  systemd.network.networks.ethernet = {
+    matchConfig.Name = "enp0s1";
+    DHCP = "yes";
+    networkConfig = {
+      IPv6AcceptRA          = "yes";
+      KeepConfiguration     = "yes";
+      IPv6PrivacyExtensions = "no";
+    };
+  };
+
+  documentation.man.generateCaches = lib.mkForce false;
 
   system.stateVersion = "25.05";
 }

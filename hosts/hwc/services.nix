@@ -3,13 +3,13 @@
   sops.secrets."github-runner-token" = {};
 
   services.github-runners.hwc = {
-    enable = true;
-    name = "hwc";
+    enable    = true;
+    name      = "hwc";
+    url       = "https://github.com/shusoyo/halfyear";
     tokenFile = "${config.sops.secrets.github-runner-token.path}";
-    url = "https://github.com/shusoyo/halfyear";
-    extraLabels = [ "nixos" ];
+
+    extraLabels   = [ "nixos" ];
     extraPackages = [
-      pkgs.typst
       pkgs.gitMinimal
     ];
   };

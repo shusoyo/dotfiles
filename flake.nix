@@ -40,8 +40,7 @@
     camel-system = gen.nixos-conf-gen "camel"   "mirage"  "x86_64-linux";
 
     hwcloud      = gen.nixos-conf-gen "hwc"     "root"    "x86_64-linux";
-    tycloud      = gen.nixos-conf-gen "hwc"     "root"    "x86_64-linux";
-    lab333       = gen.nixos-conf-gen "lab333"  "printer" "x86_64-linux";
+    sis2         = gen.nixos-conf-gen "sis2"    "printer" "x86_64-linux";
   in gen.merge-conf [
     ss-system
     ss-home
@@ -49,6 +48,6 @@
     camel-system
     camel-home
     hwcloud
-    lab333
+    sis2
   ];
 }

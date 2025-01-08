@@ -1,22 +1,5 @@
 {
-
-  networking.hostName = "camel";
-  networking.useNetworkd = true;
-  networking.useDHCP     = false;
-
-  systemd.network.enable = true;
-  systemd.network.networks.ethernet = {
-    matchConfig.Name = "enp0s1";
-    DHCP = "yes";
-    networkConfig = {
-      KeepConfiguration = "yes";
-      IPv6AcceptRA = "yes";
-      IPv6PrivacyExtensions = "no";
-    };
-  };
-
   # networking.firewall.allowedUDPPorts = [ 51820 ];
-  networking.useNetworkd = true;
 
   # systemd.network.netdevs = {
   #   "50-wg0" = {
