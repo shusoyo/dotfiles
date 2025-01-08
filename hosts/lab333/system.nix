@@ -2,20 +2,23 @@
 
   imports = [
     ../general/system.nix
-    ./hardware-configuration.nix
-    ./network.nix
+    inputs.wsl.nixosModules.default
+    # ./hardware-configuration.nix
+    # ./network.nix
   ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  wsl.enable = true;
+
+  # boot.loader.systemd-boot.enable = true;
+  # boot.loader.efi.canTouchEfiVariables = true;
 
   time.timeZone = "Asia/Shanghai";
 
   i18n.defaultLocale = "en_US.UTF-8";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.mirage = {
-    home         = "/home/mirage";
+  users.users.printer = {
+    home         = "/home/printer";
     shell        = pkgs.fish;
     isNormalUser = true;
     extraGroups  = [ "wheel" ];
