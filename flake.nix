@@ -48,6 +48,7 @@
     camel
 
     hwcloud
+    # sis2
     sis
   ];
 }

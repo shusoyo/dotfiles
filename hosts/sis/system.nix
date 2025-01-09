@@ -3,6 +3,7 @@
   imports = [
     ../general/system.nix
     ./hardware.nix
+    ./printer.nix
 
     inputs.disko.nixosModules.disko
   ];
@@ -19,14 +20,26 @@
     users.typer = import ./home.nix;
   };
 
+  networking.useNetworkd = true;
   networking.useDHCP  = false;
   networking.hostName = "sis";
 
   systemd.network.enable = true;
+  systemd.network.networks."50-usb-RNDIS" = {
+    matchConfig.Name = "enp0s20f0u2";
+    DHCP = "yes";
+    dns  = [ "8.8.8.8" ];
+    dhcpV4Config = {
+      RouteMetric = 100;
+    };
+  };
+
   systemd.network.networks."10-enp1s0" = {
     matchConfig.Name = "enp1s0";
     address = [ "10.85.13.10/25" ];
-    gateway = [ "10.85.13.1" ];
+    routes  = [
+      { Gateway = "10.85.13.1"; Metric = 300; }
+    ];
   };
 
   environment.systemPackages = [
@@ -34,6 +47,7 @@
     pkgs.vim
     pkgs.wget
     pkgs.gitMinimal
+    pkgs.mtr
   ];
 
   boot.loader.systemd-boot.enable      = true;
@@ -68,6 +82,7 @@
   };
 
   programs.command-not-found.enable = false;
+  documentation.man.generateCaches = lib.mkForce false;
 
   system.stateVersion = "25.05";
 }
