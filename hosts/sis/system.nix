@@ -3,13 +3,15 @@
   imports = [
     ../general/system.nix
     ./hardware.nix
-    ./printer.nix
+    ./services.nix
 
     inputs.disko.nixosModules.disko
   ];
 
   services.openssh.enable = true;
 
+  # Modules options first
+  # ------------------------------------------------------
   modules.sops = {
     enable   = true;
     sopsFile = ./secrets/secrets.yaml;
@@ -20,6 +22,8 @@
     users.typer = import ./home.nix;
   };
 
+  # Networking
+  # ------------------------------------------------------
   networking.useNetworkd = true;
   networking.useDHCP  = false;
   networking.hostName = "sis";
@@ -42,21 +46,8 @@
     ];
   };
 
-  environment.systemPackages = [
-    pkgs.curl
-    pkgs.vim
-    pkgs.wget
-    pkgs.gitMinimal
-    pkgs.mtr
-  ];
-
-  boot.loader.systemd-boot.enable      = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  time.timeZone = "Asia/Shanghai";
-
-  i18n.defaultLocale = "en_US.UTF-8";
-
+  # users
+  # ------------------------------------------------------
   users.users = let
     ssh-keys = with ss.ssh-id; [ ss0 ss1 ms0 ];
   in {
@@ -80,6 +71,21 @@
     enable       = true;
     useBabelfish = true;
   };
+
+  environment.systemPackages = [
+    pkgs.curl
+    pkgs.vim
+    pkgs.wget
+    pkgs.gitMinimal
+    pkgs.mtr
+  ];
+
+  boot.loader.systemd-boot.enable      = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  time.timeZone = "Asia/Shanghai";
+
+  i18n.defaultLocale = "en_US.UTF-8";
 
   programs.command-not-found.enable = false;
   documentation.man.generateCaches = lib.mkForce false;

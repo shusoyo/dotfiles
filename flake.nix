@@ -23,11 +23,6 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    wsl = {
-      url = "github:nix-community/NixOS-WSL/main";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, darwin, ... }: let
@@ -39,7 +34,6 @@
     camel        = gen.nixos-conf-gen "camel" "mirage"  "x86_64-linux";
 
     hwcloud      = gen.nixos-conf-gen "hwc"   "root"    "x86_64-linux";
-    sis2         = gen.nixos-conf-gen "sis2"  "printer" "x86_64-linux";
     sis          = gen.nixos-conf-gen "sis"   "typer"   "x86_64-linux";
   in gen.merge-conf [
     ss-system
@@ -48,7 +42,6 @@
     camel
 
     hwcloud
-    # sis2
     sis
   ];
 }
