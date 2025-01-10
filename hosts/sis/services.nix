@@ -28,14 +28,14 @@
   };
 
   hardware.printers = {
-    ensureDefaultPrinter = "p1106";
+    ensureDefaultPrinter = "HP_laserjet_P1106";
 
     ensurePrinters = [
       {
-        name       = "p1106";
-        location   = "Home";
+        name       = "HP_laserjet_P1106";
+        location   = "sis";
         deviceUri  = "hp:/usb/HP_LaserJet_Professional_P1106?serial=000000000QNBJ3P2PR1a";
-        model      = "HP/hp-laserjet_professional_p1106.ppd.gz";
+        model      = "drv:///hp/hpcups.drv/hp-laserjet_professional_p1106.ppd";
         ppdOptions = { PageSize = "A4"; };
       }
     ];

@@ -46,6 +46,50 @@
     ];
   };
 
+#   networking.firewall.extraCommands = ''
+#     # Set up SNAT on packets going from downstream to the wider internet
+#     iptables -t nat -A POSTROUTING -o enp0s20f0u2 -j MASQUERADE
+#
+#     # Accept all connections from downstream. May not be necessary
+#     iptables -A INPUT -i enp1s0 -j ACCEPT
+#   '';
+#
+# # Run a DHCP server on the downstream interface
+#   services.kea.dhcp4 = {
+#     enable = true;
+#     settings = {
+#       interfaces-config = {
+#         interfaces = [
+#           "enp1s0"
+#         ];
+#       };
+#       lease-database = {
+#         name = "/var/lib/kea/dhcp4.leases";
+#         persist = true;
+#         type = "memfile";
+#       };
+#       rebind-timer = 2000;
+#       renew-timer = 1000;
+#       subnet4 = [
+#         {
+#           id = 1;
+#           pools = [
+#             {
+#               pool = "10.85.13.11 - 10.85.13.40";
+#             }
+#           ];
+#           subnet = "10.85.13.10/25";
+#         }
+#       ];
+#       valid-lifetime = 4000;
+#       option-data = [{
+#         name = "routers";
+#         data = "10.85.13.10";
+#       }];
+#     };
+#   };
+
+
   # users
   # ------------------------------------------------------
   users.users = let
