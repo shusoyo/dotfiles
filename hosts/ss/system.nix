@@ -1,8 +1,12 @@
 { pkgs, lib, ... }: {
 
   imports = [
-    ../general/system.nix
+    ../../modules/system/nix-nixpkgs-config.nix
   ];
+
+  modules = {
+    nix-nixpkgs-settings.enable = true;
+  };
 
 # Host/Users
 # --------------------------------------------------------------------
