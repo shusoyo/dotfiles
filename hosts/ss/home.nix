@@ -47,9 +47,9 @@
     ];
   };
 
-  sops = {
-    defaultSopsFile = ./secrets/secrets.yaml;
-    age.keyFile = [ "${config.xdg.configHome}/sops/age/keys.txt" ];
+  modules.sops = {
+    enable   = true;
+    sopsFile = ./secrets/secrets.yaml;
   };
 
   modules = {

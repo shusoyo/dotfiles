@@ -36,11 +36,13 @@
     hwcloud      = gen.nixos-conf-gen "hwc"   "root"    "x86_64-linux";
     sis          = gen.nixos-conf-gen "sis"   "typer"   "x86_64-linux";
   in gen.merge-conf [
-    ss-system
-    ss-home
+    # pc
+    ss-system    ss-home
 
+    # local vm nixos
     camel
 
+    # local/cloud server
     hwcloud
     sis
   ];

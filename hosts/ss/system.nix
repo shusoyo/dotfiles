@@ -4,9 +4,9 @@
     ../../modules/system/nix-nixpkgs-config.nix
   ];
 
-  modules = {
-    nix-nixpkgs-settings.enable = true;
-  };
+# Modules options first
+# ------------------------------------------------------
+  modules.nix-nixpkgs-settings.enable = true;
 
 # Host/Users
 # --------------------------------------------------------------------

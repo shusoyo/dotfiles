@@ -12,11 +12,6 @@
     users.mirage = import ./home.nix;
   };
 
-  modules.sops = {
-    enable   = true;
-    sopsFile = ./secrets/secrets.yaml;
-  };
-
   # Users
   # ------------------------------------------------------
   users.users.mirage = {
