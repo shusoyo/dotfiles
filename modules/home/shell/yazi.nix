@@ -14,11 +14,9 @@ in {
       yz = "yazi";
     };
 
-    xdg.configFile = {
-      "yazi/plugins".source     = "${ss.config-path}/yazi/plugins";
-      "yazi/init.lua".source    = "${ss.config-path}/yazi/init.lua";
-      "yazi/yazi.toml".source   = "${ss.config-path}/yazi/yazi.toml";
-      "yazi/keymap.toml".source = "${ss.config-path}/yazi/keymap.toml";
+    xdg.configFile."yazi" = {
+      source    = "${ss.config-path}/yazi";
+      recursive = true;
     };
   };
 }

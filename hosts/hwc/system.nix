@@ -16,14 +16,12 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
-  services.openssh.enable = true;
-
   modules.sops = {
     enable   = true;
     sopsFile = ./secrets/secrets.yaml;
   };
 
-  environment.systemPackages = map lib.lowPrio [
+  environment.systemPackages = [
     pkgs.curl
     pkgs.vim
     pkgs.wget
@@ -47,14 +45,6 @@
       ss.ssh-id.ss1
     ];
   };
-
-  environment.shells = [ pkgs.fish ];
-  programs.fish = {
-    enable       = true;
-    useBabelfish = true;
-  };
-
-  programs.command-not-found.enable = false;
 
   system.stateVersion = "25.05";
 }

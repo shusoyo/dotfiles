@@ -72,7 +72,6 @@
     };
 
     root = {
-      shell = pkgs.fish;
       openssh.authorizedKeys.keys = ssh-keys;
     };
   };

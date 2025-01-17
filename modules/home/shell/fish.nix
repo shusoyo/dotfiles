@@ -23,6 +23,26 @@ in {
         # local config to debug or test.
         ${source-local-config}
       '';
+
+      functions.ns = ''
+        set -l flakeHome "${ss.abs-flake-path}"
+        set -x FLAKE $flakeHome
+
+        switch $argv[1]
+            case e
+                $EDITOR $flakeHome
+            case sh
+                nh home switch
+            case sn
+                nh os switch
+            case sd
+                darwin-rebuild switch --flake $flakeHome
+            case cd
+                cd $flakeHome
+            case "*"
+                nh $argv
+        end
+      '';
     };
 
     xdg.configFile = {

@@ -12,7 +12,7 @@ in {
 
     nix.gc = {
       automatic = true;
-      options   = "--delete-older-than 7d";
+      options   = "--delete-older-than 4d";
     };
 
     nix.optimise.automatic = true;
@@ -25,7 +25,8 @@ in {
 
       builders-use-substitutes = true;
       substituters = [
-        "https://mirrors.cernet.edu.cn/nix-channels/store"
+        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+        # "https://mirrors.cernet.edu.cn/nix-channels/store"
       ];
     };
 

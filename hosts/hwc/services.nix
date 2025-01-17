@@ -9,8 +9,6 @@
     tokenFile = "${config.sops.secrets.github-runner-token.path}";
 
     extraLabels   = [ "nixos" ];
-    extraPackages = [
-      pkgs.gitMinimal
-    ];
+    extraPackages = [ pkgs.gitMinimal ];
   };
 }

@@ -2,9 +2,11 @@
 
   imports = [
     ../general/system.nix
-    ./hardware-configuration.nix
+    ./hardware.nix
   ];
 
+  # Modules
+  # ------------------------------------------------------
   modules.home-manager.enable = true;
   home-manager = {
     users.mirage = import ./home.nix;
@@ -15,9 +17,8 @@
     sopsFile = ./secrets/secrets.yaml;
   };
 
-  boot.loader.systemd-boot.enable      = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
+  # Users
+  # ------------------------------------------------------
   users.users.mirage = {
     home         = "/home/mirage";
     shell        = pkgs.fish;
@@ -28,22 +29,22 @@
   };
 
   environment.systemPackages = [
-    pkgs.sops
-    pkgs.age
     pkgs.vim
     pkgs.wget
   ];
 
+  # Networking
+  # ------------------------------------------------------
   networking.hostName    = "camel";
   networking.useNetworkd = true;
   networking.useDHCP     = false;
 
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 80 443 9090 ];
+    allowedTCPPorts = [ 80 443 ];
   };
 
-  systemd.network.enable   = true;
+  systemd.network.enable = true;
   systemd.network.networks = {
     "10-enp0s1" = {
       matchConfig.Name = "enp0s1";
@@ -55,6 +56,11 @@
       ];
     };
   };
+
+  # System
+  # ------------------------------------------------------
+  boot.loader.systemd-boot.enable      = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   system.stateVersion = "25.05";
 }

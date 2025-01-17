@@ -11,7 +11,10 @@ in {
     home.packages = with pkgs; [
       #                      -
       # Shells
-      dash                   elvish
+      dash
+
+      # Encrypt
+      sops                   age
 
       # Tools
       fzf                    ripgrep

@@ -17,8 +17,4 @@
     gp = "gtrash put";
     rm = "echo 'Better use gtrash'; command rm -i";
   };
-
-  programs.fish.shellAbbrs = {
-    cfg = "cd ${config.xdg.configHome}";
-  };
 }
