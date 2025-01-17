@@ -22,11 +22,17 @@
 
   # Networking
   # ------------------------------------------------------
-  networking = {
-    hostName        = "sis";
-    useNetworkd     = true;
-    useDHCP         = false;
-    firewall.enable = false;
+  networking.hostName    = "sis";
+  networking.useDHCP     = false;
+  networking.useNetworkd = true;
+
+  networking.firewall = {
+    enable = true;
+
+    interfaces."enp1s0" = {
+      allowedUDPPorts = [ 67 53 ];
+      allowedTCPPorts = [ 80 443 9090 ];
+    };
   };
 
   systemd.network.enable   = true;
@@ -48,28 +54,8 @@
       routes  = [
         { Gateway = "10.85.13.1"; Metric = 300; }
       ];
-
-      networkConfig = {
-        DHCPServer = "yes";
-      };
-      dhcpServerConfig = {
-        ServerAddress = "10.85.13.10/25";
-        PoolOffset = 2;
-        PoolSize   = 20;
-      };
-      dhcpServerStaticLeases = [
-        { MACAddress = "00:e2:69:6e:2c:ed"; Address = "10.85.13.29"; }
-      ];
     };
   };
-
-#   networking.firewall.extraCommands = ''
-#     # Set up SNAT on packets going from downstream to the wider internet
-#     iptables -t nat -A POSTROUTING -o enp0s20f0u2 -j MASQUERADE
-#
-#     # Accept all connections from downstream. May not be necessary
-#     iptables -A INPUT -i enp1s0 -j ACCEPT
-#   '';
 
   # users
   # ------------------------------------------------------
@@ -91,12 +77,6 @@
     };
   };
 
-  environment.shells = [ pkgs.fish ];
-  programs.fish = {
-    enable       = true;
-    useBabelfish = true;
-  };
-
   environment.systemPackages = [
     pkgs.curl
     pkgs.vim
@@ -107,9 +87,6 @@
 
   boot.loader.systemd-boot.enable      = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  time.timeZone      = "Asia/Shanghai";
-  i18n.defaultLocale = "en_US.UTF-8";
 
   system.stateVersion = "25.05";
 }

@@ -40,4 +40,45 @@
       }
     ];
   };
+
+  # Dnsmasq
+  # ------------------------------------------------------------------------------
+
+  # networking.firewall.extraCommands = ''
+  #   # Set up SNAT on packets going from downstream to the wider internet
+  #   iptables -t nat -A POSTROUTING -o enp0s20f0u2 -j MASQUERADE
+  #
+  #   # Accept all connections from downstream. May not be necessary
+  #   iptables -A INPUT -i enp1s0 -j ACCEPT
+  # '';
+
+  services.dnsmasq = {
+    enable = true;
+    settings = {
+      interface = "enp1s0";
+
+      bind-interfaces    = true;
+      dhcp-authoritative = true;
+
+      dhcp-host = [
+        "00:e2:69:6e:2c:ed,10.85.13.20"
+      ];
+
+      dhcp-option = [
+        "option:router,10.85.13.10"
+      ];
+
+      dhcp-range = [
+        "10.85.13.40,10.85.13.90,24h"
+      ];
+    };
+  };
+
+  # Mihomo
+  # ------------------------------------------------------------------------------
+  services.mihomo = {
+    enable     = true;
+    webui      = pkgs.metacubexd;
+    configFile = ./config.yaml;
+  };
 }
