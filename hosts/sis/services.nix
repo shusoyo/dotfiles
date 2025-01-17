@@ -61,7 +61,9 @@
       dhcp-authoritative = true;
 
       dhcp-host = [
-        "00:e2:69:6e:2c:ed,10.85.13.20"
+        "00:e2:69:6e:2c:ed,10.85.13.20" # ss's hac
+        "fe:0f:12:b5:57:77,10.85.13.21" # ss's utm
+        "a8:b1:3b:8e:bc:5e,10.85.13.22" # ms's laptop
       ];
 
       dhcp-option = [
@@ -76,9 +78,9 @@
 
   # Mihomo
   # ------------------------------------------------------------------------------
-  services.mihomo = {
-    enable     = true;
-    webui      = pkgs.metacubexd;
-    configFile = ./config.yaml;
-  };
+  # services.mihomo = {
+  #   enable     = true;
+  #   webui      = pkgs.metacubexd;
+  #   configFile = ./config.yaml;
+  # };
 }

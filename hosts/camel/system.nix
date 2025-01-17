@@ -43,14 +43,16 @@
     allowedTCPPorts = [ 80 443 9090 ];
   };
 
-  systemd.network.enable = true;
-  systemd.network.networks.ethernet = {
-    matchConfig.Name = "enp0s1";
-    DHCP = "yes";
-    networkConfig = {
-      IPv6AcceptRA          = "yes";
-      KeepConfiguration     = "yes";
-      IPv6PrivacyExtensions = "no";
+  systemd.network.enable   = true;
+  systemd.network.networks = {
+    "10-enp0s1" = {
+      matchConfig.Name = "enp0s1";
+      address = [
+        "192.168.64.2/24"
+      ];
+      routes  = [
+        { Gateway = "192.168.64.1"; }
+      ];
     };
   };
 
