@@ -13,7 +13,8 @@ in {
     home-manager = {
       useGlobalPkgs    = true;
       useUserPackages  = true;
-      extraSpecialArgs = { inherit ss; };
+      extraSpecialArgs = { inherit ss inputs; };
+      backupFileExtension = "backup";
     };
   };
 }
