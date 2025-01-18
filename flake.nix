@@ -33,7 +33,8 @@
 
     camel        = gen.nixos-conf-gen "camel" "mirage"  "x86_64-linux";
 
-    hwcloud      = gen.nixos-conf-gen "hwc"   "root"    "x86_64-linux";
+    hws          = gen.nixos-conf-gen "hws"   "root"    "x86_64-linux";
+    azs          = gen.nixos-conf-gen "azs"   "root"    "x86_64-linux";
     sis          = gen.nixos-conf-gen "sis"   "typer"   "x86_64-linux";
   in gen.merge-conf [
     # pc
@@ -43,7 +44,8 @@
     camel
 
     # local/cloud server
-    hwcloud
+    hws
+    azs
     sis
   ];
 }

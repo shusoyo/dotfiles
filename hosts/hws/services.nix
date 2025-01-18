@@ -1,12 +1,12 @@
 { config, pkgs, ... }: {
 
-  sops.secrets."github-runner-token" = {};
+  sops.secrets."gh-pat" = {};
 
-  services.github-runners.hwc = {
+  services.github-runners.halfyear = {
     enable    = true;
-    name      = "hwc";
+    name      = "halfyear-runner";
     url       = "https://github.com/shusoyo/halfyear";
-    tokenFile = "${config.sops.secrets.github-runner-token.path}";
+    tokenFile = "${config.sops.secrets.gh-pat.path}";
 
     extraLabels   = [ "nixos" ];
     extraPackages = [ pkgs.gitMinimal ];

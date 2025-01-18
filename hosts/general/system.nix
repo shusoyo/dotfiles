@@ -1,24 +1,23 @@
 { lib, pkgs, ... }: {
 
   imports = [
-    ../../modules/system/nix-nixpkgs-config.nix
+    ../../modules/system/ssh.nix
+    ../../modules/system/fish.nix
     ../../modules/system/sops.nix
+    ../../modules/system/headless.nix
     ../../modules/system/home-manager.nix
+    ../../modules/system/nix-nixpkgs-config.nix
   ];
 
   modules = {
     nix-nixpkgs-settings.enable = true;
+
+    ssh.enable  = true;
+
+    fish.enable = true;
+
+    headless.enable = true;
   };
-
-  environment.shells = [ pkgs.fish ];
-  programs.fish = {
-    enable       = true;
-    useBabelfish = true;
-  };
-
-  services.openssh.enable = true;
-
-  fonts.fontconfig.enable = false;
 
   time.timeZone      = "Asia/Shanghai";
   i18n.defaultLocale = "en_US.UTF-8";
