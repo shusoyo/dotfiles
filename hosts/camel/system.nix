@@ -3,6 +3,7 @@
   imports = [
     ../general/system.nix
     ./hardware.nix
+    ./services.nix
   ];
 
   # Modules
@@ -10,6 +11,11 @@
   modules.home-manager.enable = true;
   home-manager = {
     users.mirage = import ./home.nix;
+  };
+
+  modules.sops = {
+    enable   = true;
+    sopsFile = ./secrets/secrets.yaml;
   };
 
   # Users
@@ -30,14 +36,10 @@
 
   # Networking
   # ------------------------------------------------------
-  networking.hostName    = "camel";
-  networking.useNetworkd = true;
-  networking.useDHCP     = false;
-
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [ 80 443 ];
-  };
+  networking.hostName        = "camel";
+  networking.useNetworkd     = true;
+  networking.useDHCP         = false;
+  networking.firewall.enable = false;
 
   systemd.network.enable = true;
   systemd.network.networks = {
@@ -49,6 +51,17 @@
       routes  = [
         { Gateway = "192.168.64.1"; }
       ];
+    };
+  };
+
+  services.avahi = {
+    enable       = true;
+    nssmdns4     = true;
+    openFirewall = true;
+
+    publish = {
+      enable       = true;
+      userServices = true;
     };
   };
 

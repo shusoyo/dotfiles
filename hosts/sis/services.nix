@@ -1,6 +1,6 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
 
-  # Printer (HP LaserJet_Professional P1106 at sis2, 333)
+  # Mdns
   # ------------------------------------------------------------------------------
   services.avahi = {
     enable       = true;
@@ -13,6 +13,8 @@
     };
   };
 
+  # Printer (HP LaserJet_Professional P1106 at sis2, 333)
+  # ------------------------------------------------------------------------------
   services.printing = {
     enable  = true;
     drivers = [ pkgs.hplipWithPlugin ];
@@ -22,6 +24,7 @@
     browsing        = true;
     defaultShared   = true;
     openFirewall    = true;
+
     extraConf = ''
       DefaultEncryption Never
     '';
@@ -30,18 +33,16 @@
   hardware.printers = {
     ensureDefaultPrinter = "HP_laserjet_P1106";
 
-    ensurePrinters = [
-      {
-        name       = "HP_laserjet_P1106";
-        location   = "sis";
-        deviceUri  = "hp:/usb/HP_LaserJet_Professional_P1106?serial=000000000QNBJ3P2PR1a";
-        model      = "drv:///hp/hpcups.drv/hp-laserjet_professional_p1106.ppd";
-        ppdOptions = { PageSize = "A4"; };
-      }
-    ];
+    ensurePrinters = [{
+      name       = "HP_laserjet_P1106";
+      location   = "sis";
+      deviceUri  = "hp:/usb/HP_LaserJet_Professional_P1106?serial=000000000QNBJ3P2PR1a";
+      model      = "drv:///hp/hpcups.drv/hp-laserjet_professional_p1106.ppd";
+      ppdOptions = { PageSize = "A4"; };
+    }];
   };
 
-  # Dnsmasq
+  # Internet sharing
   # ------------------------------------------------------------------------------
 
   # networking.firewall.extraCommands = ''
@@ -72,6 +73,10 @@
       dhcp-range = [
         "10.85.13.40,10.85.13.90,24h"
       ];
+
+      local-service     = true;
+      bogus-priv        = true;
+      domain-needed     = true;
     };
   };
 
@@ -82,4 +87,16 @@
   #   webui      = pkgs.metacubexd;
   #   configFile = ./config.yaml;
   # };
+
+  # Miniflux
+  # ------------------------------------------------------------------------------
+  sops.secrets.miniflux = {};
+
+  services.miniflux = {
+    enable = true;
+    adminCredentialsFile = "${config.sops.secrets.miniflux.path}";
+    config = {
+      LISTEN_ADDR = "0.0.0.0:8070";
+    };
+  };
 }

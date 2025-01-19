@@ -6,22 +6,10 @@
     ./services.nix
   ];
 
-  networking.useDHCP  = true;
-  networking.hostName = "cts";
-
-  nixpkgs.hostPlatform = "x86_64-linux";
-
   modules.sops = {
     enable   = true;
     sopsFile = ./secrets/secrets.yaml;
   };
-
-  environment.systemPackages = [
-    pkgs.curl
-    pkgs.vim
-    pkgs.wget
-    pkgs.gitMinimal
-  ];
 
   users.users.root = {
     shell = pkgs.fish;
@@ -31,6 +19,13 @@
       ss.ssh-id.ss1
     ];
   };
+
+  networking.useDHCP  = true;
+  networking.hostName = "cts";
+
+  nixpkgs.hostPlatform = "x86_64-linux";
+
+  system.stateVersion = "25.05";
 
   boot = {
     kernelParams = [
@@ -61,6 +56,4 @@
     device = "/dev/disk/by-uuid/b7b2ae55-7f78-4c91-9e0a-c73957b70484";
     fsType = "ext4";
   };
-
-  system.stateVersion = "25.05";
 }
