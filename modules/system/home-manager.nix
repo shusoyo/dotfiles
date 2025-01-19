@@ -11,9 +11,9 @@ in {
 
   config = lib.mkIf cfg.enable {
     home-manager = {
-      useGlobalPkgs    = true;
-      useUserPackages  = true;
-      extraSpecialArgs = { inherit ss inputs; };
+      useGlobalPkgs       = true;
+      useUserPackages     = true;
+      extraSpecialArgs    = { inherit ss inputs; };
       backupFileExtension = "backup";
     };
   };

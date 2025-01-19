@@ -1,7 +1,5 @@
 { ss, lib, config, ... }:
 
-with lib;
-
 let
   cfg = config.modules.ssh;
 in {
@@ -9,37 +7,38 @@ in {
     enable = ss.mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable {
-    sops.secrets."hwc" = {
-      sopsFile = ./hosts.yaml;
+  config = lib.mkIf cfg.enable {
+    sops.secrets = {
+      hws.sopsFile = ./secrets.yaml;
+      cts.sopsFile = ./secrets.yaml;
     };
 
-    sops.templates."hosts.conf".content = ''
+    sops.templates.ssh-config.content = ''
       Host github.com
         AddKeysToAgent yes
         IdentityFile ~/.ssh/id_ed25519
 
       Host mirage
-        HostName 192.168.64.2
+        HostName camel.local
         User mirage
         IdentityFile ~/.ssh/id_ed25519
 
       Host hwc
-        HostName ${config.sops.placeholder."hwc"}
+        HostName ${config.sops.placeholder.hws}
         User root
         IdentityFile ~/.ssh/id_ed25519
 
-      Host sis
+      Host cts
+        HostName ${config.sops.placeholder.cts}
+        User root
+        IdentityFile ~/.ssh/id_ed25519
+
+      Host typer
         HostName 10.85.13.10
         User typer
         IdentityFile ~/.ssh/id_ed25519
     '';
 
-    sops.templates."hosts.conf".path = "${config.home.homeDirectory}/.ssh/hosts.d/hosts.conf";
-
-    home.file."/.ssh" = {
-      source = "${ss.config-path}/ssh";
-      recursive = true;
-    };
+    sops.templates.ssh-config.path = "${config.home.homeDirectory}/.ssh/config";
   };
 }

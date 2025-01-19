@@ -10,9 +10,11 @@ in {
   config = lib.mkIf cfg.enable {
     services.openssh = {
       enable = true;
-      settings.PermitRootLogin              = "yes";
-      settings.PasswordAuthentication       = false;
-      settings.KbdInteractiveAuthentication = false;
+      settings = {
+        PermitRootLogin              = "yes";
+        PasswordAuthentication       = false;
+        KbdInteractiveAuthentication = false;
+      };
     };
   };
 }
