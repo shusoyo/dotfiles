@@ -1,12 +1,9 @@
 { modulesPath, inputs, config, lib, pkgs, ss, ... }: {
 
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
     ../general/system.nix
     ./services.nix
-
-    inputs.disko.nixosModules.disko
   ];
 
   networking.useDHCP  = true;
@@ -14,10 +11,10 @@
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
-  # modules.sops = {
-  #   enable   = true;
-  #   sopsFile = ./secrets/secrets.yaml;
-  # };
+  modules.sops = {
+    enable   = true;
+    sopsFile = ./secrets/secrets.yaml;
+  };
 
   environment.systemPackages = [
     pkgs.curl
@@ -36,69 +33,34 @@
   };
 
   boot = {
-    # initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "virtio_blk" ];
-    # initrd.kernelModules = [ "dm-snapshot" ];
+    kernelParams = [
+      "console=ttyS0,115200n8"
+      "console=tty0"
+    ];
+
+    initrd.availableKernelModules = [
+      "uhci_hcd"
+      "ehci_pci"
+      "xhci_pci"
+      "sr_mod"
+      "virtio_blk"
+      "ahci"
+      "ata_piix"
+      "virtio_pci"
+      "xen_blkfront"
+      "vmw_pvscsi"
+    ];
 
     loader.grub = {
-      efiSupport = true;
-      efiInstallAsRemovable = true;
+      enable = true;
+      device = "/dev/vda";
     };
+  };
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/b7b2ae55-7f78-4c91-9e0a-c73957b70484";
+    fsType = "ext4";
   };
 
   system.stateVersion = "25.05";
-
-  disko.devices.disk = {
-    main = {
-      type   = "disk";
-      device = "/dev/vda";
-
-      content = {
-        type = "gpt";
-
-        partitions = {
-          boot = {
-            name = "boot";
-            size = "1M";
-            type = "EF02";
-          };
-          ESP = {
-            priority = 1;
-            name     = "ESP";
-            end      = "500M";
-            type     = "EF00";
-
-            content = {
-              type         = "filesystem";
-              format       = "vfat";
-              mountpoint   = "/boot";
-              mountOptions = [ "umask=0077" ];
-            };
-          };
-          root = {
-            size = "100%";
-
-            content = {
-              type      = "btrfs";
-              extraArgs = [ "-f" ];
-
-              subvolumes = {
-                "/root" = {
-                  mountpoint   = "/";
-                  mountOptions = [ "compress=zstd" ];
-                };
-                "/home" = {
-                  mountpoint   = "/home";
-                  mountOptions = [ "compress=zstd" ];
-                };
-                "/nix" = {
-                  mountpoint   = "/nix";
-                  mountOptions = [ "compress=zstd" "noatime" ];
-                };
-              };
-            };
-          };
-        };
-      };
-    };
-  };
 }
