@@ -1,0 +1,56 @@
+ipv6: false
+external-controller: 0.0.0.0:9090
+external-ui: ui
+geodata-mode: true  # 开启 dat 模式 面板可显示规则数量
+geo-auto-update: true
+geo-update-interval: 24
+geox-url:
+  geoip: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip-lite.dat"  # lite 版本 GEOIP 体积小
+tun:
+  enable: true
+  auto-route: true
+  auto-detect-interface: true
+  strict-route: true
+  stack: system
+  dns-hijack:
+    - 0.0.0.0:53
+dns:
+  enable: true
+  listen: 0.0.0.0:53
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - '*.lan'
+    - localhost.ptlogin2.qq.com
+    - +.msftconnecttest.com
+    - +.msftncsi.com
+  nameserver:
+    - system  # 调用系统 DNS 兼容性和速度最佳
+proxy-groups:
+  - name: "PROXY"
+    type: select
+    use:
+      - abyss
+rule-providers:
+  global:
+    type: http
+    path: ./global.yaml
+    url: "https://fastly.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/ProxyLite.yaml"
+    interval: 86400
+    proxy: DIRECT
+    behavior: classical
+    format: yaml
+  china:
+    type: http
+    path: ./china.yaml
+    url: "https://fastly.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/ChinaDomain.yaml"
+    interval: 86400
+    proxy: DIRECT
+    behavior: classical
+    format: yaml
+rules:
+  - GEOIP,private,DIRECT,no-resolve  # GEOIP 规则前加入 no-resolve 不提前解析 DNS
+  - RULE-SET,global,PROXY,no-resolve
+  - RULE-SET,china,DIRECT,no-resolve
+  - GEOIP,cn,DIRECT
+  - MATCH,PROXY

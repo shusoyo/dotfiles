@@ -15,7 +15,6 @@
 
   modules.sops = {
     enable   = true;
-    sopsFile = ./secrets/secrets.yaml;
   };
 
   # Users

@@ -47,7 +47,7 @@
 
   # networking.firewall.extraCommands = ''
   #   # Set up SNAT on packets going from downstream to the wider internet
-  #   iptables -t nat -A POSTROUTING -o enp0s20f0u2 -j MASQUERADE
+  #   iptables -t nat -A POSTROUTING -o enp0s20f0u5 -j MASQUERADE
   #
   #   # Accept all connections from downstream. May not be necessary
   #   iptables -A INPUT -i enp1s0 -j ACCEPT
@@ -82,11 +82,23 @@
 
   # Mihomo
   # ------------------------------------------------------------------------------
-  # services.mihomo = {
-  #   enable     = true;
-  #   webui      = pkgs.metacubexd;
-  #   configFile = ./config.yaml;
-  # };
+  sops.secrets.abyss-url = {};
+  sops.templates."mihomo-config.yaml".content = ''
+    ${builtins.readFile ./clash-config.yaml}
+    proxy-providers:
+      abyss:
+        type: http
+        url: "${config.sops.placeholder.abyss-url}"
+        path: ./abyss.yaml
+        interval: 86400
+  '';
+
+  services.mihomo = {
+    enable     = true;
+    configFile = config.sops.templates."mihomo-config.yaml".path;
+    webui      = pkgs.metacubexd;
+    tunMode    = true;
+  };
 
   # Miniflux
   # ------------------------------------------------------------------------------

@@ -33,7 +33,7 @@ in {
         User root
         IdentityFile ~/.ssh/id_ed25519
 
-      Host typer
+      Host sis
         HostName 10.85.13.10
         User typer
         IdentityFile ~/.ssh/id_ed25519

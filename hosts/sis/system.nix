@@ -1,11 +1,11 @@
 { modulesPath, inputs, config, lib, pkgs, ss, ... }: {
 
   imports = [
+    inputs.disko.nixosModules.disko
     (modulesPath + "/installer/scan/not-detected.nix")
+
     ../general/system.nix
     ./services.nix
-
-    inputs.disko.nixosModules.disko
   ];
 
   # Modules options first
@@ -39,28 +39,25 @@
     # };
   };
 
-  systemd.network = {
-    enable   = true;
-
-    networks = {
-      "50-usb-RNDIS" = {
-        matchConfig.Name = "enp0s20f0*";
-        DHCP = "yes";
-        dns  = [ "8.8.8.8" ];
-        dhcpV4Config = {
-          RouteMetric = 100;
-        };
+  systemd.network.enable = true;
+  systemd.network.networks = {
+    "50-usb-RNDIS" = {
+      matchConfig.Name = "enp0s20f0*";
+      DHCP = "yes";
+      dns  = [ "8.8.8.8" ];
+      dhcpV4Config = {
+        RouteMetric = 100;
       };
+    };
 
-      "10-enp1s0" = {
-        matchConfig.Name = "enp1s0";
-        address = [
-          "10.85.13.10/25"
-        ];
-        routes  = [
-          { Gateway = "10.85.13.1"; Metric = 300; }
-        ];
-      };
+    "10-enp1s0" = {
+      matchConfig.Name = "enp1s0";
+      address = [
+        "10.85.13.10/25"
+      ];
+      routes  = [
+        { Gateway = "10.85.13.1"; Metric = 300; }
+      ];
     };
   };
 
@@ -93,7 +90,6 @@
 
   # Low level
   # ------------------------------------------------------
-
   boot = {
     loader = {
       systemd-boot.enable      = true;
