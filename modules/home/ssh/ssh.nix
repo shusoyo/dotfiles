@@ -23,7 +23,7 @@ in {
         User mirage
         IdentityFile ~/.ssh/id_ed25519
 
-      Host hwc
+      Host hws
         HostName ${config.sops.placeholder.hws}
         User root
         IdentityFile ~/.ssh/id_ed25519

@@ -16,7 +16,7 @@ rec {
       if system == "x86_64-darwin" then "/Users/" else "/home/"
   ) + username;
 
-  abs-flake-path  = "${home-path}/.config/home-manager";
+  abs-flake-path  = "${home-path}/.config/dotfiles";
   abs-config-path = "${abs-flake-path}/config";
   config-path     = "${self}/config";
 }
