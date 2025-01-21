@@ -26,38 +26,21 @@
     useDHCP     = false;
     useNetworkd = true;
 
-    # firewall.enable = false;
-
     firewall = {
       enable = true;
-
-      interfaces."enp1s0" = {
-        allowedUDPPorts = [ 67 53 ];
-        allowedTCPPorts = [ 80 443 9090 8070 ];
-      };
+      allowedUDPPorts = [ 67 53 ];
+      allowedTCPPorts = [ 80 443 9090 8070 ];
+      # interfaces."enp1s0" = {
+      #   allowedUDPPorts = [ 67 53 ];
+      #   allowedTCPPorts = [ 80 443 9090 8070 ];
+      # };
     };
   };
 
   systemd.network.enable = true;
-  systemd.network.networks = {
-    "50-usb-RNDIS" = {
-      matchConfig.Name = "enp0s20f0*";
-      DHCP = "yes";
-      dns  = [ "8.8.8.8" ];
-      dhcpV4Config = {
-        RouteMetric = 100;
-      };
-    };
-
-    "10-enp1s0" = {
-      matchConfig.Name = "enp1s0";
-      address = [
-        "10.85.13.10/25"
-      ];
-      routes  = [
-        { Gateway = "10.85.13.1"; Metric = 300; }
-      ];
-    };
+  systemd.network.networks."50-usb-RNDIS" = {
+    matchConfig.Name = "enp0s20f0*";
+    DHCP = "yes";
   };
 
   # users

@@ -50,31 +50,24 @@
     iptables -A INPUT -i enp1s0 -j ACCEPT
   '';
 
-  services.dnsmasq = {
-    enable = true;
-    settings = {
-      interface = "enp1s0";
+  systemd.network.networks."10-enp1s0" = {
+    matchConfig.Name = "enp1s0";
 
-      bind-interfaces    = true;
-      dhcp-authoritative = true;
+    address = [ "10.85.13.10/25" ];
 
-      dhcp-host = [
-        "00:e2:69:6e:2c:ed,10.85.13.20" # ss's hac
-        "a8:b1:3b:8e:bc:5e,10.85.13.21" # ms's laptop
-      ];
-
-      dhcp-option = [
-        "option:router,10.85.13.10"
-      ];
-
-      dhcp-range = [
-        "10.85.13.40,10.85.13.90,24h"
-      ];
-
-      local-service     = true;
-      bogus-priv        = true;
-      domain-needed     = true;
+    networkConfig = {
+      DHCPServer = "yes";
     };
+
+    dhcpServerConfig = {
+      ServerAddress = "10.0.0.1/24";
+      PoolOffset = 20;
+      PoolSize   = 30;
+    };
+
+    dhcpServerStaticLeases = [
+      { MACAddress = "00:e2:69:6e:2c:ed"; Address = "10.0.0.10"; }
+    ];
   };
 
   # Mihomo
@@ -94,7 +87,7 @@
     enable     = true;
     configFile = config.sops.templates."mihomo-config.yaml".path;
     webui      = pkgs.metacubexd;
-    # tunMode    = true;
+    tunMode    = true;
   };
 
   # Miniflux

@@ -7,7 +7,7 @@ in {
 
   options.modules.sops = {
     enable   = ss.mkBoolOpt false;
-    sopsFile = lib.mkOption { type = lib.types.path; };
+    sopsFile = ss.mkOpt (lib.types.nullOr lib.types.path) null;
   };
 
   config = lib.mkIf cfg.enable {

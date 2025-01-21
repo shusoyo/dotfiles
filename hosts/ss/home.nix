@@ -48,8 +48,7 @@
   };
 
   modules.sops = {
-    enable   = true;
-    sopsFile = ./secrets/secrets.yaml;
+    enable = true;
   };
 
   modules = {

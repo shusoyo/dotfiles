@@ -1,36 +1,52 @@
 ipv6: false
 external-controller: 0.0.0.0:9090
 external-ui: ui
-geodata-mode: true  # 开启 dat 模式 面板可显示规则数量
+
+geodata-mode: true
 geo-auto-update: true
 geo-update-interval: 24
 geox-url:
   geoip: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip-lite.dat"  # lite 版本 GEOIP 体积小
+
 tun:
   enable: true
+  stack: mixed
   auto-route: true
+  strict-route: false
   auto-detect-interface: true
-  strict-route: true
-  stack: system
   dns-hijack:
-    - 0.0.0.0:53
+  - any:53
+
 dns:
   enable: true
-  listen: 0.0.0.0:53
+  ipv6: false
+  default-nameserver:
+  - 223.5.5.5
+  - 119.29.29.29
   enhanced-mode: fake-ip
-  fake-ip-range: 198.18.0.1/16
-  fake-ip-filter:
-    - '*.lan'
-    - localhost.ptlogin2.qq.com
-    - +.msftconnecttest.com
-    - +.msftncsi.com
+  fake-ip-range: 172.29.0.1/16
+  use-hosts: true
   nameserver:
-    - system  # 调用系统 DNS 兼容性和速度最佳
+  - https://doh.pub/dns-query
+  - https://dns.alidns.com/dns-query
+  fallback:
+  - https://doh.dns.sb/dns-query
+  - https://dns.cloudflare.com/dns-query
+  - https://dns.twnic.tw/dns-query
+  - tls://8.8.4.4:853
+  fallback-filter:
+    geoip: true
+    ipcidr:
+    - 240.0.0.0/4
+    - 0.0.0.0/32
+  use-system-hosts: false
+
 proxy-groups:
   - name: "PROXY"
     type: select
     use:
       - abyss
+
 rule-providers:
   global:
     type: http
