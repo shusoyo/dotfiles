@@ -2,8 +2,6 @@
 
   imports = [
     ../general/system.nix
-    ./hardware.nix
-    ./services.nix
   ];
 
   # Modules
@@ -14,7 +12,7 @@
   };
 
   modules.sops = {
-    enable   = true;
+    enable = true;
   };
 
   # Users
@@ -35,14 +33,20 @@
 
   # Networking
   # ------------------------------------------------------
-  networking.hostName        = "camel";
-  networking.useNetworkd     = true;
-  networking.useDHCP         = false;
-  networking.firewall.enable = false;
+  networking = {
+    useNetworkd = true;
+    useDHCP     = false;
+    hostName    = "camel";
 
-  systemd.network.enable = true;
-  systemd.network.networks = {
-    "10-enp0s1" = {
+    firewall = {
+      enable = false;
+    };
+  };
+
+  systemd.network = {
+    enable = true;
+
+    networks."enp0s1" = {
       matchConfig.Name = "enp0s1";
       address = [
         "192.168.64.2/24"
@@ -66,8 +70,47 @@
 
   # System
   # ------------------------------------------------------
-  boot.loader.systemd-boot.enable      = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot = {
+    initrd.availableKernelModules = [
+      "virtio_pci"
+      "xhci_pci"
+      "usbhid"
+      "usb_storage"
+      "sd_mod"
+      "virtio_blk"
+    ];
+
+    loader = {
+      systemd-boot.enable      = true;
+      efi.canTouchEfiVariables = true;
+    };
+  };
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/ff3002c8-e065-480d-ae77-c23c7d61a308";
+    fsType = "btrfs";
+    options = [ "subvol=root" "compress=zstd"];
+  };
+
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/ff3002c8-e065-480d-ae77-c23c7d61a308";
+    fsType = "btrfs";
+    options = [ "subvol=home" "compress=zstd"];
+  };
+
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-uuid/ff3002c8-e065-480d-ae77-c23c7d61a308";
+    fsType = "btrfs";
+    options = [ "subvol=nix" "compress=zstd" "noatime"];
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/E927-0120";
+    fsType = "vfat";
+    options = [ "fmask=0022" "dmask=0022" ];
+  };
+
+  nixpkgs.hostPlatform = "x86_64-linux";
 
   system.stateVersion = "25.05";
 }

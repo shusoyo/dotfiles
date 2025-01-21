@@ -4,12 +4,8 @@
     ../general/home.nix
   ];
 
-  modules.sops = {
-    enable   = true;
-    sopsFile = ./secrets/secrets.yaml;
-  };
-
   modules = {
-    ssh.enable = true;
+    ssh.enable  = true;
+    sops.enable = true;
   };
 }

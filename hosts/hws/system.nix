@@ -21,7 +21,6 @@
 
   users.users.root = {
     shell = pkgs.fish;
-
     openssh.authorizedKeys.keys = [
       ss.ssh-id.ss0
       ss.ssh-id.ss1
