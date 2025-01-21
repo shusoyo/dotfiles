@@ -21,8 +21,8 @@ in {
       tree                   less
       htop                   unzip
 
-      # Network tools
       wget                   curl
+      simple-http-server
 
       # System info
       neofetch

@@ -87,7 +87,7 @@
     enable     = true;
     configFile = config.sops.templates."mihomo-config.yaml".path;
     webui      = pkgs.metacubexd;
-    tunMode    = true;
+    tunMode    = false;
   };
 
   # Miniflux
