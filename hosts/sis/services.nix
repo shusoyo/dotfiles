@@ -45,13 +45,10 @@
   # Internet sharing
   # ------------------------------------------------------------------------------
 
-  # networking.firewall.extraCommands = ''
-  #   # Set up SNAT on packets going from downstream to the wider internet
-  #   iptables -t nat -A POSTROUTING -o enp0s20f0u5 -j MASQUERADE
-  #
-  #   # Accept all connections from downstream. May not be necessary
-  #   iptables -A INPUT -i enp1s0 -j ACCEPT
-  # '';
+  networking.firewall.extraCommands = ''
+    iptables -t nat -A POSTROUTING -o enp0s20f0u5 -j MASQUERADE
+    iptables -A INPUT -i enp1s0 -j ACCEPT
+  '';
 
   services.dnsmasq = {
     enable = true;
@@ -97,7 +94,7 @@
     enable     = true;
     configFile = config.sops.templates."mihomo-config.yaml".path;
     webui      = pkgs.metacubexd;
-    tunMode    = true;
+    # tunMode    = true;
   };
 
   # Miniflux

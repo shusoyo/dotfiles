@@ -3,7 +3,6 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
-    inputs.disko.nixosModules.disko
 
     ../general/system.nix
     ./services.nix
@@ -49,59 +48,31 @@
     loader.grub = {
       efiSupport = true;
       efiInstallAsRemovable = true;
+      devices = [ "/dev/vda" ];
     };
   };
 
-  disko.devices.disk.main = {
-    type   = "disk";
-    device = "/dev/vda";
-
-    content = {
-      type = "gpt";
-
-      partitions.boot = {
-        name = "boot";
-        size = "1M";
-        type = "EF02";
-      };
-
-      partitions.ESP = {
-        priority = 1;
-        name     = "ESP";
-        end      = "500M";
-        type     = "EF00";
-
-        content = {
-          type         = "filesystem";
-          format       = "vfat";
-          mountpoint   = "/boot";
-          mountOptions = [ "umask=0077" ];
-        };
-      };
-
-      partitions.root = {
-        size = "100%";
-
-        content = {
-          type      = "btrfs";
-          extraArgs = [ "-f" ];
-
-          subvolumes = {
-            "/root" = {
-              mountpoint   = "/";
-              mountOptions = [ "compress=zstd" ];
-            };
-            "/home" = {
-              mountpoint   = "/home";
-              mountOptions = [ "compress=zstd" ];
-            };
-            "/nix" = {
-              mountpoint   = "/nix";
-              mountOptions = [ "compress=zstd" "noatime" ];
-            };
-          };
-        };
-      };
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/29640140-75f8-4c62-b377-e3db405d306e";
+      fsType = "btrfs";
+      options = [ "subvol=root" "compress=zstd" "noatime"];
     };
-  };
+
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-uuid/29640140-75f8-4c62-b377-e3db405d306e";
+      fsType = "btrfs";
+      options = [ "subvol=nix" "compress=zstd" "noatime"];
+    };
+
+  fileSystems."/home" =
+    { device = "/dev/disk/by-uuid/29640140-75f8-4c62-b377-e3db405d306e";
+      fsType = "btrfs";
+      options = [ "subvol=home" "compress=zstd" "noatime"];
+    };
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/FD7B-869A";
+      fsType = "vfat";
+      options = [ "fmask=0077" "dmask=0077" ];
+    };
 }

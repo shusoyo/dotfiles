@@ -1,7 +1,6 @@
 { modulesPath, inputs, config, lib, pkgs, ss, ... }: {
 
   imports = [
-    inputs.disko.nixosModules.disko
     (modulesPath + "/installer/scan/not-detected.nix")
 
     ../general/system.nix
@@ -27,16 +26,16 @@
     useDHCP     = false;
     useNetworkd = true;
 
-    firewall.enable = false;
+    # firewall.enable = false;
 
-    # firewall = {
-    #   enable = false;
-    #
-    #   interfaces."enp1s0" = {
-    #     allowedUDPPorts = [ 67 53 ];
-    #     allowedTCPPorts = [ 80 443 9090 ];
-    #   };
-    # };
+    firewall = {
+      enable = true;
+
+      interfaces."enp1s0" = {
+        allowedUDPPorts = [ 67 53 ];
+        allowedTCPPorts = [ 80 443 9090 8070 ];
+      };
+    };
   };
 
   systemd.network.enable = true;
@@ -105,57 +104,37 @@
       "usb_storage"
       "sd_mod"
     ];
+
+    kernel.sysctl = {
+      "net.ipv4.ip_forward" = 1;
+    };
   };
 
   nixpkgs.hostPlatform = "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = true;
 
-  disko.devices.disk.main = {
-    type   = "disk";
-    device = "/dev/nvme0n1";
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/4a9450b4-791f-4793-ab04-7b4e4000c726";
+    fsType = "btrfs";
+    options = [ "subvol=root" "compress=zstd"];
+  };
 
-    content = {
-      type = "gpt";
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-uuid/4a9450b4-791f-4793-ab04-7b4e4000c726";
+    fsType = "btrfs";
+    options = [ "subvol=nix" "compress=zstd"];
+  };
 
-      partitions.ESP = {
-        priority = 1;
-        name     = "ESP";
-        start    = "1M";
-        end      = "512M";
-        type     = "EF00";
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/4a9450b4-791f-4793-ab04-7b4e4000c726";
+    fsType = "btrfs";
+    options = [ "subvol=home" "compress=zstd" "noatime"];
+  };
 
-        content = {
-          type         = "filesystem";
-          format       = "vfat";
-          mountpoint   = "/boot";
-          mountOptions = [ "umask=0077" ];
-        };
-      };
-
-      partitions.root = {
-        size = "100%";
-
-        content = {
-          type      = "btrfs";
-          extraArgs = [ "-f" ];
-
-          subvolumes = {
-            "/root" = {
-              mountpoint   = "/";
-              mountOptions = [ "compress=zstd" ];
-            };
-            "/home" = {
-              mountpoint   = "/home";
-              mountOptions = [ "compress=zstd" ];
-            };
-            "/nix" = {
-              mountpoint   = "/nix";
-              mountOptions = [ "compress=zstd" "noatime" ];
-            };
-          };
-        };
-      };
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/D978-FC83";
+    fsType = "vfat";
+    options = [ "fmask=0077" "dmask=0077" ];
   };
 
   system.stateVersion = "25.05";
