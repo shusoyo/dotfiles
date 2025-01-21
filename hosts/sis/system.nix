@@ -114,6 +114,12 @@
     options = [ "subvol=home" "compress=zstd" "noatime"];
   };
 
+  fileSystems."/data" = {
+    device = "/dev/disk/by-uuid/cf499651-198e-4f21-999a-73d28a3e4cc8";
+    fsType = "btrfs";
+    options = [ "noatime"];
+  };
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/D978-FC83";
     fsType = "vfat";
