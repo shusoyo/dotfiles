@@ -1,6 +1,11 @@
 ipv6: false
+
 external-controller: 0.0.0.0:9090
 external-ui: ui
+
+mixed-port: 7890
+allow-lan: false
+log-level: info
 
 geodata-mode: true
 geo-auto-update: true

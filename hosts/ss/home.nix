@@ -55,7 +55,7 @@
     ssh.enable = true;
 
     shell = {
-      fish.shellProxy = false;
+      fish.shellProxy = null;
     };
 
     app = {

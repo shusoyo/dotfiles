@@ -30,21 +30,21 @@
     '';
   };
 
-  hardware.printers = {
-    ensureDefaultPrinter = "HP_laserjet_P1106";
-
-    ensurePrinters = [{
-      name       = "HP_laserjet_P1106";
-      location   = "sis";
-      deviceUri  = "hp:/usb/HP_LaserJet_Professional_P1106?serial=000000000QNBJ3P2PR1a";
-      model      = "drv:///hp/hpcups.drv/hp-laserjet_professional_p1106.ppd";
-      ppdOptions = { PageSize = "A4"; };
-    }];
-  };
+  ## p1106 setup using hp-setup
+  # hardware.printers = {
+  #   ensureDefaultPrinter = "HP_laserjet_P1106";
+  #
+  #   ensurePrinters = [{
+  #     name       = "HP_laserjet_P1106";
+  #     location   = "sis";
+  #     deviceUri  = "hp:/usb/HP_LaserJet_Professional_P1106?serial=000000000QNBJ3P2PR1a";
+  #     model      = "drv:///hp/hpcups.drv/hp-laserjet_professional_p1106.ppd";
+  #     ppdOptions = { PageSize = "A4"; };
+  #   }];
+  # };
 
   # Internet sharing
   # ------------------------------------------------------------------------------
-
   networking.firewall.extraCommands = ''
     iptables -t nat -A POSTROUTING -o enp0s20f0u5 -j MASQUERADE
     iptables -A INPUT -i enp1s0 -j ACCEPT
@@ -66,13 +66,17 @@
     };
 
     dhcpServerStaticLeases = [
+      { MACAddress = "5c:02:14:9e:d6:dd"; Address = "10.0.0.2";  }
       { MACAddress = "00:e2:69:6e:2c:ed"; Address = "10.0.0.10"; }
+      { MACAddress = "0a:3b:a0:25:1c:f5"; Address = "10.0.0.11"; }
     ];
   };
 
   # Mihomo
   # ------------------------------------------------------------------------------
   sops.secrets.abyss-url = {};
+
+  sops.templates."mihomo-config.yaml".restartUnits = [ "mihomo.service" ];
   sops.templates."mihomo-config.yaml".content = ''
     ${builtins.readFile ./clash-config.yaml}
     proxy-providers:
@@ -85,9 +89,9 @@
 
   services.mihomo = {
     enable     = true;
-    configFile = config.sops.templates."mihomo-config.yaml".path;
     webui      = pkgs.metacubexd;
     tunMode    = false;
+    configFile = config.sops.templates."mihomo-config.yaml".path;
   };
 
   # Miniflux

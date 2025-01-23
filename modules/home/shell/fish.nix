@@ -5,7 +5,7 @@ let
 in {
   options.modules.shell.fish = {
     enable     = ss.mkBoolOpt false;
-    shellProxy = ss.mkBoolOpt false;
+    shellProxy = ss.mkOpt (lib.types.nullOr lib.types.str) null;
   };
 
   config = lib.mkIf cfg.enable {
@@ -15,8 +15,12 @@ in {
       generateCompletions  = true;
 
       interactiveShellInit = let
-        shell-proxy-script  = if cfg.shellProxy then "set_proxy" else "";
-        source-local-config = "[ -e ./local.fish ]; and source ./local.fish";
+        shell-proxy-script =
+          if cfg.shellProxy != null then "set_proxy ${cfg.shellProxy}" else ""
+        ;
+        source-local-config =
+          "[ -e ./local.fish ]; and source ./local.fish"
+        ;
       in ''
         # terminal proxy script
         ${shell-proxy-script}
