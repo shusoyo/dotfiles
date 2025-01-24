@@ -33,7 +33,7 @@
     # pc
     ss-system    ss-home
 
-    # local vm nixos
+    # vm nixos in pc
     camel
 
     # local/cloud server

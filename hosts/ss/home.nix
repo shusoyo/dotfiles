@@ -4,7 +4,6 @@
     ../general/home.nix
     ../../modules/home/desktop
     ../../modules/home/packages/homebrew.nix
-    inputs.sops-nix.homeManagerModules.sops
   ];
 
   # osx ad-hoc packages

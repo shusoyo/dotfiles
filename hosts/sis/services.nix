@@ -1,5 +1,7 @@
 { pkgs, config, ... }: {
 
+  # Don't need open Firewall because no firewall on lan.
+
   # Mdns
   # ------------------------------------------------------------------------------
   services.avahi = {
@@ -84,6 +86,13 @@
     webui      = pkgs.metacubexd;
     tunMode    = false;
     configFile = config.sops.templates."mihomo-config.yaml".path;
+  };
+
+  # Syncthing
+  # ------------------------------------------------------------------------------
+  services.syncthing = {
+    enable = true;
+    guiAddress = "0.0.0.0:8384";
   };
 
   # Miniflux

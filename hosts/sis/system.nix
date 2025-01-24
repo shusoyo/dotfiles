@@ -91,6 +91,12 @@
   nixpkgs.hostPlatform = "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = true;
 
+  fileSystems."/media/hdd" = {
+    device = "/dev/disk/by-uuid/02a16087-9023-4666-b42b-075ba0dc3cfa";
+    fsType = "btrfs";
+    options = [ "subvol=@data-only" "compress=zstd" "noatime"];
+  };
+
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/4a9450b4-791f-4793-ab04-7b4e4000c726";
     fsType = "btrfs";
@@ -107,12 +113,6 @@
     device = "/dev/disk/by-uuid/4a9450b4-791f-4793-ab04-7b4e4000c726";
     fsType = "btrfs";
     options = [ "subvol=home" "compress=zstd" "noatime"];
-  };
-
-  fileSystems."/data" = {
-    device = "/dev/disk/by-uuid/cf499651-198e-4f21-999a-73d28a3e4cc8";
-    fsType = "btrfs";
-    options = [ "noatime"];
   };
 
   fileSystems."/boot" = {
