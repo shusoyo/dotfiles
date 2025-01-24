@@ -110,6 +110,8 @@
     options = [ "fmask=0022" "dmask=0022" ];
   };
 
+  swapDevices = [ { device = "/swap/swapfile"; } ];
+
   nixpkgs.hostPlatform = "x86_64-linux";
 
   system.stateVersion = "25.05";

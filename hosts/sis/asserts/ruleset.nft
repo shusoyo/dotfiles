@@ -1,0 +1,11 @@
+table ip sharing {
+  chain postrouting {
+    type nat hook postrouting priority 100; policy accept;
+    oifname "enp0s20f0u5" masquerade
+  }
+
+  chain input {
+    type filter hook input priority 0; policy accept;
+    iifname "enp1s0" accept
+  }
+}

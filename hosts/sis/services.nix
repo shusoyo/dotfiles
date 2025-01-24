@@ -30,25 +30,12 @@
     '';
   };
 
-  ## p1106 setup using hp-setup
-  # hardware.printers = {
-  #   ensureDefaultPrinter = "HP_laserjet_P1106";
-  #
-  #   ensurePrinters = [{
-  #     name       = "HP_laserjet_P1106";
-  #     location   = "sis";
-  #     deviceUri  = "hp:/usb/HP_LaserJet_Professional_P1106?serial=000000000QNBJ3P2PR1a";
-  #     model      = "drv:///hp/hpcups.drv/hp-laserjet_professional_p1106.ppd";
-  #     ppdOptions = { PageSize = "A4"; };
-  #   }];
-  # };
-
   # Internet sharing
   # ------------------------------------------------------------------------------
-  networking.firewall.extraCommands = ''
-    iptables -t nat -A POSTROUTING -o enp0s20f0u5 -j MASQUERADE
-    iptables -A INPUT -i enp1s0 -j ACCEPT
-  '';
+  networking.nftables = {
+    enable = true;
+    rulesetFile = ./asserts/ruleset.nft;
+  };
 
   systemd.network.networks."10-enp1s0" = {
     matchConfig.Name = "enp1s0";
@@ -83,7 +70,7 @@
 
   sops.templates."mihomo-config.yaml".restartUnits = [ "mihomo.service" ];
   sops.templates."mihomo-config.yaml".content = ''
-    ${builtins.readFile ./clash-config.yaml}
+    ${builtins.readFile ./asserts/clash-config.yaml}
     proxy-providers:
       abyss:
         type: http

@@ -11,7 +11,7 @@
   # ------------------------------------------------------
   modules.sops = {
     enable   = true;
-    sopsFile = ./secrets/secrets.yaml;
+    sopsFile = ./asserts/secrets.yaml;
   };
 
   modules.home-manager.enable = true;
@@ -26,15 +26,7 @@
     useDHCP     = false;
     useNetworkd = true;
 
-    firewall = {
-      enable = true;
-      allowedUDPPorts = [ 67 53 ];
-      allowedTCPPorts = [ 80 443 9090 8070 ];
-      # interfaces."enp1s0" = {
-      #   allowedUDPPorts = [ 67 53 ];
-      #   allowedTCPPorts = [ 80 443 9090 8070 ];
-      # };
-    };
+    firewall.enable = false;
   };
 
   systemd.network.enable = true;
@@ -128,6 +120,8 @@
     fsType = "vfat";
     options = [ "fmask=0077" "dmask=0077" ];
   };
+
+  swapDevices = [ { device = "/swap/swapfile"; } ];
 
   system.stateVersion = "25.05";
 }
