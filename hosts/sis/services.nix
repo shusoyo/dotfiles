@@ -55,6 +55,10 @@
 
     address = [ "10.85.13.10/25" ];
 
+    routes  = [
+      { Gateway = "10.85.13.1"; Metric = 300; }
+    ];
+
     networkConfig = {
       DHCPServer = "yes";
     };
@@ -66,9 +70,10 @@
     };
 
     dhcpServerStaticLeases = [
+      # ap
       { MACAddress = "5c:02:14:9e:d6:dd"; Address = "10.0.0.2";  }
+      # ss
       { MACAddress = "00:e2:69:6e:2c:ed"; Address = "10.0.0.10"; }
-      { MACAddress = "0a:3b:a0:25:1c:f5"; Address = "10.0.0.11"; }
     ];
   };
 

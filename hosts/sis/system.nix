@@ -41,6 +41,9 @@
   systemd.network.networks."50-usb-RNDIS" = {
     matchConfig.Name = "enp0s20f0*";
     DHCP = "yes";
+    dhcpV4Config = {
+      RouteMetric = 100;
+    };
   };
 
   # users
