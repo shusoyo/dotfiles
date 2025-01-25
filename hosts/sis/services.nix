@@ -32,40 +32,6 @@
     '';
   };
 
-  # Internet sharing
-  # ------------------------------------------------------------------------------
-  networking.nftables = {
-    enable = true;
-    rulesetFile = ./asserts/ruleset.nft;
-  };
-
-  systemd.network.networks."10-enp1s0" = {
-    matchConfig.Name = "enp1s0";
-
-    address = [ "10.85.13.10/25" ];
-
-    routes  = [
-      { Gateway = "10.85.13.1"; Metric = 300; }
-    ];
-
-    networkConfig = {
-      DHCPServer = "yes";
-    };
-
-    dhcpServerConfig = {
-      ServerAddress = "10.0.0.1/24";
-      PoolOffset = 20;
-      PoolSize   = 30;
-    };
-
-    dhcpServerStaticLeases = [
-      # ap
-      { MACAddress = "5c:02:14:9e:d6:dd"; Address = "10.0.0.2";  }
-      # ss
-      { MACAddress = "00:e2:69:6e:2c:ed"; Address = "10.0.0.10"; }
-    ];
-  };
-
   # Mihomo
   # ------------------------------------------------------------------------------
   sops.secrets.abyss-url = {};

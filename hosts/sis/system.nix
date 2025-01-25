@@ -25,8 +25,19 @@
     hostName    = "sis";
     useDHCP     = false;
     useNetworkd = true;
+    nameservers = [ "223.6.6.6" "8.8.8.8" ];
 
-    firewall.enable = false;
+    firewall.enable = false; # No local firewall
+  };
+
+  services.resolved = {
+    enable  = true;
+    domains = [ "~." ];
+    fallbackDns = [ "223.5.5.5" "8.8.8.8" ];
+    extraConfig = ''
+      DNSStubListenerExtra=10.0.0.1
+      MulticastDNS=no
+    '';
   };
 
   systemd.network.enable = true;
@@ -36,6 +47,39 @@
     dhcpV4Config = {
       RouteMetric = 100;
     };
+  };
+
+  systemd.network.networks."10-enp1s0" = {
+    matchConfig.Name = "enp1s0";
+
+    address = [ "10.85.13.10/25" ];
+
+    routes  = [
+      { Gateway = "10.85.13.1"; Metric = 300; }
+    ];
+
+    networkConfig = {
+      DHCPServer = "yes";
+    };
+
+    dhcpServerConfig = {
+      ServerAddress = "10.0.0.1/24";
+      PoolOffset = 20;
+      PoolSize   = 30;
+      DNS = [ "10.0.0.1" ];
+    };
+
+    dhcpServerStaticLeases = [
+      # ap
+      { MACAddress = "5c:02:14:9e:d6:dd"; Address = "10.0.0.2";  }
+      # ss
+      { MACAddress = "00:e2:69:6e:2c:ed"; Address = "10.0.0.10"; }
+    ];
+  };
+
+  networking.nftables = {
+    enable = true;
+    rulesetFile = ./asserts/ruleset.nft;
   };
 
   # users
@@ -84,7 +128,9 @@
     ];
 
     kernel.sysctl = {
-      "net.ipv4.ip_forward" = 1;
+      "net.ipv4.ip_forward" = true;
+      "net.ipv4.conf.all.forwarding" = true;
+      "net.ipv6.conf.all.forwarding" = false;
     };
   };
 
