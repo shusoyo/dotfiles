@@ -71,6 +71,8 @@
   # System
   # ------------------------------------------------------
   boot = {
+    kernelPackages = pkgs.linuxPackages_6_6;
+
     initrd.availableKernelModules = [
       "virtio_pci"
       "xhci_pci"
