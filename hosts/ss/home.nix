@@ -31,7 +31,7 @@
       #                           -
       "appcleaner"                "wechat"
       "bitwarden"                 "telegram-a"
-      "baidunetdisk"
+      "baidunetdisk"              "qq"
       #                           -
       # Web Browser
       "arc"                       "zen-browser"
