@@ -10,7 +10,7 @@
 
   modules.sops = {
     enable   = true;
-    sopsFile = ./secrets/secrets.yaml;
+    sopsFile = ./asserts/secrets.yaml;
   };
 
   modules.no-doc.enable = true;
