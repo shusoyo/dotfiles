@@ -31,5 +31,7 @@ in {
     };
 
     nixpkgs.config.allowUnfree = true;
+
+    nixpkgs.hostPlatform = ss.system;
   };
 }

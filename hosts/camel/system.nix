@@ -1,7 +1,7 @@
 { inputs, config, lib, pkgs, ss, ... }: {
 
   imports = [
-    ../general/system.nix
+    ../prelude/local.nix
   ];
 
   # Modules
@@ -11,10 +11,10 @@
     users.mirage = import ./home.nix;
   };
 
-  modules.sops = {
-    enable = true;
-  };
-
+  # modules.sops = {
+  #   enable = true;
+  # };
+ 
   # Users
   # ------------------------------------------------------
   users.users.mirage = {
@@ -36,7 +36,6 @@
   networking = {
     useNetworkd = true;
     useDHCP     = false;
-    hostName    = "camel";
 
     firewall = {
       enable = false;
@@ -114,8 +113,4 @@
   };
 
   swapDevices = [ { device = "/swap/swapfile"; } ];
-
-  nixpkgs.hostPlatform = "x86_64-linux";
-
-  system.stateVersion = "25.05";
 }

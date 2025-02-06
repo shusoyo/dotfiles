@@ -1,7 +1,7 @@
 { inputs, config, ... }: {
 
   imports = [
-    ../general/home.nix
+    ../prelude/home.nix
   ];
 
   modules = {

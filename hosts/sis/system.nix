@@ -3,11 +3,11 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
 
-    ../general/system.nix
+    ../prelude/local.nix
     ./services.nix
   ];
 
-  # Modules options first
+  # Modules options
   # ------------------------------------------------------
   modules.sops = {
     enable   = true;
@@ -22,7 +22,6 @@
   # Networking
   # ------------------------------------------------------
   networking = {
-    hostName    = "sis";
     useDHCP     = false;
     useNetworkd = true;
 
@@ -65,7 +64,7 @@
     dhcpServerConfig = {
       ServerAddress = "10.0.0.1/24";
       PoolOffset = 20;
-      PoolSize   = 30;
+      PoolSize   = 100;
       DNS = [ "10.0.0.1" ];
     };
 
@@ -134,7 +133,6 @@
     };
   };
 
-  nixpkgs.hostPlatform = "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = true;
 
   fileSystems."/media/hdd" = {
@@ -168,6 +166,4 @@
   };
 
   swapDevices = [ { device = "/swap/swapfile"; } ];
-
-  system.stateVersion = "25.05";
 }

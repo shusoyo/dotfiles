@@ -1,7 +1,7 @@
-{ self, username, system }:
+{ self, username, system, hostname, ... }:
 
 rec {
-  inherit username system;
+  inherit username system hostname;
 
   ssh-id = {
     ss0 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIISZsL01ZNWdI41391bZayqRlq5cbWYlEZ0mXmpnlbf+";
