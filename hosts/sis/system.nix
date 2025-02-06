@@ -25,7 +25,6 @@
     hostName    = "sis";
     useDHCP     = false;
     useNetworkd = true;
-    nameservers = [ "223.6.6.6" "8.8.8.8" ];
 
     firewall.enable = false; # No local firewall
   };
@@ -34,6 +33,7 @@
     enable  = true;
     domains = [ "~." ];
     fallbackDns = [ "223.5.5.5" "8.8.8.8" ];
+    dnsovertls  = "opportunistic";
     extraConfig = ''
       DNSStubListenerExtra=10.0.0.1
       MulticastDNS=no
