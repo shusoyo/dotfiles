@@ -27,7 +27,6 @@
     ss-system = gen.macos-conf-gen "ss"    "suspen" "x86_64-darwin";
     camel     = gen.nixos-conf-gen "camel" "mirage" "x86_64-linux";
     hws       = gen.nixos-conf-gen "hws"   "root"   "x86_64-linux";
-    cts       = gen.nixos-conf-gen "cts"   "root"   "x86_64-linux";
     sis       = gen.nixos-conf-gen "sis"   "typer"  "x86_64-linux";
   in gen.merge-conf [
     # pc
@@ -38,7 +37,6 @@
 
     # local/cloud server
     hws
-    cts
     sis
   ];
 }
