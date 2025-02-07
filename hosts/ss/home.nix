@@ -1,7 +1,7 @@
 { inputs, pkgs, ss, config, ... }: {
 
   imports = [
-    ../general/home.nix
+    ../prelude/home.nix
     ../../modules/home/desktop
     ../../modules/home/packages/homebrew.nix
   ];
