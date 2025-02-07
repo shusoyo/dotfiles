@@ -20,6 +20,7 @@ in {
       fzf                    ripgrep
       tree                   less
       htop                   unzip
+      bat                    tlrc
 
       wget                   curl
       simple-http-server
