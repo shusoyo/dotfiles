@@ -7,12 +7,29 @@
   modules.mdns = {
     enable  = true;
     records = [
-      "shared"
-      "homepage"
       "rss"
+      "shared"
       "printer"
+      "homepage"
     ];
   };
+
+  # Homepage
+  # ------------------------------------------------------------------------------
+  services.caddy.virtualHosts."http://homepage.local".extraConfig = ''
+    encode gzip
+    file_server
+    root * ${
+      pkgs.runCommand "make-homepage" {} ''
+        mkdir "$out"
+        echo '{{include "homepage.md" | markdown}}' > "$out/index.html"
+        cp ${./asserts/homepage.md} "$out/homepage.md"
+      ''
+    }
+    templates {
+      mime .md text/html
+    }
+  '';
 
   # Printer (HP LaserJet_Professional P1106 at sis2, 333)
   # ------------------------------------------------------------------------------
@@ -74,6 +91,7 @@
     };
   };
 
+  # tmpfiles to share temporary files
   systemd.tmpfiles.rules = [
     "d /media/hdd/share/tmpfiles 0755 root root 7d"
   ];
