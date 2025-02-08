@@ -1,6 +1,7 @@
 {
   imports = [
     ./ssh.nix
+    ./mdns.nix
     ./fish.nix
     ./sops.nix
     ./no-doc.nix

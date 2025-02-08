@@ -4,15 +4,14 @@
 
   # Mdns
   # ------------------------------------------------------------------------------
-  services.avahi = {
-    enable       = true;
-    nssmdns4     = true;
-    openFirewall = true;
-
-    publish = {
-      enable       = true;
-      userServices = true;
-    };
+  modules.mdns = {
+    enable  = true;
+    records = [
+      "shared"
+      "homepage"
+      "rss"
+      "printer"
+    ];
   };
 
   # Printer (HP LaserJet_Professional P1106 at sis2, 333)
@@ -31,6 +30,10 @@
       DefaultEncryption Never
     '';
   };
+
+  services.caddy.virtualHosts."http://printer.local".extraConfig = ''
+    redir http://sis.local:631
+  '';
 
   # Mihomo
   # ------------------------------------------------------------------------------
@@ -54,12 +57,30 @@
     configFile = config.sops.templates."mihomo-config.yaml".path;
   };
 
-  # Syncthing
+  # File sharing
   # ------------------------------------------------------------------------------
-  services.syncthing = {
-    enable = true;
-    guiAddress = "0.0.0.0:8384";
+  systemd.services.local-file-sharing = {
+    after    = [ "network.target" ];
+    wantedBy = [ "default.target" ];
+
+    serviceConfig = {
+      Type      = "simple";
+      ExecStart = ''
+        ${pkgs.simple-http-server}/bin/simple-http-server \
+        -i -u -p 12345 \
+        -l 1000000000000 \
+        /media/hdd/share/
+      '';
+    };
   };
+
+  systemd.tmpfiles.rules = [
+    "d /media/hdd/share/tmpfiles 0755 root root 7d"
+  ];
+
+  services.caddy.virtualHosts."http://shared.local".extraConfig = ''
+    reverse_proxy http://localhost:12345
+  '';
 
   # Miniflux
   # ------------------------------------------------------------------------------
@@ -71,5 +92,18 @@
     config = {
       LISTEN_ADDR = "0.0.0.0:8070";
     };
+  };
+
+  services.caddy.virtualHosts."http://rss.local".extraConfig = ''
+    reverse_proxy http://localhost:8070
+  '';
+
+  # Caddy
+  # -----------------------------------------------------------------------------
+  services.caddy = {
+    enable = true;
+    globalConfig = ''
+      auto_https off
+    '';
   };
 }
