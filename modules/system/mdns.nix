@@ -3,16 +3,18 @@
 let
   cfg = config.modules.mdns;
 
-  publish-script = pkgs.writeShellScript "avahi-publish-records.sh" (
-    lib.concatMapStringsSep
-      " & \n"
-      (domain: "${pkgs.avahi}/bin/avahi-publish -a -R ${domain}.local 10.0.0.1")
-      cfg.records
+  publish-script = let
+    oneRecord  = address: domain:
+      "${pkgs.avahi}/bin/avahi-publish -a -R ${domain} ${address}";
+    makeRecord = address: domains:
+      lib.concatMapStringsSep " &\n" (oneRecord address) domains;
+  in pkgs.writeShellScript "avahi-publish-records.sh" (
+    lib.foldlAttrs (acc: n: v: acc + makeRecord n v) "" cfg.records
   );
 in {
   options.modules.mdns = {
     enable  = ss.mkBoolOpt false;
-    records = ss.mkOpt (lib.types.listOf lib.types.str) [];
+    records = ss.mkOpt (lib.types.attrsOf (lib.types.listOf lib.types.str)) {};
   };
 
   config = lib.mkIf cfg.enable {

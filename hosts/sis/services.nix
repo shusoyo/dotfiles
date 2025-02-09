@@ -6,17 +6,17 @@
   # ------------------------------------------------------------------------------
   modules.mdns = {
     enable  = true;
-    records = [
-      "rss"
-      "shared"
-      "printer"
-      "homepage"
+    records."10.0.0.1" = [
+      "rss.sis.local"
+      "home.sis.local"
+      "share.sis.local"
+      "printer.sis.local"
     ];
   };
 
   # Homepage
   # ------------------------------------------------------------------------------
-  services.caddy.virtualHosts."http://homepage.local".extraConfig = ''
+  services.caddy.virtualHosts."http://home.sis.local".extraConfig = ''
     encode gzip
     file_server
     root * ${
@@ -48,7 +48,7 @@
     '';
   };
 
-  services.caddy.virtualHosts."http://printer.local".extraConfig = ''
+  services.caddy.virtualHosts."http://printer.sis.local".extraConfig = ''
     redir http://sis.local:631
   '';
 
@@ -82,11 +82,11 @@
 
     serviceConfig = {
       Type      = "simple";
+      Restart   = "always";
       ExecStart = ''
         ${pkgs.simple-http-server}/bin/simple-http-server \
-        -i -u -p 12345 \
-        -l 1000000000000 \
-        /media/hdd/share/
+          -i -p 12345 /media/hdd/share/ \
+          -u -l 100000000000
       '';
     };
   };
@@ -96,7 +96,7 @@
     "d /media/hdd/share/tmpfiles 0755 root root 7d"
   ];
 
-  services.caddy.virtualHosts."http://shared.local".extraConfig = ''
+  services.caddy.virtualHosts."http://share.sis.local".extraConfig = ''
     reverse_proxy http://localhost:12345
   '';
 
@@ -112,7 +112,7 @@
     };
   };
 
-  services.caddy.virtualHosts."http://rss.local".extraConfig = ''
+  services.caddy.virtualHosts."http://rss.sis.local".extraConfig = ''
     reverse_proxy http://localhost:8070
   '';
 
