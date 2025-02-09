@@ -1,7 +1,7 @@
 { ss, lib, config, pkgs, ... }:
 
 let
-  cfg = config.modules.mdns;
+  cfg = config.services.mdns;
 
   publish-script = let
     oneRecord  = address: domain:
@@ -12,7 +12,7 @@ let
     lib.foldlAttrs (acc: n: v: acc + makeRecord n v) "" cfg.records
   );
 in {
-  options.modules.mdns = {
+  options.services.mdns = {
     enable  = ss.mkBoolOpt false;
     records = ss.mkOpt (lib.types.attrsOf (lib.types.listOf lib.types.str)) {};
   };

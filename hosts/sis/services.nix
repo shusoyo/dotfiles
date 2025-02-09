@@ -4,8 +4,8 @@
 
   # Mdns
   # ------------------------------------------------------------------------------
-  modules.mdns = {
-    enable  = true;
+  services.mdns = {
+    enable = true;
     records."10.0.0.1" = [
       "rss.sis.local"
       "home.sis.local"
@@ -41,7 +41,6 @@
     allowFrom       = [ "all" ];
     browsing        = true;
     defaultShared   = true;
-    openFirewall    = true;
 
     extraConf = ''
       DefaultEncryption Never
@@ -76,18 +75,12 @@
 
   # File sharing
   # ------------------------------------------------------------------------------
-  systemd.services.local-file-sharing = {
-    after    = [ "network.target" ];
-    wantedBy = [ "default.target" ];
-
-    serviceConfig = {
-      Type      = "simple";
-      Restart   = "always";
-      ExecStart = ''
-        ${pkgs.simple-http-server}/bin/simple-http-server \
-          -i -p 12345 /media/hdd/share/ \
-          -u -l 100000000000
-      '';
+  services.simple-http-server = {
+    enable = true;
+    apps."hdd-file-sharing" = {
+      port      = 12345;
+      path      = "/media/hdd/share/";
+      extraArgs = "-u -l 85899345920"; # 10 GiB
     };
   };
 
@@ -107,9 +100,7 @@
   services.miniflux = {
     enable = true;
     adminCredentialsFile = "${config.sops.secrets.miniflux.path}";
-    config = {
-      LISTEN_ADDR = "0.0.0.0:8070";
-    };
+    config.LISTEN_ADDR   = "0.0.0.0:8070";
   };
 
   services.caddy.virtualHosts."http://rss.sis.local".extraConfig = ''
