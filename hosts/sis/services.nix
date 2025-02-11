@@ -7,16 +7,16 @@
   services.mdns = {
     enable = true;
     records."10.0.0.1" = [
-      "rss.sis.local"
-      "home.sis.local"
-      "share.sis.local"
-      "printer.sis.local"
+      "rssfeeder.local"
+      "homepage.local"
+      "shared.local"
+      "printer.local"
     ];
   };
 
   # Homepage
   # ------------------------------------------------------------------------------
-  services.caddy.virtualHosts."http://home.sis.local".extraConfig = ''
+  services.caddy.virtualHosts."http://homepage.local".extraConfig = ''
     encode gzip
     file_server
     root * ${
@@ -47,7 +47,7 @@
     '';
   };
 
-  services.caddy.virtualHosts."http://printer.sis.local".extraConfig = ''
+  services.caddy.virtualHosts."http://printer.local".extraConfig = ''
     redir http://sis.local:631
   '';
 
@@ -69,7 +69,7 @@
   services.mihomo = {
     enable     = true;
     webui      = pkgs.metacubexd;
-    tunMode    = false;
+    tunMode    = true;
     configFile = config.sops.templates."mihomo-config.yaml".path;
   };
 
@@ -78,7 +78,7 @@
   services.simple-http-server = {
     enable = true;
     apps."hdd-file-sharing" = {
-      port      = 12345;
+      port      = 27777;
       path      = "/media/hdd/share/";
       extraArgs = "-u -l 85899345920"; # 10 GiB
     };
@@ -89,8 +89,8 @@
     "d /media/hdd/share/tmpfiles 0755 root root 7d"
   ];
 
-  services.caddy.virtualHosts."http://share.sis.local".extraConfig = ''
-    reverse_proxy http://localhost:12345
+  services.caddy.virtualHosts."http://shared.local".extraConfig = ''
+    reverse_proxy http://localhost:27777
   '';
 
   # Miniflux
@@ -103,7 +103,7 @@
     config.LISTEN_ADDR   = "0.0.0.0:8070";
   };
 
-  services.caddy.virtualHosts."http://rss.sis.local".extraConfig = ''
+  services.caddy.virtualHosts."http://rssfeeder.local".extraConfig = ''
     reverse_proxy http://localhost:8070
   '';
 
