@@ -24,6 +24,7 @@ in {
 
       wget                   curl
       simple-http-server
+      dig
 
       # System info
       neofetch

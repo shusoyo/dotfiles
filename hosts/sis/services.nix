@@ -6,12 +6,14 @@
   # ------------------------------------------------------------------------------
   services.mdns = {
     enable = true;
-    records."10.0.0.1" = [
-      "rssfeeder.local"
-      "homepage.local"
-      "shared.local"
-      "printer.local"
-    ];
+    records = {
+      "10.0.0.1" = [
+        "rssfeeder.local"
+        "homepage.local"
+        "shared.local"
+        "printer.local"
+      ];
+    };
   };
 
   # Homepage
@@ -111,6 +113,7 @@
   # -----------------------------------------------------------------------------
   services.caddy = {
     enable = true;
+    # Local area network
     globalConfig = ''
       auto_https off
     '';

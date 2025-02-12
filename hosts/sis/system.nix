@@ -39,41 +39,44 @@
     '';
   };
 
-  systemd.network.enable = true;
-  systemd.network.networks."50-usb-RNDIS" = {
-    matchConfig.Name = "enp0s20f0*";
-    DHCP = "yes";
-    dhcpV4Config = {
-      RouteMetric = 100;
-    };
-  };
+  systemd.network = {
+    enable = true;
 
-  systemd.network.networks."10-enp1s0" = {
-    matchConfig.Name = "enp1s0";
-
-    address = [ "10.85.13.10/25" ];
-
-    routes  = [
-      { Gateway = "10.85.13.1"; Metric = 300; }
-    ];
-
-    networkConfig = {
-      DHCPServer = "yes";
+    networks."50-usb-RNDIS" = {
+      matchConfig.Name = "enp0s20f0*";
+      DHCP = "yes";
+      dhcpV4Config = {
+        RouteMetric = 100;
+      };
     };
 
-    dhcpServerConfig = {
-      ServerAddress = "10.0.0.1/24";
-      PoolOffset = 20;
-      PoolSize   = 100;
-      DNS = [ "10.0.0.1" ];
-    };
+    networks."10-enp1s0" = {
+      matchConfig.Name = "enp1s0";
 
-    dhcpServerStaticLeases = [
-      # ap
-      { MACAddress = "5c:02:14:9e:d6:dd"; Address = "10.0.0.2";  }
-      # ss
-      { MACAddress = "00:e2:69:6e:2c:ed"; Address = "10.0.0.10"; }
-    ];
+      address = [ "10.85.13.10/25" ];
+
+      routes  = [
+        { Gateway = "10.85.13.1"; Metric = 300; }
+      ];
+
+      networkConfig = {
+        DHCPServer = "yes";
+      };
+
+      dhcpServerConfig = {
+        ServerAddress = "10.0.0.1/24";
+        PoolOffset = 20;
+        PoolSize   = 100;
+        DNS = [ "10.0.0.1" ];
+      };
+
+      dhcpServerStaticLeases = [
+        # ap
+        { MACAddress = "5c:02:14:9e:d6:dd"; Address = "10.0.0.2";  }
+        # ss
+        { MACAddress = "00:e2:69:6e:2c:ed"; Address = "10.0.0.10"; }
+      ];
+    };
   };
 
   networking.nftables = {
@@ -90,7 +93,7 @@
       home         = "/home/typer";
       shell        = pkgs.fish;
       isNormalUser = true;
-      extraGroups  = [ "wheel" ];
+      extraGroups  = [ "wheel" "incus-admin" ];
 
       openssh.authorizedKeys.keys = ssh-keys;
     };
