@@ -46,7 +46,7 @@
       matchConfig.Name = "enp0s20f0*";
       DHCP = "yes";
       dhcpV4Config = {
-        RouteMetric = 100;
+        RouteMetric = 128;
       };
     };
 
@@ -55,9 +55,9 @@
 
       address = [ "10.85.13.10/25" ];
 
-      routes  = [
-        { Gateway = "10.85.13.1"; Metric = 300; }
-      ];
+      # routes  = [
+      #   { Gateway = "10.85.13.1"; Metric = 300; }
+      # ];
 
       networkConfig = {
         DHCPServer = "yes";
@@ -82,6 +82,31 @@
   networking.nftables = {
     enable = true;
     rulesetFile = ./asserts/ruleset.nft;
+  };
+
+  # PPPOE
+  sops.secrets.pppoe-name = {};
+  sops.secrets.pppoe-password = {};
+
+  sops.templates.edpnet.content = ''
+    plugin pppoe.so enp1s0
+
+    name "${config.sops.placeholder.pppoe-name}"
+    password "${config.sops.placeholder.pppoe-password}"
+
+    persist
+    usepeerdns
+    defaultroute
+    defaultroute-metric 256
+  '';
+
+  services.pppd = {
+    enable = true;
+    peers.edpnet = {
+      enable    = true;
+      autostart = true;
+      config    = "file ${config.sops.templates.edpnet.path}";
+    };
   };
 
   # users
