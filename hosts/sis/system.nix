@@ -42,22 +42,33 @@
   systemd.network = {
     enable = true;
 
+    netdevs."20-br0".netdevConfig = {
+      Kind = "bridge";
+      Name = "br0";
+    };
+
     networks."50-usb-RNDIS" = {
-      matchConfig.Name = "enp0s20f0*";
+      name = "enp0s20f0*";
       DHCP = "yes";
       dhcpV4Config = {
         RouteMetric = 128;
       };
     };
 
-    networks."10-enp1s0" = {
-      matchConfig.Name = "enp1s0";
+    networks."30-enp1s0" = {
+      name = "enp1s0";
+
+      bridge = [ "br0" ];
+
+      linkConfig.RequiredForOnline = "enslaved";
+    };
+
+    networks."40-br0" = {
+      name = "br0";
+
+      networkConfig.LinkLocalAddressing = "no";
 
       address = [ "10.85.13.10/25" ];
-
-      # routes  = [
-      #   { Gateway = "10.85.13.1"; Metric = 300; }
-      # ];
 
       networkConfig = {
         DHCPServer = "yes";
@@ -88,14 +99,15 @@
   sops.secrets.pppoe-name = {};
   sops.secrets.pppoe-password = {};
 
+  sops.templates.edpnet.restartUnits = [ "pppd-edpnet.service" ];
   sops.templates.edpnet.content = ''
-    plugin pppoe.so enp1s0
+    plugin pppoe.so br0
 
     name "${config.sops.placeholder.pppoe-name}"
     password "${config.sops.placeholder.pppoe-password}"
 
     persist
-    usepeerdns
+
     defaultroute
     defaultroute-metric 256
   '';
