@@ -29,7 +29,7 @@ dns:
   - 223.5.5.5
   - 119.29.29.29
   enhanced-mode: fake-ip
-  fake-ip-range: 172.29.0.1/16
+  fake-ip-range: 172.27.0.1/16
   use-hosts: true
   nameserver:
   - https://doh.pub/dns-query
