@@ -6,6 +6,10 @@
     useNetworkd = true;
 
     firewall.enable = false; # No local firewall
+
+    hosts = {
+      "10.0.0.1" = [ "homepage.lan" "shared.lan" "printer.lan" ];
+    };
   };
 
   # DNS

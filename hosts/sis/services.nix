@@ -6,19 +6,19 @@
   # ------------------------------------------------------------------------------
   services.mdns = {
     enable = true;
-    records = {
-      "10.0.0.1" = [
-        "rssfeeder.local"
-        "homepage.local"
-        "shared.local"
-        "printer.local"
-      ];
-    };
+    # records = {
+    #   "10.0.0.1" = [
+    #     "rssfeeder.local"
+    #     "homepage.local"
+    #     "shared.local"
+    #     "printer.local"
+    #   ];
+    # };
   };
 
   # Homepage
   # ------------------------------------------------------------------------------
-  services.caddy.virtualHosts."http://homepage.local".extraConfig = ''
+  services.caddy.virtualHosts."http://homepage.lan".extraConfig = ''
     encode gzip
     file_server
     root * ${
@@ -49,8 +49,8 @@
     '';
   };
 
-  services.caddy.virtualHosts."http://printer.local".extraConfig = ''
-    redir http://sis.local:631
+  services.caddy.virtualHosts."http://printer.lan".extraConfig = ''
+    redir http://10.85.13.10:631
   '';
 
   # Mihomo
@@ -91,9 +91,10 @@
     "d /media/hdd/share/tmpfiles 0755 root root 7d"
   ];
 
-  services.caddy.virtualHosts."http://shared.local".extraConfig = ''
+  services.caddy.virtualHosts."http://shared.lan".extraConfig = ''
     reverse_proxy http://localhost:27777
   '';
+
 
   # Miniflux
   # ------------------------------------------------------------------------------
@@ -105,9 +106,9 @@
     config.LISTEN_ADDR   = "0.0.0.0:8070";
   };
 
-  services.caddy.virtualHosts."http://rssfeeder.local".extraConfig = ''
-    reverse_proxy http://localhost:8070
-  '';
+  # services.caddy.virtualHosts."http://rssfeeder.local".extraConfig = ''
+  #   reverse_proxy http://localhost:8070
+  # '';
 
   # Caddy
   # -----------------------------------------------------------------------------

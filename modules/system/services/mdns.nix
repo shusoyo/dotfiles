@@ -2,6 +2,12 @@
 
 let
   cfg = config.services.mdns;
+
+  mkRecord = address: domains:
+    lib.concatMapStringsSep
+      " &\n"
+      (domain: "${pkgs.avahi}/bin/avahi-publish -a -R ${domain} ${address}")
+      domains;
 in {
   options.services.mdns = {
     enable  = ss.mkBoolOpt false;
@@ -23,22 +29,15 @@ in {
     })
 
     (lib.mkIf (cfg.records != {}) {
-      systemd.services."avahi-local-records" = let
-        makeRecord = address: domains:
-          lib.concatMapStringsSep " &\n"
-            (domain: "${pkgs.avahi}/bin/avahi-publish -a -R ${domain} ${address}")
-            domains;
-        publish-script = pkgs.writeShellScript "avahi-publish-records.sh" (
-          lib.foldlAttrs (acc: n: v: acc + makeRecord n v) "" cfg.records
-        );
-      in {
-        after       = [ "avahi-daemon.service" ];
-        requires    = [ "avahi-daemon.service" ];
-        wantedBy    = [ "multi-user.target" ];
+      systemd.services."avahi-local-records" = {
+        after    = [ "avahi-daemon.service" ];
+        requires = [ "avahi-daemon.service" ];
+        wantedBy = [ "multi-user.target" ];
+
+        script = lib.foldlAttrs (acc: a: d: acc + mkRecord a d) "set -eu\n" cfg.records;
 
         serviceConfig = {
           Type       = "simple";
-          ExecStart  = "${publish-script}";
           Restart    = "always";
           RestartSec = 3;
         };
