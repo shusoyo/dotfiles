@@ -37,7 +37,7 @@
   # ------------------------------------------------------------------------------
   services.printing = {
     enable  = true;
-    drivers = [ pkgs.hplipWithPlugin ];
+    # drivers = [ pkgs.hplipWithPlugin ];
 
     listenAddresses = [ "*:631" ];
     allowFrom       = [ "all" ];
@@ -61,10 +61,10 @@
   sops.templates."mihomo-config.yaml".content = ''
     ${builtins.readFile ./asserts/clash-config.yaml}
     proxy-providers:
-      abyss:
+      djjc:
         type: http
         url: "${config.sops.placeholder.abyss-url}"
-        path: ./abyss.yaml
+        path: ./djjc.yaml
         interval: 86400
   '';
 

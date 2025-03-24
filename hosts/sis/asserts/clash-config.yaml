@@ -50,7 +50,7 @@ proxy-groups:
   - name: "PROXY"
     type: select
     use:
-      - abyss
+      - djjc
 
 rule-providers:
   global:
