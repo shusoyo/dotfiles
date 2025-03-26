@@ -41,8 +41,8 @@
       "visual-studio-code"
       # Do something in better way
       "syncthing"
-      "mos"                       "raycast"
       "sfm"                       "clash-verge-rev"
+      "mos"                       "raycast"
     ];
   };
 
