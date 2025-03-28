@@ -69,6 +69,8 @@
         { MACAddress = "5c:02:14:9e:d6:dd"; Address = "10.0.0.2";  }
         # ss
         { MACAddress = "00:e2:69:6e:2c:ed"; Address = "10.0.0.10"; }
+        # 333 another windows pc
+        { MACAddress = "00:68:eb:a1:69:8c"; Address = "10.0.0.11"; }
       ];
     };
   };

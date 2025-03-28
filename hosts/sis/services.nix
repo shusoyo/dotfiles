@@ -37,7 +37,7 @@
   # ------------------------------------------------------------------------------
   services.printing = {
     enable  = true;
-    # drivers = [ pkgs.hplipWithPlugin ];
+    drivers = [ pkgs.hplipWithPlugin ];
 
     listenAddresses = [ "*:631" ];
     allowFrom       = [ "all" ];
