@@ -30,7 +30,7 @@ in {
 
       functions.ns = ''
         set -l flakeHome "${ss.abs-flake-path}"
-        set -x FLAKE $flakeHome
+        set -x NH_FLAKE $flakeHome
 
         switch $argv[1]
             case e
@@ -40,7 +40,8 @@ in {
             case sn
                 nh os switch
             case sd
-                darwin-rebuild switch --flake $flakeHome
+                nh darwin switch
+                # darwin-rebuild switch --flake $flakeHome
             case cd
                 cd $flakeHome
             case "*"
