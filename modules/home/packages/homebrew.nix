@@ -30,7 +30,9 @@ in {
         ${homebrew-proxy}
         /usr/local/bin/brew bundle install \
           --file=${config.xdg.configHome}/Brewfile \
-          --cleanup --no-upgrade --force
+          --upgrade \
+          --cleanup --force
+          # --no-upgrade
           # --no-lock
       '';
     };

@@ -20,7 +20,6 @@
 
     taps = [
       #                           -
-      "homebrew/bundle"           "homebrew/services"
     ];
 
     brews = [
@@ -29,12 +28,14 @@
 
     casks = [
       #                           -
-      "appcleaner"                "wechat"
-      "bitwarden"                 "telegram-a"
+      "bitwarden"
       "baidunetdisk"              "qq"
+      "appcleaner"                "wechat"
       #                           -
       # Web Browser
-      "arc"                       "zen-browser"
+      "arc"
+      # "zen-browser
+
       # Develop
       "ghostty"                   "utm"
       "kitty"                     "zed"
@@ -43,6 +44,7 @@
       "syncthing"
       "sfm"                       "clash-verge-rev"
       "mos"                       "raycast"
+      "dingtalk"
     ];
   };
 

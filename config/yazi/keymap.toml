@@ -1,4 +1,4 @@
-[manager]
+[mgr]
 prepend_keymap = [
   { on = "d", run = "shell 'gtrash put $0'", desc = "Trash selected files" },
 ]

@@ -29,13 +29,14 @@
 
 # Systems settings / Profiles
 # --------------------------------------------------------------------
+  system.primaryUser = "suspen";
   system = {
     stateVersion = 5;
 
     # Reload and apply to the current session
-    activationScripts.postUserActivation.text = ''
-      /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-    '';
+    # activationScripts.postUserActivation.text = ''
+    #   /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+    # '';
 
     defaults = {
       NSGlobalDomain = {
