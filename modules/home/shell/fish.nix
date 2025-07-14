@@ -41,7 +41,6 @@ in {
                 nh os switch
             case sd
                 nh darwin switch
-                # darwin-rebuild switch --flake $flakeHome
             case cd
                 cd $flakeHome
             case "*"

@@ -41,7 +41,9 @@
       "kitty"                     "zed"
       "visual-studio-code"
       # Do something in better way
-      "syncthing"
+      "xmind"
+      "marginnote"
+      "syncthing-app"
       "sfm"                       "clash-verge-rev"
       "mos"                       "raycast"
       "dingtalk"
