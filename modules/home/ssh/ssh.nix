@@ -18,11 +18,6 @@ in {
         AddKeysToAgent yes
         IdentityFile ~/.ssh/id_ed25519
 
-      Host mirage
-        HostName camel.local
-        User mirage
-        # IdentityFile ~/.ssh/id_ed25519
-
       Host hws
         HostName ${config.sops.placeholder.hws}
         User root
@@ -34,7 +29,7 @@ in {
         # IdentityFile ~/.ssh/id_ed25519
 
       Host sis
-        HostName 10.0.0.1
+        HostName sis.local
         User typer
         # IdentityFile ~/.ssh/id_ed25519
     '';
