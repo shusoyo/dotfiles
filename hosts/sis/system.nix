@@ -23,7 +23,7 @@
   # users
   # ------------------------------------------------------
   users.users = let
-    ssh-keys = with ss.ssh-id; [ ss0 ss1 ms0 ssx ];
+    ssh-keys = with ss.ssh-id; [ ss0 ms0 ssx ];
   in {
     typer = {
       home         = "/home/typer";

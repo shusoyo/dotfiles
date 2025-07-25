@@ -58,8 +58,7 @@
   time.timeZone = "Asia/Shanghai";
 
   environment.variables = rec {
-    SSH_AUTH_SOCK = "/Users/suspen/.bitwarden-ssh-agent.sock";
-    # BITWARDEN_SSH_AUTH_SOCK = "/var/run/bitwarden-ssh-agent.sock";
+    # SSH_AUTH_SOCK = "/Users/suspen/.bitwarden-ssh-agent.sock";
   };
 
   environment.shells = [ pkgs.fish ];
