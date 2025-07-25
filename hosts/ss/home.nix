@@ -28,25 +28,31 @@
 
     casks = [
       #                           -
+      "qq"
+      "wechat"
+      "baidunetdisk"
       "bitwarden"
-      "baidunetdisk"              "qq"
-      "appcleaner"                "wechat"
+      "google-chrome"
       #                           -
       # Web Browser
       "arc"
-      # "zen-browser
 
       # Develop
-      "ghostty"                   "utm"
-      "kitty"                     "zed"
+      "ghostty"
+      "utm"
+      "kitty"
+      "zed"
       "visual-studio-code"
+
       # Do something in better way
       "xmind"
-      "marginnote"
       "syncthing-app"
-      "sfm"                       "clash-verge-rev"
-      "mos"                       "raycast"
-      "dingtalk"
+      "sfm"
+      "clash-verge-rev"
+      "mos"
+      "raycast"
+      "the-unarchiver"
+      "appcleaner"
     ];
   };
 
