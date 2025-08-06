@@ -31,7 +31,8 @@ in {
         /usr/local/bin/brew bundle install \
           --file=${config.xdg.configHome}/Brewfile \
           --upgrade \
-          --cleanup --force
+          --cleanup --force \
+          -v
           # --no-upgrade
           # --no-lock
       '';

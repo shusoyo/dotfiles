@@ -110,6 +110,25 @@
   #   reverse_proxy http://localhost:8070
   # '';
 
+  # WebDav
+  # -----------------------------------------------------------------------------
+  services.webdav = {
+    enable = true;
+    seetings = {
+      address = "0.0.0.0";
+      port = 5825;
+      scope = "/media/hdd/webdav";
+      modify = true;
+      auth = true;
+      users = [
+        {
+          username = "suspen";
+          password = "1202";
+        }
+      ];
+    };
+  };
+
   # Caddy
   # -----------------------------------------------------------------------------
   services.caddy = {

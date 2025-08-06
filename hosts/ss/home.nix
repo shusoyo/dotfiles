@@ -20,9 +20,11 @@
 
     taps = [
       #                           -
+      "LizardByte/homebrew"
     ];
 
     brews = [
+      "sunshine"
       "bitwarden-cli"
     ];
 
@@ -33,9 +35,8 @@
       "baidunetdisk"
       "bitwarden"
       "google-chrome"
-      #                           -
-      # Web Browser
       "arc"
+      "zotero"
 
       # Develop
       "ghostty"
@@ -50,7 +51,6 @@
       "sfm"
       "clash-verge-rev"
       "mos"
-      "raycast"
       "the-unarchiver"
       "appcleaner"
     ];
