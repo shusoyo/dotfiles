@@ -38,6 +38,11 @@
     networks."30-enp1s0" = {
       name = "enp1s0";
       DHCP = "yes";
+      address = [ "10.85.13.17/25" ];
+
+      routes = [
+        { Destination = "10.0.0.0/8"; Gateway = "10.85.13.1"; }
+      ];
     };
   };
 

@@ -45,6 +45,7 @@
     pkgs.wget
     pkgs.gitMinimal
     pkgs.mtr
+    pkgs.tailscale
   ];
 
   # Low level

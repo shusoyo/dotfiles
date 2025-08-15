@@ -4,16 +4,16 @@
 
   # Mdns
   # ------------------------------------------------------------------------------
-  services.mdns = {
-    enable = true;
-    # records = {
-    #   "10.0.0.1" = [
-    #     "rssfeeder.local"
-    #     "homepage.local"
-    #     "shared.local"
-    #     "printer.local"
-    #   ];
-    # };
+  services.avahi = {
+    enable       = true;
+    nssmdns4     = true;
+    openFirewall = true;
+    reflector    = true;
+
+    publish = {
+      enable = true;
+      userServices = true;
+    };
   };
 
   # Homepage
@@ -35,23 +35,23 @@
 
   # Printer (HP LaserJet_Professional P1106 at sis2, 333)
   # ------------------------------------------------------------------------------
-  services.printing = {
-    enable  = true;
-    drivers = [ pkgs.hplipWithPlugin ];
-
-    listenAddresses = [ "*:631" ];
-    allowFrom       = [ "all" ];
-    browsing        = true;
-    defaultShared   = true;
-
-    extraConf = ''
-      DefaultEncryption Never
-    '';
-  };
-
-  services.caddy.virtualHosts."http://printer.lan".extraConfig = ''
-    redir http://10.85.13.10:631
-  '';
+  # services.printing = {
+  #   enable  = true;
+  #   drivers = [ pkgs.hplipWithPlugin ];
+  #
+  #   listenAddresses = [ "*:631" ];
+  #   allowFrom       = [ "all" ];
+  #   browsing        = true;
+  #   defaultShared   = true;
+  #
+  #   extraConf = ''
+  #     DefaultEncryption Never
+  #   '';
+  # };
+  #
+  # services.caddy.virtualHosts."http://printer.lan".extraConfig = ''
+  #   redir http://10.85.13.10:631
+  # '';
 
   # Mihomo
   # ------------------------------------------------------------------------------
@@ -114,19 +114,27 @@
   # -----------------------------------------------------------------------------
   services.webdav = {
     enable = true;
-    seetings = {
+    settings = {
       address = "0.0.0.0";
       port = 5825;
-      scope = "/media/hdd/webdav";
-      modify = true;
-      auth = true;
+      directory = "/media/hdd/webdav";
+      permissions = "RC";
       users = [
         {
           username = "suspen";
           password = "1202";
+          permissions = "CRUD";
         }
       ];
     };
+  };
+
+  # services.caddy.virtualHosts."http://dav.sis.local".extraConfig = ''
+  #   reverse_proxy http://localhost:5825
+  # '';
+
+  services.tailscale = {
+    enable = true;
   };
 
   # Caddy
