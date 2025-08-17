@@ -4,16 +4,8 @@
 
   # Mdns
   # ------------------------------------------------------------------------------
-  services.avahi = {
-    enable       = true;
-    nssmdns4     = true;
-    openFirewall = true;
-    reflector    = true;
-
-    publish = {
-      enable = true;
-      userServices = true;
-    };
+  services.mdns = {
+    enable = true;
   };
 
   # Homepage
@@ -32,26 +24,6 @@
       mime .md text/html
     }
   '';
-
-  # Printer (HP LaserJet_Professional P1106 at sis2, 333)
-  # ------------------------------------------------------------------------------
-  # services.printing = {
-  #   enable  = true;
-  #   drivers = [ pkgs.hplipWithPlugin ];
-  #
-  #   listenAddresses = [ "*:631" ];
-  #   allowFrom       = [ "all" ];
-  #   browsing        = true;
-  #   defaultShared   = true;
-  #
-  #   extraConf = ''
-  #     DefaultEncryption Never
-  #   '';
-  # };
-  #
-  # services.caddy.virtualHosts."http://printer.lan".extraConfig = ''
-  #   redir http://10.85.13.10:631
-  # '';
 
   # Mihomo
   # ------------------------------------------------------------------------------
@@ -88,13 +60,12 @@
 
   # tmpfiles to share temporary files
   systemd.tmpfiles.rules = [
-    "d /media/hdd/share/tmpfiles 0755 root root 7d"
+    "d /media/hdd/share/tmpfiles 0755 root root 1d"
   ];
 
   services.caddy.virtualHosts."http://shared.lan".extraConfig = ''
     reverse_proxy http://localhost:27777
   '';
-
 
   # Miniflux
   # ------------------------------------------------------------------------------
@@ -105,10 +76,6 @@
     adminCredentialsFile = "${config.sops.secrets.miniflux.path}";
     config.LISTEN_ADDR   = "0.0.0.0:8070";
   };
-
-  # services.caddy.virtualHosts."http://rssfeeder.local".extraConfig = ''
-  #   reverse_proxy http://localhost:8070
-  # '';
 
   # WebDav
   # -----------------------------------------------------------------------------
@@ -128,10 +95,6 @@
       ];
     };
   };
-
-  # services.caddy.virtualHosts."http://dav.sis.local".extraConfig = ''
-  #   reverse_proxy http://localhost:5825
-  # '';
 
   services.tailscale = {
     enable = true;

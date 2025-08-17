@@ -1,9 +1,7 @@
 ## SIS Homepage
 
 #### Services
-Make sure, your dns is 10.0.0.1.
-1. CUPS Printer sharing: http://printer.lan      
-2. Files sharing (1 TiB space): http://shared.lan           
+1. Files sharing (1 TiB space): [click this](http://10.85.13.17:27777)           
 
 #### TODO
 1. Router
