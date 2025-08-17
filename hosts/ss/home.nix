@@ -24,8 +24,7 @@
     ];
 
     brews = [
-      "sunshine"
-      "bitwarden-cli"
+      # "sunshine"
     ];
 
     casks = [
@@ -53,6 +52,8 @@
       "mos"
       "the-unarchiver"
       "appcleaner"
+
+      # "squirrel-app"
     ];
   };
 
