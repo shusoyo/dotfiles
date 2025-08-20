@@ -10,8 +10,16 @@
     };
   };
 
+  modules.sops = {
+    enable = true;
+    sopsFile = ./asserts/secrets.yaml;
+  };
+
+  sops.secrets.syncthing-gui-password = {};
+
   services.syncthing = {
     enable = true;
+    passwordFile = "${config.sops.secrets.syncthing-gui-password.path}";
     guiAddress = "0.0.0.0:8384";
     settings = {
       options = {
@@ -20,7 +28,6 @@
       };
       gui = {
         user = "suspen";
-        password = "1202";
       };
       devices = {
         "ss_iphone" = { id = "6D52CQG-JXIWTKB-QFDIRSH-7TFSQVS-OXWBMLW-R5MPXPO-24WGH2Y-LRBNPQT"; };

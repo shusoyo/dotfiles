@@ -59,6 +59,7 @@
 
   modules.sops = {
     enable = true;
+    sopsFile = ./asserts/secrets.yaml;
   };
 
   modules = {
@@ -79,21 +80,28 @@
     };
   };
 
+  sops.secrets.syncthing-gui-password = {};
+
   services.syncthing = {
     enable = true;
+    passwordFile = "${config.sops.secrets.syncthing-gui-password.path}";
     settings = {
       gui = {
         user = "suspen";
-        password = "1202";
       };
       devices = {
+        "sis"       = { id = "NATNUA4-GMYZ7NI-JABFJ32-A7IKIP2-D4BW64G-LKUA4GR-6KV4CQA-QDX5QQ4"; };
         "ss_iphone" = { id = "6D52CQG-JXIWTKB-QFDIRSH-7TFSQVS-OXWBMLW-R5MPXPO-24WGH2Y-LRBNPQT"; };
-        "sis"    = { id = "NATNUA4-GMYZ7NI-JABFJ32-A7IKIP2-D4BW64G-LKUA4GR-6KV4CQA-QDX5QQ4"; };
+        "ss_ipad"   = { id = "PJUAYSZ-GZ2VOZR-SMB2ZJL-AYRGQAI-FYXXDGI-TXBAYUI-B4ZVC6Q-RFBDHQI"; };
       };
       folders = {
         "sync" = {
-          path = "/Users/suspen/ss/sync";
-          devices = [ "ss_iphone" "sis" ];
+          path = "/Users/suspen/ss/syncthing/sync";
+          devices = [ "ss_iphone" "sis" "ss_ipad" ];
+        };
+        "backup" = {
+          path = "/Users/suspen/ss/syncthing/backup";
+          devices = [ "sis" ];
         };
       };
     };
