@@ -46,7 +46,7 @@
 
       # Do something in better way
       "xmind"
-      "syncthing-app"
+      # "syncthing-app"
       "sfm"
       "clash-verge-rev"
       "mos"
