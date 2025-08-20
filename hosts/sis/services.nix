@@ -84,7 +84,7 @@
     settings = {
       address = "0.0.0.0";
       port = 5825;
-      directory = "/media/hdd/webdav";
+      directory = "/home/typer/mirage";
       permissions = "RC";
       users = [
         {
@@ -93,6 +93,33 @@
           permissions = "CRUD";
         }
       ];
+    };
+  };
+
+  services.samba = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      global = {
+        "workgroup"     = "WORKGROUP";
+        "server string" = "smbnix";
+        "netbios name"  = "smbnix";
+        "security"      = "user";
+        "hosts allow"   = "192.168.0. 127.0.0.1 localhost 0.0.0.0/0";
+        "guest account" = "nobody";
+        "map to guest"  = "bad user";
+      };
+      "sis" = {
+        "path"               = "/home/typer/mirage";
+        "read only"          = "no";
+        "writable"           = "yes";
+        "create mask"        = "0777";
+        "directory mask"     = "0777";
+        "force user"         = "typer";
+        "fruit:aapl"         = "yes";
+        "fruit:time machine" = "yes";
+        "vfs objects"        = "catia fruit streams_xattr";
+      };
     };
   };
 

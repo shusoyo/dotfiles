@@ -78,4 +78,24 @@
       typst.enable = true;
     };
   };
+
+  services.syncthing = {
+    enable = true;
+    settings = {
+      gui = {
+        user = "suspen";
+        password = "1202";
+      };
+      devices = {
+        "ss_iphone" = { id = "6D52CQG-JXIWTKB-QFDIRSH-7TFSQVS-OXWBMLW-R5MPXPO-24WGH2Y-LRBNPQT"; };
+        "sis"    = { id = "NATNUA4-GMYZ7NI-JABFJ32-A7IKIP2-D4BW64G-LKUA4GR-6KV4CQA-QDX5QQ4"; };
+      };
+      folders = {
+        "sync" = {
+          path = "/Users/suspen/ss/sync";
+          devices = [ "ss_iphone" "sis" ];
+        };
+      };
+    };
+  };
 }
