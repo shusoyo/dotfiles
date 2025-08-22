@@ -81,10 +81,11 @@
   # -----------------------------------------------------------------------------
   services.webdav = {
     enable = true;
+    user  = "typer";
     settings = {
       address = "0.0.0.0";
       port = 5825;
-      directory = "/home/typer/mirage";
+      directory = "/home/typer/syncthing/";
       permissions = "RC";
       users = [
         {
@@ -110,7 +111,7 @@
         "map to guest"  = "bad user";
       };
       "sis" = {
-        "path"               = "/home/typer/mirage";
+        "path"               = "/home/typer/syncthing/";
         "read only"          = "no";
         "writable"           = "yes";
         "create mask"        = "0777";
@@ -123,8 +124,42 @@
     };
   };
 
-  services.tailscale = {
+  # services.tailscale = {
+  #   enable = true;
+  # };
+
+  services.syncthing = {
     enable = true;
+    dataDir = "/home/typer/";
+    configDir = "/home/typer/.config/syncthing";
+    user = "typer";
+    group = "users";
+    guiAddress = "0.0.0.0:8384";
+    settings = {
+      options = {
+        globalAnnounceEnabled = false;
+        relaysEnabled = false;
+      };
+      # gui = {
+      #   user = "suspen";
+      #   password = "1202";
+      # };
+      devices = {
+        "ss_iphone" = { id = "6D52CQG-JXIWTKB-QFDIRSH-7TFSQVS-OXWBMLW-R5MPXPO-24WGH2Y-LRBNPQT"; };
+        "ss_mac"    = { id = "LZM4CG6-CTNNPDS-CH45TIB-GMFD7QB-XW6CHLH-O3GP3Q5-7O4F6IB-DHA44AO"; };
+        "ss_ipad"   = { id = "PJUAYSZ-GZ2VOZR-SMB2ZJL-AYRGQAI-FYXXDGI-TXBAYUI-B4ZVC6Q-RFBDHQI"; };
+      };
+      folders = {
+        "sync" = {
+          path = "/home/typer/syncthing/sync";
+          devices = [ "ss_iphone" "ss_mac" "ss_ipad" ];
+        };
+        "backup" = {
+          path = "/home/typer/syncthing/backup/";
+          devices = [ "ss_mac" ];
+        };
+      };
+    };
   };
 
   # Caddy

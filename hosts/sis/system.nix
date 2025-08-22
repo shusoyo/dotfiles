@@ -29,7 +29,7 @@
       home         = "/home/typer";
       shell        = pkgs.fish;
       isNormalUser = true;
-      extraGroups  = [ "wheel" "incus-admin" ];
+      extraGroups  = [ "wheel" "incus-admin" "webdav"];
 
       openssh.authorizedKeys.keys = ssh-keys;
     };
@@ -47,6 +47,18 @@
     pkgs.mtr
     pkgs.tailscale
   ];
+
+  systemd.services."reboot-on-time" = {
+    script = ''
+      set -eu
+      ${pkgs.coreutils}/bin/sleep 70 && ${pkgs.coreutils}/bin/touch /etc/banner && ${pkgs.systemd}/bin/reboot
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+    };
+    startAt = "*-*-* 03:00:00";
+  };
 
   # Low level
   # ------------------------------------------------------
