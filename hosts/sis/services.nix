@@ -146,7 +146,7 @@
       # };
       devices = {
         "ss_iphone" = { id = "6D52CQG-JXIWTKB-QFDIRSH-7TFSQVS-OXWBMLW-R5MPXPO-24WGH2Y-LRBNPQT"; };
-        "ss_mac"    = { id = "LZM4CG6-CTNNPDS-CH45TIB-GMFD7QB-XW6CHLH-O3GP3Q5-7O4F6IB-DHA44AO"; };
+        "ss_mac"    = { id = "BCNCYG2-5NI4S2Z-RGNQMKS-ZSXYXFD-C6BNNVO-R2AYWD3-KM5YTQV-YPB3TQT"; };
         "ss_ipad"   = { id = "PJUAYSZ-GZ2VOZR-SMB2ZJL-AYRGQAI-FYXXDGI-TXBAYUI-B4ZVC6Q-RFBDHQI"; };
       };
       folders = {
@@ -159,6 +159,26 @@
           devices = [ "ss_mac" ];
         };
       };
+    };
+  };
+
+  environment.systemPackages = [
+    pkgs.openlist
+  ];
+  systemd.services."openlist" = {
+    after    = [ "network.target" ];
+    wantedBy = [ "default.target" ];
+    #
+    # environment = {
+    #   DATA_DIR = "/home/typer/.config/openlist";
+    # };
+
+    serviceConfig = {
+      Type      = "simple";
+      Restart   = "on-failure";
+      ExecStart = ''
+        ${pkgs.openlist}/bin/OpenList --data /etc/openlist server
+      '';
     };
   };
 
