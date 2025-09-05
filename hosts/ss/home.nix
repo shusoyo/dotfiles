@@ -79,31 +79,4 @@
       typst.enable = true;
     };
   };
-
-  sops.secrets.syncthing-gui-password = {};
-
-  services.syncthing = {
-    enable = true;
-    passwordFile = "${config.sops.secrets.syncthing-gui-password.path}";
-    settings = {
-      gui = {
-        user = "suspen";
-      };
-      devices = {
-        "sis"       = { id = "IUH3EWE-BRUOANF-KNMKID2-F5AEVLT-IHSSPUR-WSOR6XK-YA5V3QJ-2AEQ3AX"; };
-        "ss_iphone" = { id = "6D52CQG-JXIWTKB-QFDIRSH-7TFSQVS-OXWBMLW-R5MPXPO-24WGH2Y-LRBNPQT"; };
-        "ss_ipad"   = { id = "PJUAYSZ-GZ2VOZR-SMB2ZJL-AYRGQAI-FYXXDGI-TXBAYUI-B4ZVC6Q-RFBDHQI"; };
-      };
-      folders = {
-        "sync" = {
-          path = "/Users/suspen/ss/syncthing/sync";
-          devices = [ "ss_iphone" "sis" "ss_ipad" ];
-        };
-        "backup" = {
-          path = "/Users/suspen/ss/syncthing/backup";
-          devices = [ "sis" ];
-        };
-      };
-    };
-  };
 }
