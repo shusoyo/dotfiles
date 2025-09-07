@@ -25,6 +25,7 @@
 
     brews = [
       # "sunshine"
+      "syncthing"
     ];
 
     casks = [
@@ -36,6 +37,7 @@
       "google-chrome"
       "arc"
       "zotero"
+
 
       # Develop
       "ghostty"
