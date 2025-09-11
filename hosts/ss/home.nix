@@ -41,7 +41,7 @@
 
       # Develop
       "ghostty"
-      "utm"
+      "utm@beta"
       "kitty"
       "zed"
       "visual-studio-code"

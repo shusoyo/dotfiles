@@ -36,7 +36,7 @@
     camel
 
     # local/cloud server
-    hws
+    # hws
     sis
   ];
 }

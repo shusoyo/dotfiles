@@ -1,6 +1,10 @@
 { pkgs, config, ... }: {
 
   # Don't need open Firewall because no firewall on lan.
+  environment.systemPackages = [
+    pkgs.openlist
+    pkgs.sing-box
+  ];
 
   # Mdns
   # ------------------------------------------------------------------------------
@@ -162,10 +166,7 @@
     };
   };
 
-  environment.systemPackages = [
-    pkgs.openlist
-  ];
-  systemd.services."openlist" = {
+ systemd.services."openlist" = {
     after    = [ "network.target" ];
     wantedBy = [ "default.target" ];
     #
@@ -180,6 +181,11 @@
         ${pkgs.openlist}/bin/OpenList --data /etc/openlist server
       '';
     };
+  };
+
+  services.sing-box = {
+    enable = true;
+    settings = builtins.fromJSON (builtins.readFile ./asserts/sing-box.json);
   };
 
   # Caddy
