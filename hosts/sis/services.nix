@@ -140,14 +140,14 @@
         globalAnnounceEnabled = false;
         relaysEnabled = false;
       };
-      # gui = {
-      #   user = "suspen";
-      #   password = "1202";
-      # };
+      gui = {
+        user = "suspen";
+        password = "1202";
+      };
       devices = {
         "ss_iphone" = { id = "6D52CQG-JXIWTKB-QFDIRSH-7TFSQVS-OXWBMLW-R5MPXPO-24WGH2Y-LRBNPQT"; };
         "ss_mac"    = { id = "BCNCYG2-5NI4S2Z-RGNQMKS-ZSXYXFD-C6BNNVO-R2AYWD3-KM5YTQV-YPB3TQT"; };
-        "ss_ipad"   = { id = "PJUAYSZ-GZ2VOZR-SMB2ZJL-AYRGQAI-FYXXDGI-TXBAYUI-B4ZVC6Q-RFBDHQI"; };
+        "ss_ipad"   = { id = "QCMQQ7B-PSQJJXM-HBNOXOG-DOSQFXL-5URCUUU-WJP3DQP-UBTPG45-FQUCIQY"; };
       };
       folders = {
         "sync" = {
@@ -191,4 +191,6 @@
       auto_https off
     '';
   };
+
+  virtualisation.incus.enable = true;
 }

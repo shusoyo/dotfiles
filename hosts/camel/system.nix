@@ -2,6 +2,7 @@
 
   imports = [
     ../prelude/local.nix
+    ./server.nix
   ];
 
   # Modules
@@ -23,7 +24,7 @@
     isNormalUser = true;
     extraGroups  = [ "wheel" ];
 
-    openssh.authorizedKeys.keys = [ ss.ssh-id.ss0 ];
+    openssh.authorizedKeys.keys = [ ss.ssh-id.ss0 ss.ssh-id.sis ];
   };
 
   environment.systemPackages = [
@@ -47,11 +48,11 @@
 
     networks."enp0s1" = {
       matchConfig.Name = "enp0s1";
-      address = [
-        "192.168.64.2/24"
-      ];
-      routes  = [
-        { Gateway = "192.168.64.1"; }
+      DHCP = "yes";
+      address = [ "10.85.13.40/25" ];
+
+      routes = [
+        { Destination = "10.0.0.0/8"; Gateway = "10.85.13.1"; }
       ];
     };
   };
@@ -61,8 +62,6 @@
   # System
   # ------------------------------------------------------
   boot = {
-    kernelPackages = pkgs.linuxPackages_6_6;
-
     initrd.availableKernelModules = [
       "virtio_pci"
       "xhci_pci"
