@@ -14,7 +14,7 @@ geox-url:
   geoip: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip-lite.dat"  # lite 版本 GEOIP 体积小
 
 tun:
-  enable: true
+  enable: false
   stack: mixed
   auto-route: true
   strict-route: false
