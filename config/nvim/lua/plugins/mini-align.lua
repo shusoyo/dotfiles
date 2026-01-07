@@ -1,11 +1,11 @@
 return {
   {
-    'echasnovski/mini.align',
+    "nvim-mini/mini.align",
     version = false,
 
     opts = {
       mappings = {
-        start = 'gm',
+        start = "gm",
       },
     },
   },

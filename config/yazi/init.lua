@@ -10,9 +10,9 @@
 -- if not module_exists("no-status") then
 -- 	os.execute("ya pack -i")
 -- end
-
-require("full-border"):setup()
+--
 require("no-status"):setup()
+require("full-border"):setup()
 
 Header:children_add(function()
 	if ya.target_family() ~= "unix" then

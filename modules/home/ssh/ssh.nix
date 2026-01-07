@@ -32,6 +32,17 @@ in {
         HostName sis.local
         User typer
         # IdentityFile ~/.ssh/id_ed25519
+
+      Host debian
+        HostName 192.168.64.2
+        User suspen
+        # IdentityFile ~/.ssh/id_ed25519
+
+      Host cs162
+        HostName 127.0.0.1
+        Port 16222
+        User workspace
+        IdentityFile ~/.ssh/id_ed25519
     '';
 
     sops.templates.ssh-config.path = "${config.home.homeDirectory}/.ssh/config";

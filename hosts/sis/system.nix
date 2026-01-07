@@ -47,6 +47,7 @@
     pkgs.mtr
     pkgs.tailscale
     pkgs.openlist
+
   ];
 
   systemd.services."reboot-on-time" = {

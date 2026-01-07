@@ -10,9 +10,9 @@ in {
 
   config = lib.mkIf cfg.enable {
     programs.fish = {
-      enable = true;
-      preferAbbrs = true;
-      generateCompletions  = true;
+      enable              = true;
+      preferAbbrs         = true;
+      generateCompletions = true;
 
       interactiveShellInit = let
         shell-proxy-script =
@@ -21,7 +21,16 @@ in {
         source-local-config =
           "[ -e ./local.fish ]; and source ./local.fish"
         ;
+        ocaml-eval =
+          if config.modules.dev.ocaml.enable == true then
+            # "test -r '/Users/suspen/.local/share/opam/opam-init/init.fish' && source '/Users/suspen/.local/share/opam/opam-init/init.fish' > /dev/null 2> /dev/null; or true"
+            "eval (opam env)"
+          else
+            ""
+        ;
       in ''
+        # ocaml auto eval
+        ${ocaml-eval}
         # terminal proxy script
         ${shell-proxy-script}
         # local config to debug or test.
@@ -52,6 +61,11 @@ in {
     xdg.configFile = {
       "fish/functions" = {
         source = "${ss.config-path}/fish/functions";
+        recursive = true;
+      };
+
+      "fish/conf.d" = {
+        source = "${ss.config-path}/fish/conf.d";
         recursive = true;
       };
 

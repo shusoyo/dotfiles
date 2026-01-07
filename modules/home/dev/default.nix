@@ -14,6 +14,7 @@ in {
     ./go.nix
     ./node.nix
     ./typst.nix
+    ./haskell.nix
   ];
 
   options.modules.dev = {

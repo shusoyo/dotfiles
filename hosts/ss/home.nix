@@ -13,6 +13,8 @@
 
     # nix language server for zed editor.
     nixd                  nil
+
+    elan
   ];
 
   modules.packages.homebrew = {
@@ -24,8 +26,11 @@
     ];
 
     brews = [
-      # "sunshine"
       "syncthing"
+
+      "colima"
+      "docker"
+      "docker-compose"
     ];
 
     casks = [
@@ -47,7 +52,6 @@
       "visual-studio-code"
 
       # Do something in better way
-      "xmind"
       # "syncthing-app"
       "sfm"
       "clash-verge-rev"
@@ -55,7 +59,7 @@
       "the-unarchiver"
       "appcleaner"
 
-      # "squirrel-app"
+      "squirrel-app"
     ];
   };
 
@@ -78,7 +82,9 @@
 
     dev = {
       node.enable  = true;
+      ocaml.enable = true;
       typst.enable = true;
+      haskell.enable = true;
     };
   };
 }

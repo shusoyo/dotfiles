@@ -10,6 +10,7 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = [
       pkgs.neovim
+      pkgs.tree-sitter
     ];
 
     home.sessionVariables = {

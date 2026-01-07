@@ -30,7 +30,13 @@ in {
 
       # ./lima
       # LIMA_HOME = "${config.xdg.dataHome}/lima";
+      # COLIMA_HOME = "${config.xdg.configHome}/colima";
+
+      DOCKER_CONFIG = "${config.xdg.configHome}/docker";
+
+      ELAN_HOME = "${config.xdg.configHome}/elan";
     };
+
 
     # wgetrc
     xdg.configFile."wgetrc".text = ''

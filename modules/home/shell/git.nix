@@ -9,10 +9,10 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      gitAndTools.git
-      gitAndTools.gh
-      gitAndTools.hut
-      gitAndTools.lazygit
+      git
+      gh
+      hut
+      lazygit
     ];
 
     home.shellAliases = {
