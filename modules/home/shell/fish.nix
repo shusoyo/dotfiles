@@ -14,6 +14,22 @@ in {
       preferAbbrs         = true;
       generateCompletions = true;
 
+      loginShellInit = let
+        ocaml-eval =
+          if config.modules.dev.ocaml.enable == true then
+            "test -r '/Users/suspen/.local/share/opam/opam-init/init.fish' && source '/Users/suspen/.local/share/opam/opam-init/init.fish' > /dev/null 2> /dev/null; or true"
+            # "eval (opam env)"
+          else
+            ""
+        ;
+      in ''
+        # ocaml auto eval
+        ${ocaml-eval}
+
+        #homebrew shellenv
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+      '';
+
       interactiveShellInit = let
         shell-proxy-script =
           if cfg.shellProxy != null then "set_proxy ${cfg.shellProxy}" else ""
@@ -21,16 +37,7 @@ in {
         source-local-config =
           "[ -e ./local.fish ]; and source ./local.fish"
         ;
-        ocaml-eval =
-          if config.modules.dev.ocaml.enable == true then
-            # "test -r '/Users/suspen/.local/share/opam/opam-init/init.fish' && source '/Users/suspen/.local/share/opam/opam-init/init.fish' > /dev/null 2> /dev/null; or true"
-            "eval (opam env)"
-          else
-            ""
-        ;
       in ''
-        # ocaml auto eval
-        ${ocaml-eval}
         # terminal proxy script
         ${shell-proxy-script}
         # local config to debug or test.

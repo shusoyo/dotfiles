@@ -2,21 +2,21 @@
 
 let
   devCfg = config.modules.dev;
-  cfg = devCfg.ocaml;
+  cfg = devCfg.lean;
 in {
-  options.modules.dev.ocaml = {
+  options.modules.dev.lean = {
     enable = ss.mkBoolOpt false;
     xdg.enable = ss.mkBoolOpt devCfg.xdg.enable;
   };
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-      home.packages = [ pkgs.opam ];
+      home.packages = [ pkgs.elan ];
     })
 
     (lib.mkIf cfg.xdg.enable {
       home.sessionVariables = {
-        OPAMROOT="${config.xdg.dataHome}/opam";
+        ELAN_HOME = "${config.xdg.configHome}/elan";
       };
     })
   ];

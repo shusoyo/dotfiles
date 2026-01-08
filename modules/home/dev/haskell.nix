@@ -22,7 +22,6 @@ in {
 
     (lib.mkIf cfg.xdg.enable {
       home.sessionVariables = {
-
       };
     })
   ];

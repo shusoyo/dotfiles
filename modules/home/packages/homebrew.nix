@@ -3,13 +3,22 @@
 let
   cfg = config.modules.packages.homebrew;
 
-  homebrew-proxy = config.lib.shell.exportAll {
+  homebrew-env = {
     HOMEBREW_API_DOMAIN      = "https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api";
     HOMEBREW_BOTTLE_DOMAIN   = "https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles";
     HOMEBREW_BREW_GIT_REMOTE = "https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git";
     HOMEBREW_CORE_GIT_REMOTE = "https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git";
     HOMEBREW_PIP_INDEX_URL   = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple";
   };
+
+  export-homebrew-env = config.lib.shell.exportAll homebrew-env;
+
+  brew-path =
+    if ss.system == "x86_64-darwin" then
+      "/usr/local/bin/brew"
+    else
+      "/opt/homebrew/bin/brew"
+  ;
 in {
   options.modules.packages.homebrew = with lib.types; {
     enable = ss.mkBoolOpt false;
@@ -27,8 +36,9 @@ in {
           +
         (concatMapStrings (cask: "cask \"${cask}\"\n") cfg.casks);
       onChange = ''
-        ${homebrew-proxy}
-        /usr/local/bin/brew bundle install \
+        eval "$(${brew-path} shellenv)"
+        ${export-homebrew-env}
+        ${brew-path} bundle install \
           --file=${config.xdg.configHome}/Brewfile \
           --upgrade \
           --cleanup --force \
@@ -38,9 +48,11 @@ in {
       '';
     };
 
-    home.shellAliases = {
-      brew = ''${homebrew-proxy}
-      /usr/local/bin/brew'';
-    };
+    # home.sessionVariables = homebrew-env;
+
+    # home.shellAliases = {
+    #   # brew = ''${homebrew-env}
+    #   # /opt/homebrew/bin/brew'';
+    # };
   };
 }

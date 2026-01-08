@@ -9,6 +9,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     xdg.enable = true;
+
     xdg.cacheHome = config.home.homeDirectory + (
       if pkgs.stdenv.hostPlatform.isDarwin then
         "/Library/Caches"

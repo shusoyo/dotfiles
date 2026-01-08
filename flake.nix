@@ -23,20 +23,11 @@
   outputs = inputs@{ self, nixpkgs, home-manager, darwin, ... }: let
     gen = import ./lib/generator.nix inputs;
 
-    ss-home   = gen.home-conf-gen  "ss"    "suspen" "x86_64-darwin";
-    ss-system = gen.macos-conf-gen "ss"    "suspen" "x86_64-darwin";
-    camel     = gen.nixos-conf-gen "camel" "mirage" "x86_64-linux";
-    hws       = gen.nixos-conf-gen "hws"   "root"   "x86_64-linux";
-    sis       = gen.nixos-conf-gen "sis"   "typer"  "x86_64-linux";
+    typer = gen.macos-conf-gen "typer" "suspen" "aarch64-darwin";
+    ss    = gen.macos-conf-gen "ss"    "suspen" "x86_64-darwin";
   in gen.merge-conf [
     # pc
-    ss-system    ss-home
-
-    # vm nixos in pc
-    camel
-
-    # local/cloud server
-    # hws
-    sis
+    typer
+    ss
   ];
 }

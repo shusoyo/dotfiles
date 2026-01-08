@@ -7,8 +7,6 @@
 
 # Modules options first
 # --------------------------------------------------------------------
-  modules.nix-nixpkgs-settings.enable = true;
-
   modules.home-manager.enable = true;
   home-manager = {
     users.suspen = import ./home.nix;
@@ -16,11 +14,32 @@
 
 # Host/Users
 # --------------------------------------------------------------------
-  networking.hostName = "ss";
+  networking.hostName = "typer";
 
   users.users."suspen"= {
     home = "/Users/suspen";
   };
+
+#  determine.sys
+# --------------------------------------------------------------------
+  nix.enable = false;
+
+  environment.etc."nix/nix.custom.conf".text = ''
+    warn-dirty = false
+    use-xdg-base-directories = true
+    trusted-users = suspen root
+    builders-use-substitutes = true
+    substituters = https://mirrors.ustc.edu.cn/nix-channels/store
+    auto-optimise-store = true
+  '';
+
+  launchd.daemons.nix-gc = {
+    command = "/nix/var/nix/profiles/default/bin/nix-collect-garbage --delete-older-than 4d";
+    serviceConfig.RunAtLoad = false;
+    serviceConfig.StartCalendarInterval = [{ Weekday = 7; Hour = 3; Minute = 15; }];
+  };
+
+  nixpkgs.config.allowUnfree = true;
 
 # Nix
 # --------------------------------------------------------------------
@@ -31,11 +50,11 @@
     "$HOME/.local/state/nix/profile"
   ]);
 
-  # Auto upgrade nix package and the daemon service.
-  # services.nix-daemon.enable = true;
-
 # Systems settings / Profiles
 # --------------------------------------------------------------------
+
+  security.pam.services.sudo_local.touchIdAuth = true;
+
   system.primaryUser = "suspen";
   system = {
     stateVersion = 5;
@@ -46,6 +65,9 @@
     # '';
 
     defaults = {
+      dock.autohide   = true;
+      dock.mru-spaces = false;
+
       NSGlobalDomain = {
         ApplePressAndHoldEnabled = false;  # enable press and hold
       };
@@ -58,15 +80,17 @@
     nerd-fonts.fira-code
     nerd-fonts.symbols-only
 
+    julia-mono
+
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
   ];
 
   time.timeZone = "Asia/Shanghai";
 
-  environment.variables = rec {
-    # SSH_AUTH_SOCK = "/Users/suspen/.bitwarden-ssh-agent.sock";
-  };
+  # environment.variables = rec {
+  #   # SSH_AUTH_SOCK = "/Users/suspen/.bitwarden-ssh-agent.sock";
+  # };
 
   environment.shells = [ pkgs.fish ];
   programs.fish = {

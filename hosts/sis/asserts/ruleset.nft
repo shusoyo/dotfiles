@@ -1,7 +1,0 @@
-table inet nat {
-  chain postrouting {
-    type nat hook postrouting priority 100; policy accept;
-    oifname "enp0s20f0u5" masquerade
-    oifname "ppp0" masquerade
-  }
-}

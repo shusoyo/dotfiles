@@ -10,6 +10,7 @@ in {
     ./rust.nix
     ./ocaml.nix
     ./python.nix
+    ./lean.nix
     # ./cc.nix
     ./go.nix
     ./node.nix

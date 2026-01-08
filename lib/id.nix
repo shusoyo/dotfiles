@@ -14,7 +14,7 @@ rec {
     if username == "root" then
       "/"
     else
-      if system == "x86_64-darwin" then "/Users/" else "/home/"
+      if (system == "x86_64-darwin" || system == "aarch64-darwin") then "/Users/" else "/home/"
   ) + username;
 
   abs-flake-path  = "${home-path}/.config/dotfiles";
