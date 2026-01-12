@@ -8,6 +8,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    nix.enable  = true;
     nix.package = pkgs.nix;
 
     nix.gc = {

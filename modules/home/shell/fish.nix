@@ -22,12 +22,18 @@ in {
           else
             ""
         ;
+        brew-path =
+          if ss.system == "x86_64-darwin" then
+            "/usr/local/bin/brew"
+          else
+            "/opt/homebrew/bin/brew"
+        ;
       in ''
         # ocaml auto eval
         ${ocaml-eval}
 
         #homebrew shellenv
-        eval "$(/opt/homebrew/bin/brew shellenv)"
+        eval "$(${brew-path} shellenv)"
       '';
 
       interactiveShellInit = let

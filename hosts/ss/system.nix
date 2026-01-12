@@ -31,14 +31,11 @@
     "$HOME/.local/state/nix/profile"
   ]);
 
-  # Auto upgrade nix package and the daemon service.
-  # services.nix-daemon.enable = true;
-
 # Systems settings / Profiles
 # --------------------------------------------------------------------
   system.primaryUser = "suspen";
   system = {
-    stateVersion = 5;
+    stateVersion = 6;
 
     # Reload and apply to the current session
     # activationScripts.postUserActivation.text = ''
@@ -57,6 +54,8 @@
     fira-code
     nerd-fonts.fira-code
     nerd-fonts.symbols-only
+
+    julia-mono
 
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif

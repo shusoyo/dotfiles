@@ -69,7 +69,7 @@
   };
 
   modules = {
-    ssh.enable = true;
+    # ssh.enable = true;
 
     shell = {
       fish.shellProxy = null;

@@ -57,7 +57,7 @@
 
   system.primaryUser = "suspen";
   system = {
-    stateVersion = 5;
+    stateVersion = 6;
 
     # Reload and apply to the current session
     # activationScripts.postUserActivation.text = ''
