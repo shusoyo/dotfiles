@@ -40,6 +40,7 @@
       "kitty"
       "zed"
       "visual-studio-code"
+      "orbstack"
 
       # Do something in better way
       "the-unarchiver"

@@ -29,7 +29,7 @@
     use-xdg-base-directories = true
     trusted-users = suspen root
     builders-use-substitutes = true
-    substituters = https://cache.nixos.org
+    substituters = https://mirrors.ustc.edu.cn/nix-channels/store https://cache.nixos.org
     auto-optimise-store = true
   '';
 
