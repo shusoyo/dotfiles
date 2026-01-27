@@ -14,7 +14,7 @@
 
 # Host/Users
 # --------------------------------------------------------------------
-  networking.hostName = "typer";
+  networking.hostName = "shu";
 
   users.users."suspen"= {
     home = "/Users/suspen";
@@ -29,7 +29,7 @@
     use-xdg-base-directories = true
     trusted-users = suspen root
     builders-use-substitutes = true
-    substituters = https://mirrors.ustc.edu.cn/nix-channels/store
+    substituters = https://cache.nixos.org
     auto-optimise-store = true
   '';
 

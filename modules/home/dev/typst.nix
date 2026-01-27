@@ -14,7 +14,7 @@ in {
     (lib.mkIf cfg.enable {
       home.packages = with pkgs; [
         typst
-        tinymist
+        # tinymist
       ];
     })
 

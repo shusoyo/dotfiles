@@ -23,8 +23,8 @@
   outputs = inputs@{ self, nixpkgs, home-manager, darwin, ... }: let
     gen = import ./lib/generator.nix inputs;
 
-    typer = gen.macos-conf-gen "typer" "suspen" "aarch64-darwin";
-    ss    = gen.macos-conf-gen "ss"    "suspen" "x86_64-darwin";
+    typer = gen.macos-conf-gen "shu" "suspen" "aarch64-darwin";
+    ss    = gen.macos-conf-gen "ss"  "suspen" "x86_64-darwin";
   in gen.merge-conf [
     # pc
     typer
