@@ -13,6 +13,8 @@
 
     # nix language server for zed editor.
     nixd                  nil
+
+    git-repo
   ];
 
   modules.packages.homebrew = {
@@ -25,8 +27,12 @@
     brews = [
       "syncthing"
 
+      "colima"
       "docker"
       "docker-compose"
+
+      "gcc"
+      "gemini-cli"
     ];
 
     casks = [
@@ -35,12 +41,13 @@
       "qq"
       "google-chrome"
       "zotero"
+      "tencent-meeting"
+      "feishu"
 
       # Develop
       "kitty"
       "zed"
       "visual-studio-code"
-      "orbstack"
 
       # Do something in better way
       "the-unarchiver"
@@ -59,6 +66,7 @@
     };
 
     dev = {
+      # cc.enable      = true;
       lean.enable    = true;
       node.enable    = true;
       ocaml.enable   = true;

@@ -11,7 +11,7 @@ in {
     ./ocaml.nix
     ./python.nix
     ./lean.nix
-    # ./cc.nix
+    ./cc.nix
     ./go.nix
     ./node.nix
     ./typst.nix

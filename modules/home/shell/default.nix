@@ -10,6 +10,7 @@
   # safe rm, BUT rememebr don't alias rm to gtrash
   home.packages = [
     pkgs.gtrash
+    pkgs.tokei
   ];
 
   home.shellAliases = {

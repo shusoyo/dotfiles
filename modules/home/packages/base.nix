@@ -32,6 +32,12 @@ in {
       # Nix warpper
       nh
       #                      -
+      tokei
+      miniserve
     ];
+
+    home.shellAliases = {
+      cloc = "tokei";
+    };
   };
 }

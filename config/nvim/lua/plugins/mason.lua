@@ -8,7 +8,7 @@ return {
     ensure_installed = {
       "stylua",
       "shfmt",
-      "nil",
+      -- "nil",
     },
   },
 }

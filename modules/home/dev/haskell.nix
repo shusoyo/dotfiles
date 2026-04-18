@@ -15,8 +15,9 @@ in {
         (agda.withPackages (p: [
           p.standard-library
         ]))
-        cabal-install
-        ghc
+        # ghc
+        # cabal-install
+        # haskell-language-server
       ];
     })
 

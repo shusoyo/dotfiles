@@ -36,6 +36,8 @@ in {
       DOCKER_CONFIG = "${config.xdg.configHome}/docker";
 
       ELAN_HOME = "${config.xdg.configHome}/elan";
+
+      ZDOTDIR = "${config.xdg.configHome}/zsh";
     };
 
 
