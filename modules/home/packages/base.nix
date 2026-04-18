@@ -27,7 +27,7 @@ in {
       dig
 
       # System info
-      neofetch
+      fastfetch
 
       # Nix warpper
       nh
