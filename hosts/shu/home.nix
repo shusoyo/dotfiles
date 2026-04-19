@@ -1,4 +1,8 @@
-{ inputs, pkgs, ss, config, ... }: {
+{ pkgs, ss, ... }:
+
+let
+  cliproxyapi = pkgs.callPackage ../../pkgs/cliproxyapi/package.nix { };
+in {
 
   imports = [
     ../prelude/home.nix
@@ -15,7 +19,14 @@
     nixd                  nil
 
     git-repo
+    cliproxyapi
   ];
+
+  services.cliproxyapi = {
+    enable = true;
+    package = cliproxyapi;
+    configFile = "${ss.abs-flake-path}/hosts/shu/asserts/cpa_config.yaml";
+  };
 
   modules.packages.homebrew = {
     enable = true;

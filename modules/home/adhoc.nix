@@ -1,4 +1,4 @@
-{ self, ss, lib, config, ... }:
+{ ss, lib, config, ... }:
 
 let
   cfg = config.adhoc;

@@ -19,5 +19,5 @@ rec {
 
   abs-flake-path  = "${home-path}/.config/dotfiles";
   abs-config-path = "${abs-flake-path}/config";
-  config-path     = "${self}/config";
+  config-path     = self + /config;
 }
