@@ -1,0 +1,19 @@
+# Nix build outputs
+result
+result-*
+
+# Caches
+.cache/
+**/.cache/
+
+# OS artifacts
+.DS_Store
+
+# Reference clones
+/00-dotfiles-master/
+
+
+00-template
+
+# Fish dynamic runtime state
+config/fish/fish_variables

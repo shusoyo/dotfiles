@@ -1,7 +1,9 @@
-{ lib, username, system, self, hostname, ... }:
+{ lib, ... }:
 
 let
-  id      = import ./id.nix { inherit self username system hostname; };
   modules = import ./modules.nix { inherit lib; };
+  options = import ./options.nix { inherit lib; };
+  system  = import ./system.nix { inherit lib; };
+  keys    = { ssh-id = import ./keys.nix; };
 in
-  id // modules
+  modules // options // system // keys

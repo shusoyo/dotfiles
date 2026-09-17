@@ -2,15 +2,15 @@
   description = "Configuration of suspen";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
+    hjem = {
+      url = "github:feel-co/hjem";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     darwin = {
-      url = "github:nix-darwin/nix-darwin/master";
+      url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -20,14 +20,13 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, darwin, ... }: let
-    gen = import ./lib/generator.nix inputs;
+  outputs = inputs@{ self, nixpkgs, ... }:
+    let lib = import ./lib { inherit (nixpkgs) lib; }; in
+      lib.mkFlake inputs {
+        systems  = [ "aarch64-darwin" "x86_64-linux" ];
 
-    typer = gen.macos-conf-gen "shu" "suspen" "aarch64-darwin";
-    ss    = gen.macos-conf-gen "ss"  "suspen" "x86_64-darwin";
-  in gen.merge-conf [
-    # pc
-    typer
-    ss
-  ];
+        hosts    = lib.mapHosts ./hosts;
+        overlays = lib.mapModules ./overlays import;
+        packages = lib.mapModules ./packages (p: p);
+      };
 }

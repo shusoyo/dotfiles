@@ -1,22 +1,14 @@
 keys:
-  - &local  age1vdyxye3dfwk530hdr98v9lmwze89yux45ausw75tqdtm25f82a4qf73sdx
-  - &server age13e59cm44k84ak9fx2dxwsev0y2a8ld3xuraw0ykh3ejpg5ugc97q6x8nxv
-  - &public age1hpwfczthfyk249dgpp29jdwxvqz0q3efeqtvqvypscxpklp3pc6qes2w9m
+  - &local age1alcjc6ee8lwlukf4ndqdcjct43ee5k2t6h4zsukxdkd7kph5fdrs9s95fe
 creation_rules:
-  - path_regex: hosts/(ss|camel)/asserts/.*
+  - path_regex: hosts/aarch64-darwin/shu/assets/.*
     key_groups:
     - age:
       - *local
-  - path_regex: hosts/(hws|cts)/asserts/[^/]+\.(yaml|json|env|ini)$
+  - path_regex: hosts/x86_64-linux/[^/]+/assets/.*
     key_groups:
     - age:
       - *local
-      - *server
-  - path_regex: hosts/sis/asserts/.*
-    key_groups:
-    - age:
-      - *local
-      - *public
   - key_groups:
     - age:
       - *local

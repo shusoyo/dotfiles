@@ -10,9 +10,6 @@
          k
          ↓
 --]]
-local mode_nv = { "n", "v" }
-local mode_v = { "v" }
-local mode_i = { "i" }
 local mappings = {
   --   { from = "h",     to = "i" },
   --   { from = "i",     to = "k" },

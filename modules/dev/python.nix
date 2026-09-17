@@ -1,0 +1,24 @@
+{ lib, config, pkgs, ss, ... }:
+
+let
+  cfg = config.modules.dev.python;
+in {
+  options.modules.dev.python = {
+    enable = ss.mkBoolOpt false;
+  };
+
+  config = lib.mkIf cfg.enable {
+    user.packages = with pkgs; [
+      python313
+      uv
+    ];
+
+    home.sessionPath = [ "${config.home.dataDir}/python/bin" ];
+
+    environment.variables = {
+      PYTHONUSERBASE      = "${config.home.dataDir}/python";
+      PYTHON_HISTORY      = "${config.home.dataDir}/python/python_history"; 
+      PYTHONPYCACHEPREFIX = "${config.home.cacheDir}/python";
+    };
+  };
+}
