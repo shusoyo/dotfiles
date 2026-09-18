@@ -11,7 +11,7 @@ let
   inherit (lib) pipe filter hasPrefix removePrefix concatStringsSep;
   inherit (lib) assertMsg optional optionalString pathExists foldl' attrValues;
 
-  cfg = config.modules.impure;
+  cfg = config.home.impure;
   hjemUser = config.hjem.users.${config.user.name};
   impureActiveFile = "${config.home.stateDir}/HJEM_IMPURE_ACTIVE";
 
@@ -73,8 +73,6 @@ let
         else
           replaceFiles
       }
-
-      echo 1 > "$IMPURE_ACTIVE_FILE" || echo "[INFO] Unable to write to $IMPURE_ACTIVE_FILE"
     ''
     + (optionalString (cfg.dotsDir != null) ''
       echo ""
@@ -85,7 +83,12 @@ let
         else
           symlinkFiles
       }
-    '');
+    '')
+    + ''
+
+      rm -f "$IMPURE_ACTIVE_FILE"
+      echo 1 > "$IMPURE_ACTIVE_FILE" || echo "[INFO] Unable to write to $IMPURE_ACTIVE_FILE"
+    '';
   };
 
   # Files belonging to the dotfiles repo -> redirect to local mutable repo
@@ -105,7 +108,7 @@ let
   ];
 in
 {
-  options.modules.impure = {
+  options.home.impure = {
     enable = ss.mkBoolOpt false;
 
     dotsDir = ss.mkOpt (types.nullOr (types.either types.path types.str)) "${self}";

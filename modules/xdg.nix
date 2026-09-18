@@ -26,6 +26,7 @@ in {
 
       CODEX_HOME      = "${config.home.configDir}/codex";
       GEMINI_CLI_HOME = "${config.home.configDir}/gemini";
+      COPILOT_HOME    = "${config.home.configDir}/copilot";
 
       # Toolchains / Dev
       DOCKER_CONFIG = "${config.home.configDir}/docker";

@@ -4,9 +4,23 @@
     ss.modules.sops-nix.sops
   ];
 
-  # secretive
+  home.impure.enable = true;
+
   home.sessionVariables = {
-    SSH_AUTH_SOCK = "/Users/suspen/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh";
+    # secretive
+    SSH_AUTH_SOCK = "${config.home.dir}/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh";
+
+    # code cli
+    VSCODE_CLI_DATA_DIR = "${config.home.dir}/Application/vscode/code-portable-data/cli-data";
+  };
+
+  launchd.user.envVariables = {
+    GEMINI_CLI_HOME = "${config.home.configDir}/gemini";
+    COPILOT_HOME    = "${config.home.configDir}/copilot";
+    CODEX_HOME      = "${config.home.configDir}/codex";
+  };
+
+  environment.variables = {
   };
 
   # Sops configuration

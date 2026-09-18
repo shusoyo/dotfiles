@@ -50,8 +50,11 @@ in {
         ${lib.concatMapStringsSep "\n" (f: "test -r '${toString f}'; and source '${toString f}'") cfg.rcFiles}
       '';
 
-      "fish/functions".source = "${ss.configDir}/fish/functions";
-      "fish/conf.d".source    = "${ss.configDir}/fish/conf.d";
+      "fish/conf.d".source       = "${ss.configDir}/fish/conf.d";
+      "fish/functions".source    = "${ss.configDir}/fish/functions";
+      "fish/fish_plugins".source = "${ss.configDir}/fish/fish_plugins";
+      "fish/completions".source  = "${ss.configDir}/fish/completions";
+      "fish/themes".source       = "${ss.configDir}/fish/themes";
     };
 
     user.packages = with pkgs; [
