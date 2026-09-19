@@ -9,21 +9,21 @@ in {
   ];
 
   options.home = with types; {
-    file        = mkOpt' attrs {} "Files to place directly in $HOME";
-    configFile  = mkOpt' attrs {} "Files to place in $XDG_CONFIG_HOME";
-    dataFile    = mkOpt' attrs {} "Files to place in $XDG_DATA_HOME";
+    file        = mkOption { type = attrs; default = {}; description = "Files to place directly in $HOME"; };
+    configFile  = mkOption { type = attrs; default = {}; description = "Files to place in $XDG_CONFIG_HOME"; };
+    dataFile    = mkOption { type = attrs; default = {}; description = "Files to place in $XDG_DATA_HOME"; };
 
-    sessionPath      = mkOpt' (listOf (either str path)) [] "Extra directories in PATH";
-    sessionVariables = mkOpt' attrs {} "Environment variables to set in the user session.";
+    sessionPath      = mkOption { type = listOf (either str path); default = []; description = "Extra directories in PATH"; };
+    sessionVariables = mkOption { type = attrs; default = {}; description = "Environment variables to set in the user session."; };
 
-    dir       = mkOpt str config.users.users.${config.user.name}.home;
-    binDir    = mkOpt str "${cfg.dir}/.local/bin";
-    cacheDir  = mkOpt str "${cfg.dir}/.cache";
-    configDir = mkOpt str "${cfg.dir}/.config";
-    dataDir   = mkOpt str "${cfg.dir}/.local/share";
-    stateDir  = mkOpt str "${cfg.dir}/.local/state";
+    dir       = mkOption { type = str; default = config.users.users.${config.user.name}.home; };
+    binDir    = mkOption { type = str; default = "${cfg.dir}/.local/bin"; };
+    cacheDir  = mkOption { type = str; default = "${cfg.dir}/.cache"; };
+    configDir = mkOption { type = str; default = "${cfg.dir}/.config"; };
+    dataDir   = mkOption { type = str; default = "${cfg.dir}/.local/share"; };
+    stateDir  = mkOption { type = str; default = "${cfg.dir}/.local/state"; };
 
-    flakeDir = mkOpt str "${cfg.dir}/.config/dotfiles";
+    flakeDir = mkOption { type = str; default = "${cfg.dir}/.config/dotfiles"; };
   };
 
   config = {

@@ -1,9 +1,8 @@
 { lib }:
 
 let
-  inherit (builtins) attrValues readDir pathExists;
-  inherit (lib) attrNames concatMap concatMapAttrs filter filterAttrs hasPrefix hasSuffix id mapAttrs
-                removeSuffix;
+  inherit (builtins) isPath pathExists readDir;
+  inherit (lib) attrValues concatMapAttrs filterAttrs hasPrefix hasSuffix id mapAttrs removeSuffix;
 
   isModuleFile = n: v:
     v == "regular"
@@ -11,55 +10,52 @@ let
     && n != "flake.nix"
     && hasSuffix ".nix" n;
 
-  walk = onDir: dir: fn:
-    let dir' = toString dir; in
-    concatMapAttrs
-      (n: v:
-        let path = "${dir'}/${n}"; in
-        if hasPrefix "_" n then {}
-        else if v == "directory" then onDir n path fn
-        else if isModuleFile n v then { ${removeSuffix ".nix" n} = fn path; }
-        else {})
-      (readDir dir');
-in rec {
-  mapModules =
-    walk (n: path: fn:
-      if pathExists "${path}/default.nix"
-      then { ${n} = fn path; }
-      else {});
+  toPath = p: if isPath p then p else /. + toString p;
 
+in rec {
+  # 统一的目录扫描器：
+  # 1. 入口处对 dir 做一次 toPath 和 pathExists 安全防护；
+  # 2. 内部 walk 直接闭包捕获 fn 并自递归，避免无意义的高阶回调与冗余 stat；
+  # 3. 遇到含 default.nix 的目录作为组件收纳（如 packages）；
+  # 4. 遇到无 default.nix 的目录向下下潜拼接 key（如 modules/shell/）。
+  mapModules = dir: fn:
+    let
+      dirPath = toPath dir;
+      walk = prefix: path:
+        concatMapAttrs (n: v:
+          let
+            sub = path + "/${n}";
+            key = if prefix == "" then n else "${prefix}/${n}";
+          in
+          if hasPrefix "_" n then {}
+          else if v == "directory" then
+            if pathExists (sub + "/default.nix")
+            then { ${key} = fn sub; }
+            else walk key sub
+          else if isModuleFile n v then
+            { ${removeSuffix ".nix" key} = fn sub; }
+          else {}
+        ) (readDir path);
+    in
+      if pathExists dirPath then walk "" dirPath else {};
+
+  # 列表形式变体
   mapModules' = dir: fn:
     attrValues (mapModules dir fn);
 
-  mapModulesRec =
-    walk (n: path: fn: { ${n} = mapModulesRec path fn; });
-
-  modulePaths = dir:
-    let
-      dir' = toString dir;
-      entries = readDir dir';
-      subdirs =
-        filter
-          (n: entries.${n} == "directory" && !(hasPrefix "_" n))
-          (attrNames entries);
-    in
-      attrValues (mapModules dir' id)
-      ++ concatMap (n: modulePaths "${dir'}/${n}") subdirs;
-
-  mapModulesRec' = dir: fn:
-    map fn (modulePaths dir);
-
   mapHosts = dir:
-    let
-      entries = readDir dir;
-      archDirs = filterAttrs (sys: type:
-        type == "directory" && (hasSuffix "-darwin" sys || hasSuffix "-linux" sys)
-      ) entries;
-    in
-      concatMapAttrs (system: _:
-        mapAttrs (hostName: _: {
-          inherit system;
-          path = dir + "/${system}/${hostName}";
-        }) (filterAttrs (n: type: type == "directory" && !(hasPrefix "_" n)) (readDir (dir + "/${system}")))
-      ) archDirs;
+    let dirPath = toPath dir; in
+    mapAttrs (hostName: _:
+      let meta = import (dirPath + "/${hostName}/meta.nix"); in {
+        inherit hostName;
+        inherit (meta) system;
+        name = meta.name or null;
+        home = meta.home or null;
+        path = dirPath + "/${hostName}";
+      }
+    ) (filterAttrs (n: v: 
+        v == "directory" 
+        && !(hasPrefix "_" n) 
+        && pathExists (dirPath + "/${n}/meta.nix")
+      ) (readDir dirPath));
 }

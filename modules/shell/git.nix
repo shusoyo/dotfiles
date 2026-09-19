@@ -4,7 +4,7 @@ let
   cfg = config.modules.shell.git;
 in {
   options.modules.shell.git = {
-    enable = ss.mkBoolOpt false;
+    enable = lib.mkEnableOption "Git and related tooling";
   };
 
   config = lib.mkIf cfg.enable {

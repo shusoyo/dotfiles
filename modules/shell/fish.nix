@@ -4,10 +4,10 @@ let
   cfg = config.modules.shell.fish;
 in {
   options.modules.shell.fish = with lib; with types; {
-    enable          = ss.mkBoolOpt false;
-    loginInit       = mkOpt' lines "" "Fish script fragments to run in login shell.";
-    interactiveInit = mkOpt' lines "" "Fish script fragments to run in interactive shell.";
-    rcFiles         = mkOpt' (listOf (either str path)) [] "List of fish files to source in interactive shell.";
+    enable          = mkEnableOption "Fish shell";
+    loginInit       = mkOption { type = lines; default = ""; description = "Fish script fragments to run in login shell."; };
+    interactiveInit = mkOption { type = lines; default = ""; description = "Fish script fragments to run in interactive shell."; };
+    rcFiles         = mkOption { type = listOf (either str path); default = []; description = "List of fish files to source in interactive shell."; };
   };
 
   config = lib.mkIf cfg.enable {
@@ -63,6 +63,7 @@ in {
       fzf
       ripgrep
       tree
+      zoxide
       less
       htop
       unzip

@@ -43,13 +43,7 @@
   };
 
   # Host & User identity
-  networking.hostName = "shu";
   system.primaryUser = config.user.name;
-
-  user = {
-    name = "suspen";
-    home = "/Users/suspen";
-  };
 
   # Modules options
   modules = {
@@ -179,10 +173,14 @@
       "kitty"
       "zed"
       "visual-studio-code"
+
       "the-unarchiver"
+      "keka"
+
       "appcleaner"
       "tailscale-app"
       "secretive"
     ];
   };
 }
+

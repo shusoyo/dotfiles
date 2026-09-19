@@ -3,17 +3,29 @@
 let
   inherit (lib) filterAttrs genAttrs hasSuffix attrValues mapAttrs;
 
-  # 从 inputs 中提取适配当前平台的模块集（单一 target，无多余 fallback）
+  # 从 inputs 中提取适配当前平台的模块集，同时兼容复数 (darwinModules/nixosModules) 与单数 (darwinModule/nixosModule) 格式
   platformModulesOf = system: inputs:
     let
-      target = if hasSuffix "-darwin" system then "darwinModules" else "nixosModules";
+      isDarwin = hasSuffix "-darwin" system;
+      targetPlural = if isDarwin then "darwinModules" else "nixosModules";
+      targetSingular = if isDarwin then "darwinModule" else "nixosModule";
     in
-      mapAttrs (_: input: input.${target} or {}) inputs;
+    mapAttrs (_: input:
+      let
+        plural = input.${targetPlural} or {};
+        singular =
+          if input ? ${targetSingular}
+          then { default = input.${targetSingular}; }
+          else {};
+      in
+        singular // plural
+    ) inputs;
 
   # 统一的系统构建器
-  buildSystem = { inputs, self, extendedLib, overlayList }:
-    hostName: { system, path, ... }:
+  buildSystem = { inputs, self, lib, defaultUser ? "suspen", overlayList, moduleList }:
+    hostName: { system, path, name ? null, home ? null, ... }:
     let
+      userName = if name != null && name != "" then name else defaultUser;
       builder =
         if hasSuffix "-darwin" system
         then inputs.darwin.lib.darwinSystem
@@ -24,41 +36,63 @@ let
         {
           nixpkgs.hostPlatform = system;
           nixpkgs.overlays = overlayList;
+          nixpkgs.config.allowUnfree = lib.mkDefault true;
+          networking.hostName = lib.mkDefault hostName;
+          user.name = lib.mkDefault userName;
+          user.home = lib.mkDefault (
+            if home != null then home
+            else if hasSuffix "-darwin" system then "/Users/${userName}"
+            else "/home/${userName}"
+          );
         }
-        ../modules
-        path
-      ];
+      ]
+      ++ moduleList
+      ++ [ path ];
       specialArgs = {
-        inherit inputs self;
-        lib = extendedLib;
+        inherit inputs self lib;
         ss = {
-          modules = platformModulesOf system inputs;
-          packages = self.packages.${system} or {};
+          modules   = platformModulesOf system inputs;
+          packages  = self.packages.${system} or {};
+          sourceDir = self;
           configDir = self + /config;
-        } // (import ./options.nix { inherit lib; });
+          keys      = import ./keys.nix;
+          inherit hostName userName;
+        };
       };
     };
 in
 {
   mkFlake = inputs@{ self, nixpkgs, ... }:
     { systems ? [ "aarch64-darwin" "x86_64-linux" "aarch64-linux" ]
+    , defaultUser ? "suspen"
     , hosts ? {}
+    , modules ? {}
     , overlays ? {}
     , packages ? {}
     , ...
     }@extra:
     let
       overlayList = attrValues overlays;
-      pkgsFor = system: import nixpkgs { inherit system; overlays = overlayList; config.allowUnfree = true; };
-      extendedLib = nixpkgs.lib.extend (self: super: import ./. { lib = self; });
+      moduleList = if builtins.isList modules then modules else attrValues modules;
+      pkgsFor = genAttrs systems (system:
+        import nixpkgs {
+          inherit system;
+          overlays = overlayList;
+          config.allowUnfree = true;
+        }
+      );
 
       systemArgs = {
-        inherit inputs self extendedLib overlayList;
+        inherit inputs self defaultUser overlayList moduleList lib;
       };
     in
-    (removeAttrs extra [ "systems" "hosts" "overlays" "packages" ]) // {
-      inherit overlays;
-      lib = extendedLib;
+    (removeAttrs extra [ "systems" "defaultUser" "hosts" "modules" "overlays" "packages" ]) // {
+      inherit lib overlays;
+
+      darwinModules = (if builtins.isAttrs modules then modules else {})
+        // { default = { imports = moduleList; }; };
+      nixosModules  = (if builtins.isAttrs modules then modules else {})
+        // { default = { imports = moduleList; }; };
 
       darwinConfigurations = mapAttrs
         (buildSystem systemArgs)
@@ -69,12 +103,12 @@ in
         (filterAttrs (_: h: hasSuffix "-linux" h.system) hosts);
 
       packages = genAttrs systems (system:
-        let pkgs = pkgsFor system; in
+        let pkgs = pkgsFor.${system}; in
         mapAttrs (_: pkgPath: pkgs.callPackage pkgPath {}) packages
       );
 
       formatter = genAttrs systems (system:
-        (pkgsFor system).nixfmt-rfc-style
+        pkgsFor.${system}.nixfmt-rfc-style
       );
     };
 }

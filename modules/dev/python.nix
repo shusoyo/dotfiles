@@ -1,10 +1,10 @@
-{ lib, config, pkgs, ss, ... }:
+{ lib, config, pkgs, ... }:
 
 let
   cfg = config.modules.dev.python;
 in {
   options.modules.dev.python = {
-    enable = ss.mkBoolOpt false;
+    enable = lib.mkEnableOption "Python development environment";
   };
 
   config = lib.mkIf cfg.enable {

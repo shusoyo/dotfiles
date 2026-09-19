@@ -1,6 +1,4 @@
 {
-  description = "Configuration of suspen";
-
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
@@ -22,11 +20,12 @@
 
   outputs = inputs@{ self, nixpkgs, ... }:
     let lib = import ./lib { inherit (nixpkgs) lib; }; in
-      lib.mkFlake inputs {
+      with lib; mkFlake inputs {
         systems  = [ "aarch64-darwin" "x86_64-linux" ];
 
-        hosts    = lib.mapHosts ./hosts;
-        overlays = lib.mapModules ./overlays import;
-        packages = lib.mapModules ./packages (p: p);
+        hosts    = mapHosts   ./hosts;
+        modules  = mapModules ./modules  id;
+        packages = mapModules ./packages id;
+        overlays = mapModules ./overlays import;
       };
 }

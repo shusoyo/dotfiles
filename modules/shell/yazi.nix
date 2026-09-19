@@ -4,7 +4,7 @@ let
   cfg = config.modules.shell.yazi;
 in {
   options.modules.shell.yazi = {
-    enable = ss.mkBoolOpt false;
+    enable = lib.mkEnableOption "Yazi file manager";
   };
 
   config = lib.mkIf cfg.enable {

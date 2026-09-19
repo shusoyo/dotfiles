@@ -4,7 +4,7 @@ let
   cfg = config.modules.shell.nvim;
 in {
   options.modules.shell.nvim = {
-    enable = ss.mkBoolOpt false;
+    enable = lib.mkEnableOption "Neovim";
   };
 
   config = lib.mkIf cfg.enable {

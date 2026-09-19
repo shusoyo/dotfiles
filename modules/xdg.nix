@@ -1,10 +1,10 @@
-{ ss, lib, config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 
 let
   cfg = config.modules.xdg;
 in {
   options.modules.xdg = {
-    enable = ss.mkBoolOpt false;
+    enable = lib.mkEnableOption "XDG environment variables and configuration";
   };
 
   config = lib.mkIf cfg.enable {
